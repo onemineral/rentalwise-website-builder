@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from '@/components/catalyst-ui-kit/button';
 import Loader, { LoaderSize } from '@/components/Loader';
+import BaseButton from '@/components/BaseButton';
 
 const Topbar = ({
     onSave,
@@ -17,14 +17,14 @@ const Topbar = ({
         >
             <h2>Topbar</h2>
             <div>
-                <Button onClick={onSave}>
+                <BaseButton onClick={onSave}>
                     Save
                     {loading && (
                         <span className="inline-block align-middle">
                             <Loader size={LoaderSize.Small} light={true} />
                         </span>
                     )}
-                </Button>
+                </BaseButton>
             </div>
         </div>
     );

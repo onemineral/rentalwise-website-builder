@@ -20,8 +20,7 @@ export const Text = ({ text, fontSize }: any) => {
             className={classnames(
                 'relative text-slate-900 border-2 border-transparent',
                 {
-                    'box-border border-2 border-dotted border-slate-500':
-                        isHovered,
+                    '!border-2 !border-dotted !border-slate-500': isHovered,
                 },
             )}
         >

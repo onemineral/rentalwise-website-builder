@@ -24,7 +24,7 @@ export const Container = ({ margin = 0, padding = 0, children }: any) => {
             className={classnames(
                 'relative flex flex-col border-2 border-gray-200 !p-4 bg-slate-100 space-y-2',
                 {
-                    'box-border border-2 border-dotted border-slate-500':
+                    '!border-2 !border-dotted !border-slate-500':
                         isHovered,
                 },
             )}

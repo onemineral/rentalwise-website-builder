@@ -23,10 +23,14 @@ const EditorWrapper = ({ data }: any) => {
 
     useEffect(() => {
         if (window) {
-            const item = window.localStorage.getItem('rentalwise-website-builder');
+            const item = window.localStorage.getItem(
+                'rentalwise-website-builder',
+            );
 
             if (item) {
-                setLocalNodes(window.localStorage.getItem('rentalwise-website-builder'));
+                setLocalNodes(
+                    window.localStorage.getItem('rentalwise-website-builder'),
+                );
             }
         }
     }, []);
@@ -39,7 +43,10 @@ const EditorWrapper = ({ data }: any) => {
         setLoading(true);
 
         if (window) {
-            window.localStorage.setItem('rentalwise-website-builder', localNodes || '');
+            window.localStorage.setItem(
+                'rentalwise-website-builder',
+                localNodes || '',
+            );
         }
 
         setTimeout(() => {
@@ -50,10 +57,14 @@ const EditorWrapper = ({ data }: any) => {
     return (
         <EditorContext.Provider value={data}>
             <Editor
-                resolver={{ Root, Button, Text, Users, Container, Loading }}
+                resolver={{ Root, Button, Text, Container }}
                 onNodesChange={onNodesChange}
             >
-                <div className={'w-screen h-screen flex flex-col bg-white text-slate-900'}>
+                <div
+                    className={
+                        'w-screen h-screen flex flex-col bg-white text-slate-900'
+                    }
+                >
                     <Topbar onSave={onSave} loading={loading} />
                     <div className={'flex w-full h-full'}>
                         <div className={'flex flex-grow w-full'}>
@@ -62,9 +73,7 @@ const EditorWrapper = ({ data }: any) => {
                                     is={Root}
                                     canvas
                                     custom={{ displayName: 'Root' }}
-                                >
-                                    <Text fontSize="48px" text="Hi world!" />
-                                </Element>
+                                ></Element>
                             </FrameWrapper>
                         </div>
                         <div className={'flex flex-col'}>
@@ -73,7 +82,7 @@ const EditorWrapper = ({ data }: any) => {
                             <Layers />
                         </div>
                     </div>
-                    <PageView nodes={localNodes} />
+                    {/*<PageView nodes={localNodes} />*/}
                 </div>
             </Editor>
         </EditorContext.Provider>
