@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEditor, Element } from '@craftjs/core';
-import { Text } from '@/components/user/Text';
-import { Container } from '@/components/user/Container';
+import { Text } from '@/components/User/Text';
+import { Container } from '@/components/User/Container';
 import BaseButton from '@/components/BaseButton';
-import { Button } from '@/components/user/Button';
+import { Button } from '@/components/User/Button';
 
 const Toolbox = () => {
     const { connectors } = useEditor();
@@ -11,7 +11,7 @@ const Toolbox = () => {
     return (
         <div className={'flex flex-col items-start bg-slate-50 h-full'}>
             <div className={'bg-slate-100 w-full p-2'}>
-                <h1>Blocks</h1>
+                <h1 className={'text-sm'}>Blocks</h1>
             </div>
             <div className={'p-2 grid grid-cols-2 gap-2 overflow-y-auto'}>
                 <BaseButton

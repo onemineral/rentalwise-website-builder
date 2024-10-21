@@ -13,6 +13,7 @@
         "@craftjs/layers": "^0.2.5",
         "@headlessui/react": "^2.1.10",
         "@popperjs/core": "^2.11.8",
+        "@uiw/react-color-sketch": "^2.3.2",
         "classnames": "^2.5.1",
         "clsx": "^2.1.1",
         "framer-motion": "^11.11.9",

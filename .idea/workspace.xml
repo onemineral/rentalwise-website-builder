@@ -29,7 +29,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/bogdancarmanus/Sites/rentalwise-website-builder/src/components/Tooltip",
+    "last_opened_file_path": "/Users/bogdancarmanus/Sites/rentalwise-website-builder/src/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -42,6 +42,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/components/Tooltip" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -63,7 +64,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729161798807</updated>
-      <workItem from="1729161800236" duration="12801000" />
+      <workItem from="1729161800236" duration="36213000" />
     </task>
     <servers />
   </component>

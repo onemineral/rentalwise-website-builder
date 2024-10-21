@@ -1,13 +1,14 @@
-import React from 'react';
-import { useTooltipContext } from './hooks/useTooltipContext';
+import * as React from 'react';
 import { useMergeRefs } from '@floating-ui/react';
-import { cloneElement, HTMLProps, isValidElement } from 'react';
+import { usePopoverContext } from '../Popover';
+import { PopoverTriggerProps } from '../types';
+import { cloneElement, forwardRef, HTMLProps, isValidElement } from 'react';
 
-const TooltipTrigger = React.forwardRef<
+const PopoverTrigger = forwardRef<
     HTMLElement,
-    HTMLProps<HTMLElement> & { asChild?: boolean }
->(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
-    const context = useTooltipContext();
+    HTMLProps<HTMLElement> & PopoverTriggerProps
+>(function PopoverTrigger({ children, asChild = false, ...props }, propRef) {
+    const context = usePopoverContext();
     const childrenRef = (children as any).ref;
     const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 
@@ -23,18 +24,19 @@ const TooltipTrigger = React.forwardRef<
             }),
         );
     }
-
+    // @TODO Check this - it was button and cause some html validation issues
     return (
-        <button
+        <a
             ref={ref}
+            role={'button'}
+            type="button"
             // The User can style the trigger based on the state
             data-state={context.open ? 'open' : 'closed'}
             {...context.getReferenceProps(props)}
-            className={'w-full focus-visible:outline-none'}
         >
             {children}
-        </button>
+        </a>
     );
 });
 
-export default TooltipTrigger;
+export default PopoverTrigger;

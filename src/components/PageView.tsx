@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { Editor } from '@craftjs/core';
-import { Root } from '@/components/user/Root';
-import { Button } from '@/components/user/Button';
-import { Text } from '@/components/user/Text';
-import { Users } from '@/components/user/Users';
-import { Container } from '@/components/user/Container';
-import { Loading } from '@/components/user/Loading';
+import { Root } from '@/components/User/Root';
+import { Button } from '@/components/User/Button';
+import { Text } from '@/components/User/Text';
+import { Users } from '@/components/User/Users';
+import { Container } from '@/components/User/Container';
+import { Loading } from '@/components/User/Loading';
 import FrameWrapper from '@/components/FrameWrapper';
 
 const PageView = ({ nodes }: any) => {

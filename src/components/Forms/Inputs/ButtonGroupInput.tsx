@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import {
-    MdOutlineFormatAlignCenter,
-    MdOutlineFormatAlignJustify,
-    MdOutlineFormatAlignLeft,
-    MdOutlineFormatAlignRight,
-} from 'react-icons/md';
+    PiTextAlignCenterThin,
+    PiTextAlignJustify,
+    PiTextAlignJustifyThin,
+    PiTextAlignLeftThin,
+    PiTextAlignRightThin,
+} from 'react-icons/pi';
+import {
+    FiAlignCenter,
+    FiAlignJustify,
+    FiAlignLeft,
+    FiAlignRight,
+} from 'react-icons/fi';
 
 const ButtonGroupInput = () => {
     const [active, setActive] = useState(3);
     const buttons: any = [
         {
             value: 1,
-            label: <MdOutlineFormatAlignLeft size={18}/>,
+            label: <FiAlignLeft size={14} />,
         },
         {
             value: 2,
-            label: <MdOutlineFormatAlignCenter size={18}/>,
+            label: <FiAlignCenter size={14} />,
         },
         {
             value: 3,
-            label: <MdOutlineFormatAlignRight size={18}/>,
+            label: <FiAlignRight size={14} />,
         },
         {
             value: 4,
-            label: <MdOutlineFormatAlignJustify size={18}/>,
+            label: <FiAlignJustify size={14} />,
         },
     ];
     return (
@@ -33,9 +40,9 @@ const ButtonGroupInput = () => {
                 <div
                     key={i.value}
                     className={classnames(
-                        'px-3 py-1 cursor-pointer border border-transparent rounded-md',
+                        'px-2 py-1 cursor-pointer border border-transparent rounded-md',
                         {
-                            'bg-slate-100 border !border-slate-400':
+                            'bg-white border !border-slate-400':
                                 i.value === active,
                         },
                     )}

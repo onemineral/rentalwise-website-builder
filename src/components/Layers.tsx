@@ -5,7 +5,7 @@ const Layers = () => {
     return (
         <div className={'flex flex-col items-start bg-slate-50 h-full'}>
             <div className={'bg-slate-100 w-full p-2'}>
-                <h1>Layers</h1>
+                <h1 className={'text-sm'}>Layers</h1>
             </div>
             {/*<CustomLayers />*/}
         </div>
