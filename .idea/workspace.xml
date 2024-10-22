@@ -46,6 +46,9 @@
       <recent name="$PROJECT_DIR$/src/components/Tooltip" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/src/app/Topbar" />
+      <recent name="$PROJECT_DIR$/src/components/Menu" />
       <recent name="$PROJECT_DIR$/src/components/Tooltip" />
     </key>
   </component>
@@ -64,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729161798807</updated>
-      <workItem from="1729161800236" duration="36213000" />
+      <workItem from="1729161800236" duration="46712000" />
     </task>
     <servers />
   </component>

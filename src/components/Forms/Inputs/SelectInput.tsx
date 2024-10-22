@@ -15,7 +15,7 @@ const SelectInput = ({ value, options, onChange }: SelectInputProps) => {
         <div className="relative">
             <select
                 ref={selectRef}
-                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
+                className="w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
                 value={value}
                 onChange={(e: any) => onChange?.(e.target.value)}
             >

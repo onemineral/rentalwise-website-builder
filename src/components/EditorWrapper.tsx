@@ -6,21 +6,11 @@ import { Button } from '@/components/User/Button';
 import { Text } from '@/components/User/Text';
 import { Container } from '@/components/User/Container';
 import { Editor, Element } from '@craftjs/core';
-import Topbar from '@/components/Topbar';
-import Toolbox from '@/components/Toolbox';
-import SettingsPanel from '@/components/SettingsPanel';
-import PageView from '@/components/PageView';
+import Topbar from '@/components/Topbar/Topbar';
 import FrameWrapper from '@/components/FrameWrapper';
-import Layers from '@/components/Layers';
 import Tabs, { TabProps } from '@/components/Tabs/Tabs';
-import { FiLayers, FiPlus } from 'react-icons/fi';
-import {
-    IoDocumentOutline,
-    IoImagesOutline,
-    IoSettingsOutline,
-} from 'react-icons/io5';
-import ContextMenu from '@/components/ContextMenu';
-import Menu from '@/components/Menu';
+import Menu from '@/components/Menu/Menu';
+import SettingsPanel from '@/components/SettingsPanel';
 
 export const EditorContext = createContext({ users: null, query: null });
 
@@ -65,7 +55,7 @@ const EditorWrapper = ({ data }: any) => {
         {
             id: 'style',
             label: 'Style',
-            content: 'Content 1',
+            content:  <SettingsPanel/>,
         },
         {
             id: 'settings',
@@ -97,14 +87,10 @@ const EditorWrapper = ({ data }: any) => {
                                 ></Element>
                             </FrameWrapper>
                         </div>
-                        <div className={'flex flex-col w-72'}>
+                        <div className={'flex flex-col w-72 border-l border-slate-300'}>
                             <Tabs tabs={tabs} />
-                            {/*<Toolbox />*/}
-                            <SettingsPanel />
-                            {/*<Layers />*/}
                         </div>
                     </div>
-                    {/*<PageView nodes={localNodes} />*/}
                 </div>
             </Editor>
         </EditorContext.Provider>

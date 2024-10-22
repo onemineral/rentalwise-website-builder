@@ -31,7 +31,7 @@ const TextInput = ({
             <div className={classnames('relative')}>
                 <input
                     className={classnames(
-                        'w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
+                        'w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
                         {
                             '!pr-6': !!rightContent,
                             '!pl-6': !!leftContent,

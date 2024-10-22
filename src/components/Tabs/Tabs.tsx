@@ -8,34 +8,42 @@ export type TabProps = {
 };
 
 const Tabs = ({ tabs }: { tabs: TabProps[] }) => {
-    const [activeTab, setActiveTab] = useState('style');
+    const [activeTabId, setActiveTabId] = useState('style');
+    const activeTab = tabs.find((tab: TabProps) => tab.id === activeTabId);
 
     return (
-        <div className={'pt-0.5 px-1 bg-slate-100 select-none'}>
+        <>
             <div
                 className={
-                    'flex flex-row overflow-x-scroll border-b border-slate-300'
+                    'flex flex-col h-full pt-0.5 px-1 bg-slate-50 select-none'
                 }
             >
-                {tabs.map((tab: TabProps, index: number) => {
-                    return (
-                        <div
-                            key={index}
-                            className={classnames(
-                                'px-4 py-1.5 flex whitespace-nowrap cursor-pointer border-b-2 border-transparent',
-                                {
-                                    'bg-slate-200 border-b-2 border-slate-400 rounded-t-md':
-                                        activeTab === tab.id,
-                                },
-                            )}
-                            onClick={() => setActiveTab(tab.id)}
-                        >
-                            <span className={'text-xs'}>{tab.label}</span>
-                        </div>
-                    );
-                })}
+                <div
+                    className={
+                        'flex flex-row overflow-x-scroll border-b border-slate-300'
+                    }
+                >
+                    {tabs.map((tab: TabProps, index: number) => {
+                        return (
+                            <div
+                                key={index}
+                                className={classnames(
+                                    'px-4 py-1.5 flex whitespace-nowrap cursor-pointer border-b-2 border-transparent',
+                                    {
+                                        'bg-slate-200 border-b-2 border-slate-400 rounded-t-md':
+                                            activeTabId === tab.id,
+                                    },
+                                )}
+                                onClick={() => setActiveTabId(tab.id)}
+                            >
+                                <span className={'text-xs'}>{tab.label}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+                {activeTab?.content}
             </div>
-        </div>
+        </>
     );
 };
 

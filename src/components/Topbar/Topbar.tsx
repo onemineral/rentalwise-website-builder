@@ -14,7 +14,7 @@ const Topbar = ({
     return (
         <div
             className={
-                'flex w-full py-1.5 px-4 bg-slate-100 items-center border-b border-slate-300'
+                'flex w-full py-1.5 px-4 bg-slate-50 items-center border-b border-slate-300'
             }
         >
             <h1 className={'text-lg'} style={{ width: '50px' }}>
@@ -25,7 +25,7 @@ const Topbar = ({
                     trigger={
                         <div
                             className={
-                                'flex items-center text-xs px-2 py-1 border border-slate-500 rounded hover:bg-slate-200'
+                                'flex items-center text-xs px-2 py-1 border border-slate-500 rounded hover:bg-slate-100'
                             }
                         >
                             <IoDocumentOutline className={'mr-1'} size={13} />
