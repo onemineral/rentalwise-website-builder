@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classnames from 'classnames';
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import FontShowcase, {
     FontData,
     getFontIdFromUrl,
 } from '@/components/FontShowcase/FontShowcase';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Dropdown } from '@/components/Dropdown';
 
 const FontInput = ({
