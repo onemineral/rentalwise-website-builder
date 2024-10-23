@@ -28,11 +28,21 @@ export const Text = ({ text, font, weight }: any) => {
     useEffect(() => {
         if (!linkRef.current && font) {
             const link = document.createElement('link');
-            link.href = `https://fonts.bunny.net/css?family=${encodeURIComponent(getFontIdFromUrl(font!) || '')}&display=fallback`;
+            const fontName = encodeURIComponent(getFontIdFromUrl(font!) || '');
+            link.href = `https://fonts.bunny.net/css?family=${fontName}&display=fallback`;
             link.rel = 'stylesheet';
             link.setAttribute('loading', 'lazy');
-            document.head.appendChild(link);
-            linkRef.current = link;
+
+            const existingLink = document.querySelector(
+                `link[href="${link.href}"]`,
+            );
+
+            if (!existingLink) {
+                document.head.appendChild(link);
+                linkRef.current = link;
+            } else {
+                linkRef.current = null;
+            }
         }
 
         return () => {
@@ -55,7 +65,7 @@ export const Text = ({ text, font, weight }: any) => {
         >
             <p
                 style={{
-                    fontFamily: getFontIdFromUrl(font!),
+                    fontFamily: font ? getFontIdFromUrl(font!) : undefined,
                     fontWeight: weight,
                 }}
             >
@@ -119,7 +129,7 @@ export const TextStyle = () => {
     }, []);
 
     const currentFont = fonts?.find(
-        (item: any) => item[0] === getFontIdFromUrl(font),
+        (item: any) => font && item[0] === getFontIdFromUrl(font),
     );
 
     const weightOptions: any[] | undefined = currentFont?.[1].weights?.map(
@@ -142,10 +152,10 @@ export const TextStyle = () => {
                             <FontInput
                                 value={font}
                                 onChange={(value: string) => {
-                                    setProp(
-                                        (props: any) => (props.font = value),
-                                        500,
-                                    );
+                                    setProp((props: any) => {
+                                        props.font = value;
+                                        props.weight = undefined;
+                                    }, 500);
                                 }}
                                 fonts={fonts}
                                 loading={loading}

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import FontCard from '@/components/FontShowcase/FontCard';
+import FontItem from '@/components/FontShowcase/FontItem';
 
 export interface FontData {
     variants: {
@@ -87,7 +87,7 @@ export default function FontShowcase({
     }
 
     return (
-        <div className="max-w-5xl mx-auto p-2">
+        <div className="max-w-5xl h-full mx-auto p-2">
             <div className="flex flex-wrap mb-2">
                 <Input
                     type="text"
@@ -98,7 +98,7 @@ export default function FontShowcase({
                     aria-label="Search fonts"
                 />
             </div>
-            <div ref={parentRef} className="h-[600px] overflow-auto">
+            <div ref={parentRef} className="flex h-[92dvh] overflow-auto">
                 <div
                     style={{
                         height: `${virtualizer.getTotalSize()}px`,
@@ -119,7 +119,7 @@ export default function FontShowcase({
                                 transform: `translateY(${virtualItem.start}px)`,
                             }}
                         >
-                            <FontCard
+                            <FontItem
                                 fontId={filteredFonts[virtualItem.index][0]}
                                 fontData={filteredFonts[virtualItem.index][1]}
                                 onSelect={() =>

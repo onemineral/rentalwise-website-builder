@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
 import { FontData } from '@/components/FontShowcase/FontShowcase';
 import classnames from 'classnames';
 
-function FontCard({
+function FontItem({
     fontId,
     fontData,
     selected,
@@ -22,8 +21,17 @@ function FontCard({
             link.href = `https://fonts.bunny.net/css?family=${encodeURIComponent(fontId)}&display=fallback`;
             link.rel = 'stylesheet';
             link.setAttribute('loading', 'lazy');
-            document.head.appendChild(link);
-            linkRef.current = link;
+
+            const existingLink = document.querySelector(
+                `link[href="${link.href}"]`,
+            );
+
+            if (!existingLink) {
+                document.head.appendChild(link);
+                linkRef.current = link;
+            } else {
+                linkRef.current = null;
+            }
         }
 
         return () => {
@@ -35,32 +43,21 @@ function FontCard({
     }, []);
 
     return (
-        <Card
+        <div
             className={classnames(
-                'mb-4 overflow-hidden transition-colors duration-300 hover:border-primary cursor-pointer',
+                'mb-4 overflow-hidden p-2 transition-colors duration-300 hover:bg-slate-100 cursor-pointer',
                 {
-                    'border-primary': selected,
+                    'bg-slate-200': selected,
                 },
             )}
             onClick={() => onSelect?.(fontId)}
         >
-            <CardContent className="p-2">
-                <div className="flex justify-between items-center mb-1">
-                    <div className="flex items-center">
-                        <h3 className="text-sm font-semibold">
-                            {fontData.familyName}
-                        </h3>
-                    </div>
-                </div>
-                <p
-                    className="text-xs"
-                    style={{ fontFamily: fontData.familyName }}
-                >
-                    The quick brown fox jumps over the lazy dog
-                </p>
-            </CardContent>
-        </Card>
+            <h3 className="text-sm font-semibold">{fontData.familyName}</h3>
+            <p className="text-xs" style={{ fontFamily: fontData.familyName }}>
+                The quick brown fox jumps over the lazy dog
+            </p>
+        </div>
     );
 }
 
-export default FontCard;
+export default FontItem;

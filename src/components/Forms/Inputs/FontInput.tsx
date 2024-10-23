@@ -39,7 +39,7 @@ const FontInput = ({
                     />
                 }
             >
-                <div className="w-72 max-h-[50dvh] overflow-y-auto">
+                <div className="w-72 h-[98dvh]">
                     <FontShowcase
                         fonts={fonts}
                         value={value}
