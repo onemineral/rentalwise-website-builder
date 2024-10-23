@@ -56,16 +56,17 @@ const Topbar = ({
                     </div>
                 </Dropdown>
             </div>
-            <div>
-                <BaseButton onClick={onSave}>
-                    Save
-                    {loading && (
-                        <span className="inline-block align-middle">
-                            <Loader size={LoaderSize.Small} light={true} />
-                        </span>
-                    )}
-                </BaseButton>
-            </div>
+            <BaseButton
+                onClick={onSave}
+                className={'whitespace-nowrap flex items-center space-x-1'}
+            >
+                <span>Save</span>
+                {loading && (
+                    <span className="inline-block align-middle">
+                        <Loader size={LoaderSize.Small} light={true} />
+                    </span>
+                )}
+            </BaseButton>
         </div>
     );
 };

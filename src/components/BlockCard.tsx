@@ -7,7 +7,13 @@ const BlockCard = forwardRef(
             active = false,
             title,
             icon,
-        }: { active?: boolean; title?: string; icon?: ReactNode },
+            onDragStart,
+        }: {
+            active?: boolean;
+            title?: string;
+            icon?: ReactNode;
+            onDragStart?: () => void;
+        },
         ref: ForwardedRef<any>,
     ) => {
         if (!icon && !title) {
@@ -15,10 +21,10 @@ const BlockCard = forwardRef(
         }
 
         return (
-            <div className={'w-auto'} ref={ref}>
+            <div className={'flex w-full'} ref={ref} onDragStart={onDragStart}>
                 <div
                     className={classnames(
-                        'flex flex-col items-center justify-center w-auto space-y-2 border border-slate-300 rounded-md px-8 py-3 cursor-pointer hover:bg-slate-100 hover:border-slate-500 select-none',
+                        'flex flex-col w-full items-center justify-center space-y-2 border border-slate-300 rounded-md px-8 py-3 cursor-pointer hover:bg-slate-100 hover:border-slate-500 select-none',
                         { 'bg-slate-100': active },
                     )}
                 >

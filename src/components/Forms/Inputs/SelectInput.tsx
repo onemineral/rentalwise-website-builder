@@ -1,18 +1,23 @@
 import React, { useRef } from 'react';
+import classnames from 'classnames';
 
 export type SelectInputOption = { label: string; value: any };
 
 export type SelectInputProps = {
+    label?: string;
     value?: any;
     options?: SelectInputOption[];
     onChange?: (value: any) => void;
 };
 
-const SelectInput = ({ value, options, onChange }: SelectInputProps) => {
+const SelectInput = ({ label, value, options, onChange }: SelectInputProps) => {
     const selectRef: any = useRef();
 
     return (
-        <div className="relative">
+        <div
+            className={classnames('relative flex items-start space-x-2 w-full')}
+        >
+            {label && <label className={'text-xs w-12 p-1'}>{label}</label>}
             <select
                 ref={selectRef}
                 className="w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"

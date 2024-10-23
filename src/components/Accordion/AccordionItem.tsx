@@ -15,7 +15,7 @@ const AccordionItem = ({
         <div className={'flex flex-col text-sm overflow-hidden'}>
             <div
                 className={
-                    'p-2 mx-1 text-xs flex justify-between items-center border-b border-slate-300'
+                    'p-2 text-xs flex justify-between items-center border-b border-slate-300'
                 }
                 onClick={() => {
                     setOpen((old) => !old);

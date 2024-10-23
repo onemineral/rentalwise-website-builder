@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEditor } from '@craftjs/core';
-import { IoWarningOutline } from 'react-icons/io5';
 import { TbReportSearch } from 'react-icons/tb';
+import { IoWarningOutline } from 'react-icons/io5';
 
-const SettingsPanel = () => {
+const StylePanel = () => {
     const { selected, isEnabled } = useEditor((state, query) => {
         const currentNodeId = query.getEvent('selected').last();
         let selected;
@@ -12,10 +12,9 @@ const SettingsPanel = () => {
             selected = {
                 id: currentNodeId,
                 name: state.nodes[currentNodeId].data.name,
-                settings:
+                style:
                     state.nodes[currentNodeId].related &&
-                    state.nodes[currentNodeId].related.settings,
-                isDeletable: query.node(currentNodeId).isDeletable(),
+                    state.nodes[currentNodeId].related.style,
             };
         }
 
@@ -32,8 +31,8 @@ const SettingsPanel = () => {
                     'flex flex-col w-full items-start bg-slate-50 h-full select-none py-2'
                 }
             >
-                {selected.settings ? (
-                    React.createElement(selected.settings)
+                {selected.style ? (
+                    React.createElement(selected.style)
                 ) : (
                     <div
                         className={
@@ -41,7 +40,7 @@ const SettingsPanel = () => {
                         }
                     >
                         <TbReportSearch size={32} />
-                        <span className={'text-sm'}>There are no settings</span>
+                        <span className={'text-sm'}>There are no styles</span>
                     </div>
                 )}
             </div>
@@ -60,4 +59,4 @@ const SettingsPanel = () => {
     );
 };
 
-export default SettingsPanel;
+export default StylePanel;

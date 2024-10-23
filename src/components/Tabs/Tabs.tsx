@@ -8,7 +8,7 @@ export type TabProps = {
 };
 
 const Tabs = ({ tabs }: { tabs: TabProps[] }) => {
-    const [activeTabId, setActiveTabId] = useState('style');
+    const [activeTabId, setActiveTabId] = useState(tabs[0].id);
     const activeTab = tabs.find((tab: TabProps) => tab.id === activeTabId);
 
     return (

@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, {
+    createContext,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { Root } from '@/components/User/Root';
 import { Button } from '@/components/User/Button';
 import { Text } from '@/components/User/Text';
@@ -11,11 +17,13 @@ import FrameWrapper from '@/components/FrameWrapper';
 import Tabs, { TabProps } from '@/components/Tabs/Tabs';
 import Menu from '@/components/Menu/Menu';
 import SettingsPanel from '@/components/SettingsPanel';
+import StylePanel from '@/components/StylePanel';
 
 export const EditorContext = createContext({ users: null, query: null });
 
 const EditorWrapper = ({ data }: any) => {
     const [localNodes, setLocalNodes] = useState<any>(null);
+    const [nodesToSave, setNodesToSave] = useState<any>(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -28,12 +36,15 @@ const EditorWrapper = ({ data }: any) => {
                 setLocalNodes(
                     window.localStorage.getItem('rentalwise-website-builder'),
                 );
+                setNodesToSave(
+                    window.localStorage.getItem('rentalwise-website-builder'),
+                );
             }
         }
     }, []);
 
     const onNodesChange = useCallback((value: any) => {
-        setLocalNodes(value.serialize());
+        setNodesToSave(value.serialize());
     }, []);
 
     const onSave = useCallback(async () => {
@@ -42,27 +53,29 @@ const EditorWrapper = ({ data }: any) => {
         if (window) {
             window.localStorage.setItem(
                 'rentalwise-website-builder',
-                localNodes || '',
+                nodesToSave || '',
             );
         }
 
         setTimeout(() => {
             setLoading(false);
         }, 1000);
-    }, [localNodes]);
+    }, [nodesToSave]);
 
-    const tabs: TabProps[] = [
-        {
-            id: 'style',
-            label: 'Style',
-            content:  <SettingsPanel/>,
-        },
-        {
-            id: 'settings',
-            label: 'Settings',
-            content: 'Content 2',
-        },
-    ];
+    const tabs: TabProps[] = useMemo(() => {
+        return [
+            {
+                id: 'settings',
+                label: 'Settings',
+                content: <SettingsPanel />,
+            },
+            {
+                id: 'style',
+                label: 'Style',
+                content: <StylePanel />,
+            },
+        ];
+    }, []);
 
     return (
         <EditorContext.Provider value={data}>
@@ -84,10 +97,14 @@ const EditorWrapper = ({ data }: any) => {
                                     is={Root}
                                     canvas
                                     custom={{ displayName: 'Root' }}
-                                ></Element>
+                                />
                             </FrameWrapper>
                         </div>
-                        <div className={'flex flex-col w-72 border-l border-slate-300'}>
+                        <div
+                            className={
+                                'flex flex-col w-72 border-l border-slate-300'
+                            }
+                        >
                             <Tabs tabs={tabs} />
                         </div>
                     </div>

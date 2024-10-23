@@ -9,11 +9,13 @@ import {
 import ContextMenu from '@/components/Menu/ContextMenu';
 import { AnimatePresence } from 'framer-motion';
 import BlockCard from '@/components/BlockCard';
-import { useEditor } from '@craftjs/core';
+import { Element, useEditor } from '@craftjs/core';
 import { Text } from '@/components/User/Text';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { createContext } from 'react';
 import MenuItem from '@/components/Menu/MenuItem';
+import { PiFrameCornersLight } from 'react-icons/pi';
+import { Container } from '@/components/User/Container';
 
 export const MenuContext = createContext({
     activeMenuItem: null,
@@ -58,6 +60,28 @@ const Menu = () => {
                                         className={'grid grid-cols-2 gap-2 p-2'}
                                     >
                                         <BlockCard
+                                            key={'container'}
+                                            title={'Container'}
+                                            ref={(ref: any) =>
+                                                connectors.create(
+                                                    ref,
+                                                    <Element
+                                                        is={Container}
+                                                        canvas
+                                                    />,
+                                                )
+                                            }
+                                            icon={
+                                                <PiFrameCornersLight
+                                                    size={26}
+                                                />
+                                            }
+                                            onDragStart={() => {
+                                                setContextMenu(null);
+                                            }}
+                                        />
+                                        <BlockCard
+                                            key={'text'}
                                             title={'Text'}
                                             ref={(ref: any) =>
                                                 connectors.create(
@@ -66,6 +90,9 @@ const Menu = () => {
                                                 )
                                             }
                                             icon={<IoTextOutline size={24} />}
+                                            onDragStart={() => {
+                                                setContextMenu(null);
+                                            }}
                                         />
                                     </div>,
                                 );
@@ -108,14 +135,14 @@ const Menu = () => {
                         <IoSettingsOutline size={24} />
                     </div>
                 </div>
+                <AnimatePresence initial={false}>
+                    {contextMenu && (
+                        <ContextMenu ref={contextMenuRef}>
+                            {contextMenu}
+                        </ContextMenu>
+                    )}
+                </AnimatePresence>
             </div>
-            <AnimatePresence initial={false}>
-                {contextMenu && (
-                    <ContextMenu ref={contextMenuRef}>
-                        {contextMenu}
-                    </ContextMenu>
-                )}
-            </AnimatePresence>
         </MenuContext.Provider>
     );
 };
