@@ -25,21 +25,21 @@ const FontInput = ({
 
     return (
         <div
-            className={classnames('relative flex items-start space-x-2 w-full')}
+            className={classnames('relative flex w-full')}
         >
-            <label className={'text-xs w-12 p-1'}>Font</label>
+            <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>Font</label>
             <Dropdown
                 trigger={
                     <input
                         className={
-                            'flex flex-grow w-auto relative bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none'
+                            'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none'
                         }
                         value={currentFont?.[1].familyName || 'Select font'}
                         readOnly
                     />
                 }
             >
-                <div className="w-72 h-[98dvh]">
+                <div className="w-72">
                     <FontShowcase
                         fonts={fonts}
                         value={value}

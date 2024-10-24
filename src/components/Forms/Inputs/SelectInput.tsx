@@ -15,12 +15,12 @@ const SelectInput = ({ label, value, options, onChange }: SelectInputProps) => {
 
     return (
         <div
-            className={classnames('relative flex items-start space-x-2 w-full')}
+            className={classnames('relative flex w-full')}
         >
-            {label && <label className={'text-xs w-12 p-1'}>{label}</label>}
+            {label && <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>{label}</label>}
             <select
                 ref={selectRef}
-                className="w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
+                className="relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
                 value={value}
                 onChange={(e: any) => onChange?.(e.target.value)}
             >

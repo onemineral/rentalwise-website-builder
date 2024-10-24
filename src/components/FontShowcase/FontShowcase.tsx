@@ -87,7 +87,7 @@ export default function FontShowcase({
     }
 
     return (
-        <div className="max-w-5xl h-full mx-auto p-2">
+        <div className="max-w-5xl mx-auto p-2">
             <div className="flex flex-wrap mb-2">
                 <Input
                     type="text"
@@ -98,13 +98,10 @@ export default function FontShowcase({
                     aria-label="Search fonts"
                 />
             </div>
-            <div ref={parentRef} className="flex h-[92dvh] overflow-auto">
+            <div ref={parentRef} className="flex max-h-[50dvh] overflow-y-auto">
                 <div
-                    style={{
-                        height: `${virtualizer.getTotalSize()}px`,
-                        width: '100%',
-                        position: 'relative',
-                    }}
+                    className={'relative w-full'}
+                    style={{ height: `${virtualizer.getTotalSize()}px` }}
                 >
                     {virtualizer.getVirtualItems().map((virtualItem) => (
                         <div

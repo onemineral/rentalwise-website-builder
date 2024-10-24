@@ -37,7 +37,7 @@ const TextInput = ({
     };
 
     const classes = classnames(
-        'flex flex-grow w-auto bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
+        'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
     );
 
     const Content = useMemo(() => {
@@ -47,7 +47,7 @@ const TextInput = ({
                     'relative flex items-start space-x-2 w-full',
                 )}
             >
-                {label && <label className={'text-xs w-12 p-1'}>{label}</label>}
+                {label && <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>{label}</label>}
                 {!multiline ? (
                     <input
                         className={classnames(classes, {

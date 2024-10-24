@@ -45,7 +45,7 @@ function FontItem({
     return (
         <div
             className={classnames(
-                'mb-4 overflow-hidden p-2 transition-colors duration-300 hover:bg-slate-100 cursor-pointer',
+                'overflow-hidden p-2 h-20 transition-colors duration-300 hover:bg-slate-100 cursor-pointer rounded-md flex flex-col justify-center',
                 {
                     'bg-slate-200': selected,
                 },
