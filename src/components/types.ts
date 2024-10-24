@@ -31,8 +31,8 @@ export const SIZE_UNITS = [
         value: 'svh',
         label: 'SVH',
     },
-    {
-        value: undefined,
-        label: '–',
-    },
+    // {
+    //     value: undefined,
+    //     label: '–',
+    // },
 ];

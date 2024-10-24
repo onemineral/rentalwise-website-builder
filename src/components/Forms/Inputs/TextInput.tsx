@@ -62,7 +62,7 @@ const TextInput = ({
                             '!pl-6': !!leftContent,
                         })}
                         placeholder={placeholder}
-                        value={value}
+                        value={value || ''}
                         onChange={onChangeHandler}
                         type={type}
                     />
@@ -73,7 +73,7 @@ const TextInput = ({
                             '!pl-6': !!leftContent,
                         })}
                         placeholder={placeholder}
-                        value={value}
+                        value={value || ''}
                         onChange={onChangeHandler}
                         rows={5}
                     />

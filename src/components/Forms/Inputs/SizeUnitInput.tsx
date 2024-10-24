@@ -4,7 +4,7 @@ import ActionList from '@/components/ActionList/ActionList';
 import { SIZE_UNITS } from '@/components/types';
 
 const SizeUnitInput = ({
-    value,
+    value = 'px',
     onChange,
 }: {
     value: any;

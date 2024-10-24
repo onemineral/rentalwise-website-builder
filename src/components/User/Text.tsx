@@ -225,7 +225,7 @@ export const TextStyle = () => {
                                 label={'Size'}
                                 rightContent={
                                     <SizeUnitInput
-                                        value={size.unit}
+                                        value={size?.unit}
                                         onChange={(value: string) => {
                                             setLocalSize((prev: any) => ({
                                                 ...prev,
@@ -234,11 +234,11 @@ export const TextStyle = () => {
                                         }}
                                     />
                                 }
-                                value={size.value}
+                                value={size?.value}
                                 onChange={(value: any) => {
                                     setLocalSize((prev: any) => ({
-                                        ...prev,
                                         value,
+                                        unit: prev?.unit || 'px',
                                     }));
                                 }}
                                 classes={{ label: '!min-w-11 !w-11' }}
@@ -250,7 +250,7 @@ export const TextStyle = () => {
                                 label={'Height'}
                                 rightContent={
                                     <SizeUnitInput
-                                        value={height.unit}
+                                        value={height?.unit}
                                         onChange={(value: string) => {
                                             setLocalHeight((prev: any) => ({
                                                 ...prev,
@@ -259,11 +259,11 @@ export const TextStyle = () => {
                                         }}
                                     />
                                 }
-                                value={height.value}
+                                value={height?.value}
                                 onChange={(value: any) => {
                                     setLocalHeight((prev: any) => ({
-                                        ...prev,
                                         value,
+                                        unit: prev?.unit || 'px',
                                     }));
                                 }}
                                 classes={{ label: '!min-w-11 !w-11' }}
