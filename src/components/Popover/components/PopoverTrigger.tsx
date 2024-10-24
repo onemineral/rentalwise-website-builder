@@ -33,6 +33,7 @@ const PopoverTrigger = forwardRef<
             // The User can style the trigger based on the state
             data-state={context.open ? 'open' : 'closed'}
             {...context.getReferenceProps(props)}
+            className={props.className}
         >
             {children}
         </a>

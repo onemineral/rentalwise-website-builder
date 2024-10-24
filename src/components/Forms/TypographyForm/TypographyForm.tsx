@@ -76,16 +76,16 @@ const TypographyForm = () => {
             <div className={'col-span-3'}>
                 <SelectInput
                     options={[
-                        { label: '10', value: '10' },
-                        { label: '20', value: '20' },
+                        { icon: '10', value: '10' },
+                        { icon: '20', value: '20' },
                     ]}
                 />
             </div>
             <div className={'col-span-9'}>
                 <SelectInput
                     options={[
-                        { label: 'item 1', value: 'item_1' },
-                        { label: 'item 2', value: 'item_2' },
+                        { icon: 'item 1', value: 'item_1' },
+                        { icon: 'item 2', value: 'item_2' },
                     ]}
                 />
             </div>

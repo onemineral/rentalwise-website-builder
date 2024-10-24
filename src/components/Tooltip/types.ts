@@ -6,7 +6,7 @@ export interface TooltipProps {
     content?: React.ReactNode;
     placement?: Placement;
     light?: boolean;
-    classNames?: any;
+    classes?: any;
 }
 
 export interface RenderProps {

@@ -11,6 +11,7 @@ const Dropdown = ({
     alignment = 'bottom-start',
     closeOnClickContent = true,
     disabled = false,
+    classes,
 }: DropdownProps) => {
     return (
         <Popover
@@ -30,7 +31,9 @@ const Dropdown = ({
             }
             closeOnClickContent={closeOnClickContent}
         >
-            <PopoverTrigger>{trigger}</PopoverTrigger>
+            <PopoverTrigger className={classes?.trigger}>
+                {trigger}
+            </PopoverTrigger>
             <PopoverContent className={'!p-0'} style={{ zIndex: 99999991 }}>
                 {children}
             </PopoverContent>

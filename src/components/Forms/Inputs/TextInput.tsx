@@ -21,6 +21,7 @@ const TextInput = ({
     type,
     hint,
     multiline,
+    classes,
 }: {
     label?: string;
     leftContent?: ReactNode;
@@ -31,26 +32,32 @@ const TextInput = ({
     type?: string;
     hint?: string;
     multiline?: boolean;
+    classes?: any;
 }) => {
     const onChangeHandler = (e: any) => {
         onChange?.(e.target.value);
     };
 
-    const classes = classnames(
+    const baseInputClasses = classnames(
         'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
     );
 
     const Content = useMemo(() => {
         return (
-            <div
-                className={classnames(
-                    'relative flex items-start space-x-2 w-full',
+            <div className={classnames('relative flex w-full items-center')}>
+                {label && (
+                    <label
+                        className={classnames(
+                            'text-xs flex items-center min-w-16 w-16 p-1',
+                            classes?.label,
+                        )}
+                    >
+                        {label}
+                    </label>
                 )}
-            >
-                {label && <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>{label}</label>}
                 {!multiline ? (
                     <input
-                        className={classnames(classes, {
+                        className={classnames(baseInputClasses, {
                             '!pr-6': !!rightContent,
                             '!pl-6': !!leftContent,
                         })}
@@ -61,7 +68,7 @@ const TextInput = ({
                     />
                 ) : (
                     <textarea
-                        className={classnames(classes, {
+                        className={classnames(baseInputClasses, {
                             '!pr-6': !!rightContent,
                             '!pl-6': !!leftContent,
                         })}

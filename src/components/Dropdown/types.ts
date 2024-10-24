@@ -16,4 +16,5 @@ export interface DropdownProps {
     light?: boolean;
     disabled?: boolean;
     closeOnClickContent?: boolean;
+    classes?: any;
 }

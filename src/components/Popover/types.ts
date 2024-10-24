@@ -1,11 +1,10 @@
 import { ReactNode } from 'react';
 import { Placement } from '@floating-ui/react';
 
-export interface PopoverProps {}
-
 export interface PopoverTriggerProps {
     children: ReactNode;
     asChild?: boolean;
+    className?: string;
 }
 
 export interface PopoverOptions {

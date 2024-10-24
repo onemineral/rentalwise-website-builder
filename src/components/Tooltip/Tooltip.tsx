@@ -9,7 +9,7 @@ const Tooltip = ({
     children,
     content,
     placement = 'top',
-    classNames = {},
+    classes,
     light,
 }: TooltipProps) => {
     const arrowRef = useRef(null);
@@ -21,7 +21,7 @@ const Tooltip = ({
 
     return (
         <TooltipContext.Provider value={tooltip}>
-            <TooltipTrigger className={classNames.trigger}>
+            <TooltipTrigger className={classes?.trigger}>
                 {children}
             </TooltipTrigger>
             <TooltipContent>{content}</TooltipContent>

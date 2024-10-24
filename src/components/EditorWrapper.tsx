@@ -102,7 +102,7 @@ const EditorWrapper = ({ data }: any) => {
                         </div>
                         <div
                             className={
-                                'flex flex-col w-72 border-l border-slate-300'
+                                'flex flex-col w-80 border-l border-slate-300'
                             }
                         >
                             <Tabs tabs={tabs} />

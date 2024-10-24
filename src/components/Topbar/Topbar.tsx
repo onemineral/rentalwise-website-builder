@@ -3,6 +3,7 @@ import Loader, { LoaderSize } from '@/components/Loader';
 import BaseButton from '@/components/BaseButton';
 import { Dropdown } from '@/components/Dropdown';
 import { IoDocumentOutline } from 'react-icons/io5';
+import ActionList from '@/components/ActionList/ActionList';
 
 const Topbar = ({
     onSave,
@@ -33,27 +34,11 @@ const Topbar = ({
                         </div>
                     }
                 >
-                    <div
-                        className={
-                            'flex flex-col divide-y divide-gray-200 text-xs min-w-32'
-                        }
-                    >
-                        <span
-                            className={'p-2 hover:bg-slate-100 cursor-pointer'}
-                        >
-                            Page 1
-                        </span>
-                        <span
-                            className={'p-2 hover:bg-slate-100 cursor-pointer'}
-                        >
-                            Page 1
-                        </span>
-                        <span
-                            className={'p-2 hover:bg-slate-100 cursor-pointer'}
-                        >
-                            Page 1
-                        </span>
-                    </div>
+                    <ActionList>
+                        <ActionList.Item>Page 1</ActionList.Item>
+                        <ActionList.Item>Page 2</ActionList.Item>
+                        <ActionList.Item>Page 3</ActionList.Item>
+                    </ActionList>
                 </Dropdown>
             </div>
             <BaseButton

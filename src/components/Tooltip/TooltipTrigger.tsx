@@ -2,10 +2,11 @@ import React from 'react';
 import { useTooltipContext } from './hooks/useTooltipContext';
 import { useMergeRefs } from '@floating-ui/react';
 import { cloneElement, HTMLProps, isValidElement } from 'react';
+import classnames from 'classnames';
 
 const TooltipTrigger = React.forwardRef<
     HTMLElement,
-    HTMLProps<HTMLElement> & { asChild?: boolean }
+    HTMLProps<HTMLElement> & { asChild?: boolean; className?: string }
 >(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
     const context = useTooltipContext();
     const childrenRef = (children as any).ref;
@@ -30,7 +31,10 @@ const TooltipTrigger = React.forwardRef<
             // The User can style the trigger based on the state
             data-state={context.open ? 'open' : 'closed'}
             {...context.getReferenceProps(props)}
-            className={'w-full focus-visible:outline-none'}
+            className={classnames(
+                'w-full focus-visible:outline-none',
+                props.className,
+            )}
         >
             {children}
         </button>

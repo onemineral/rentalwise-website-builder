@@ -24,10 +24,10 @@ const FontInput = ({
     );
 
     return (
-        <div
-            className={classnames('relative flex w-full')}
-        >
-            <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>Font</label>
+        <div className={classnames('relative flex w-full')}>
+            <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>
+                Font
+            </label>
             <Dropdown
                 trigger={
                     <input
@@ -38,6 +38,7 @@ const FontInput = ({
                         readOnly
                     />
                 }
+                classes={{ trigger: 'w-full' }}
             >
                 <div className="w-72">
                     <FontShowcase
