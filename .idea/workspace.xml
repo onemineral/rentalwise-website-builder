@@ -6,10 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f958dc3d-9c3d-4ec2-a4ed-c796e391a494" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/SizeUnitInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/SizeUnitInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/AlignButtonGroupInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/AlignButtonGroupInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/ColorInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/ColorInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/DecorationButtonGroupInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/DecorationButtonGroupInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/FontInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/FontInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/ItalicizeButtonGroupInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/ItalicizeButtonGroupInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/SelectInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/SelectInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Forms/Inputs/TextInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Forms/Inputs/TextInput.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/User/Text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Text.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1729161798807</updated>
       <workItem from="1729161800236" duration="85117000" />
-      <workItem from="1729757609553" duration="16770000" />
+      <workItem from="1729757609553" duration="19584000" />
     </task>
     <servers />
   </component>

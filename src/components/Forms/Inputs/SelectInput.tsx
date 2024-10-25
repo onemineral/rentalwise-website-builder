@@ -17,7 +17,7 @@ const SelectInput = ({ label, value, options, onChange }: SelectInputProps) => {
         <div className={classnames('relative flex w-full items-center')}>
             {label && (
                 <label
-                    className={'text-xs flex items-center min-w-16 w-16 p-1'}
+                    className={'text-xs flex items-center min-w-20 w-20 p-1'}
                 >
                     {label}
                 </label>

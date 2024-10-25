@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNode, Node } from '@craftjs/core';
 import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
@@ -32,8 +32,9 @@ export const Text = ({
         connectors: { connect, drag },
     } = useNode();
 
-    const { isHovered, label, id } = useNode((node: Node) => ({
+    const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
         isHovered: node.events.hovered,
+        isSelected: node.events.selected,
         label: node.data.displayName,
         id: node.id,
     }));
@@ -74,7 +75,8 @@ export const Text = ({
             className={classnames(
                 'relative text-slate-900 border-2 border-transparent',
                 {
-                    '!border-2 !border-dotted !border-slate-500': isHovered,
+                    '!border-2 !border-dotted !border-slate-500':
+                        isHovered || isSelected,
                 },
             )}
         >
@@ -92,7 +94,9 @@ export const Text = ({
             >
                 {text}
             </p>
-            {isHovered && <ElementActions label={label} id={id} />}
+            {(isHovered || isSelected) && (
+                <ElementActions label={label} id={id} />
+            )}
         </div>
     );
 };

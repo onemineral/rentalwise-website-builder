@@ -48,7 +48,7 @@ const TextInput = ({
                 {label && (
                     <label
                         className={classnames(
-                            'text-xs flex items-center min-w-16 w-16 p-1',
+                            'text-xs flex items-center min-w-20 w-20 p-1',
                             classes?.label,
                         )}
                     >

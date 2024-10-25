@@ -25,7 +25,7 @@ const FontInput = ({
 
     return (
         <div className={classnames('relative flex w-full')}>
-            <label className={'text-xs flex items-center min-w-16 w-16 p-1'}>
+            <label className={'text-xs flex items-center min-w-20 w-20 p-1'}>
                 Font
             </label>
             <Dropdown
