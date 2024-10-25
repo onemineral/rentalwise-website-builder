@@ -20,10 +20,13 @@ export const Container = ({ margin, padding, children }: any) => {
     return (
         <div
             style={{
-                marginLeft: `${margin?.left}px`,
-                marginTop: `${margin?.top}px`,
-                marginRight: `${margin?.right}px`,
-                marginBottom: `${margin?.bottom}px`,
+                marginLeft:
+                    margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
+                marginTop: margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
+                marginRight:
+                    margin?.right === 'auto' ? 'auto' : `${margin?.right}px`,
+                marginBottom:
+                    margin?.bottom === 'auto' ? 'auto' : `${margin?.bottom}px`,
                 paddingLeft: `${padding?.left}px`,
                 paddingTop: `${padding?.top}px`,
                 paddingRight: `${padding?.right}px`,
@@ -85,6 +88,12 @@ export const ContainerDefaultProps = {
         bottom: 30,
         left: 30,
         right: 30,
+    },
+    margin: {
+        top: 'auto',
+        bottom: 'auto',
+        left: 'auto',
+        right: 'auto',
     },
 };
 

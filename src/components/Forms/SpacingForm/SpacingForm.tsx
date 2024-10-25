@@ -56,7 +56,6 @@ const SpacingForm = ({
             {marginType === 'all' && (
                 <div className={'col-span-8 flex items-center'}>
                     <TextInput
-                        type={'number'}
                         label={'All'}
                         rightContent={<SizeUnitInput value={'px'} />}
                         value={marginTop}
@@ -80,7 +79,6 @@ const SpacingForm = ({
                 <div className={'col-span-8'}>
                     <div className={'grid grid-cols-2 gap-1'}>
                         <TextInput
-                            type={'number'}
                             label={'Left'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={marginLeft}
@@ -94,7 +92,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Right'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={marginRight}
@@ -108,7 +105,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Top'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={marginTop}
@@ -122,7 +118,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Bottom'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={marginBottom}
@@ -152,7 +147,6 @@ const SpacingForm = ({
             {paddingType === 'all' && (
                 <div className={'col-span-8 flex items-center'}>
                     <TextInput
-                        type={'number'}
                         label={'All'}
                         rightContent={<SizeUnitInput value={'px'} />}
                         value={paddingTop}
@@ -176,7 +170,6 @@ const SpacingForm = ({
                 <div className={'col-span-8'}>
                     <div className={'grid grid-cols-2 gap-1'}>
                         <TextInput
-                            type={'number'}
                             label={'Left'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingLeft}
@@ -193,7 +186,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Right'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingRight}
@@ -210,7 +202,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Top'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingTop}
@@ -224,7 +215,6 @@ const SpacingForm = ({
                             }}
                         />
                         <TextInput
-                            type={'number'}
                             label={'Bottom'}
                             rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingBottom}
