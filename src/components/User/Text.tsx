@@ -122,7 +122,7 @@ export const TextStyle = () => {
         alignment,
         style,
         decoration,
-    } = useNode((node) => ({
+    } = useNode((node: Node) => ({
         font: node.data.props.font,
         weight: node.data.props.weight,
         size: node.data.props.size,

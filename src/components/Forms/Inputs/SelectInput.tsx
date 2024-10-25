@@ -24,7 +24,7 @@ const SelectInput = ({ label, value, options, onChange }: SelectInputProps) => {
             )}
             <select
                 ref={selectRef}
-                className="relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md pl-2 pr-8 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
+                className="relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md pl-2 pr-8 py-1.5 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointerfocus:outline-none"
                 value={value}
                 onChange={(e: any) => onChange?.(e.target.value)}
             >

@@ -24,7 +24,7 @@ const Tooltip = ({
             <TooltipTrigger className={classes?.trigger}>
                 {children}
             </TooltipTrigger>
-            <TooltipContent>{content}</TooltipContent>
+            {content && <TooltipContent>{content}</TooltipContent>}
         </TooltipContext.Provider>
     );
 };

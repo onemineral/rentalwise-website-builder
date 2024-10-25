@@ -39,12 +39,18 @@ const TextInput = ({
     };
 
     const baseInputClasses = classnames(
-        'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
+        'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1.5 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
+        classes?.input,
     );
 
     const Content = useMemo(() => {
         return (
-            <div className={classnames('relative flex w-full items-center')}>
+            <div
+                className={classnames(
+                    'relative flex w-full items-center',
+                    classes?.container,
+                )}
+            >
                 {label && (
                     <label
                         className={classnames(
@@ -58,8 +64,8 @@ const TextInput = ({
                 {!multiline ? (
                     <input
                         className={classnames(baseInputClasses, {
-                            '!pr-6': !!rightContent,
-                            '!pl-6': !!leftContent,
+                            'pr-6': !!rightContent,
+                            'pl-6': !!leftContent,
                         })}
                         placeholder={placeholder}
                         value={value || ''}
@@ -68,10 +74,14 @@ const TextInput = ({
                     />
                 ) : (
                     <textarea
-                        className={classnames(baseInputClasses, {
-                            '!pr-6': !!rightContent,
-                            '!pl-6': !!leftContent,
-                        })}
+                        className={classnames(
+                            baseInputClasses,
+                            {
+                                'pr-6': !!rightContent,
+                                'pl-6': !!leftContent,
+                            },
+                            classes?.input,
+                        )}
                         placeholder={placeholder}
                         value={value || ''}
                         onChange={onChangeHandler}
@@ -79,20 +89,42 @@ const TextInput = ({
                     />
                 )}
 
-                <div className="absolute w-6 h-6 top-0">
-                    <span className={'h-full flex justify-center items-center'}>
-                        {leftContent}
-                    </span>
-                </div>
-
-                <div className="absolute w-6 h-6 top-0 right-0.5">
-                    <div className={'h-full flex justify-center items-center'}>
-                        {rightContent}
+                {leftContent && (
+                    <div
+                        className={classnames(
+                            'absolute w-6 h-6 top-0',
+                            classes?.leftContent,
+                        )}
+                    >
+                        <span
+                            className={
+                                'h-full flex justify-center items-center'
+                            }
+                        >
+                            {leftContent}
+                        </span>
                     </div>
-                </div>
+                )}
+
+                {rightContent && (
+                    <div
+                        className={classnames(
+                            'absolute w-6 h-6 top-0 right-0.5',
+                            classes?.rightContent,
+                        )}
+                    >
+                        <div
+                            className={
+                                'h-full flex justify-center items-center'
+                            }
+                        >
+                            {rightContent}
+                        </div>
+                    </div>
+                )}
             </div>
         );
-    }, [leftContent, placeholder, rightContent, type, value]);
+    }, [leftContent, placeholder, rightContent, type, value, classes]);
 
     if (!hint) return <>{Content}</>;
 

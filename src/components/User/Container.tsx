@@ -2,14 +2,17 @@ import React from 'react';
 import { Node, useNode } from '@craftjs/core';
 import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
+import Accordion from '@/components/Accordion/Accordion';
+import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 
-export const Container = ({ margin = 0, padding = 0, children }: any) => {
+export const Container = ({ margin, padding, children }: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
 
-    const { isHovered, label, id } = useNode((node: Node) => ({
+    const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
         isHovered: node.events.hovered,
+        isSelected: node.events.selected,
         label: node.data.displayName,
         id: node.id,
     }));
@@ -17,20 +20,77 @@ export const Container = ({ margin = 0, padding = 0, children }: any) => {
     return (
         <div
             style={{
-                margin: `${margin}px`,
-                padding: `${padding}px`,
+                marginLeft: `${margin?.left}px`,
+                marginTop: `${margin?.top}px`,
+                marginRight: `${margin?.right}px`,
+                marginBottom: `${margin?.bottom}px`,
+                paddingLeft: `${padding?.left}px`,
+                paddingTop: `${padding?.top}px`,
+                paddingRight: `${padding?.right}px`,
+                paddingBottom: `${padding?.bottom}px`,
             }}
             ref={(ref: any) => connect(drag(ref))}
             className={classnames(
-                'relative flex flex-col border-2 border-gray-200 !p-4 bg-slate-100 space-y-2',
+                'relative flex flex-col border-2 border-gray-200 bg-slate-100',
                 {
                     '!border-2 !border-dotted !border-slate-500':
-                        isHovered,
+                        isHovered || isSelected,
                 },
             )}
         >
             {children}
-            {isHovered && <ElementActions label={label} id={id} />}
+            {(isHovered || isSelected) && (
+                <ElementActions label={label} id={id} />
+            )}
         </div>
     );
+};
+
+export const ContainerStyle = () => {
+    const {
+        actions: { setProp },
+        margin,
+        padding,
+    } = useNode((node: Node) => ({
+        margin: node.data.props.margin,
+        padding: node.data.props.padding,
+    }));
+
+    return (
+        <div
+            className={
+                'flex flex-col w-full items-start bg-slate-50 h-full select-none'
+            }
+        >
+            <Accordion>
+                <Accordion.Item title={'Spacing'}>
+                    <SpacingForm
+                        record={{ margin, padding }}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                props.margin = value.margin;
+                                props.padding = value.padding;
+                            });
+                        }}
+                    />
+                </Accordion.Item>
+            </Accordion>
+        </div>
+    );
+};
+
+export const ContainerDefaultProps = {
+    padding: {
+        top: 30,
+        bottom: 30,
+        left: 30,
+        right: 30,
+    },
+};
+
+Container.craft = {
+    props: ContainerDefaultProps,
+    related: {
+        style: ContainerStyle,
+    },
 };

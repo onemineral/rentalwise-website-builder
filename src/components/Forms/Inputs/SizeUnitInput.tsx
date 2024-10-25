@@ -12,6 +12,14 @@ const SizeUnitInput = ({
 }) => {
     const item = SIZE_UNITS.find((item) => item.value === value);
 
+    if (!onChange) {
+        return (
+            <span className={'text-xs text-slate-400'}>
+                {item?.value || item?.label}
+            </span>
+        );
+    }
+
     return (
         <Dropdown
             trigger={
