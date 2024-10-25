@@ -4,18 +4,8 @@ import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
 import TextInput from '@/components/Forms/Inputs/TextInput';
 import Accordion from '@/components/Accordion/Accordion';
-import FontInput from '@/components/Forms/Inputs/FontInput';
-import {
-    FontData,
-    FontsResponse,
-    getFontIdFromUrl,
-} from '@/components/FontShowcase/FontShowcase';
-import SelectInput from '@/components/Forms/Inputs/SelectInput';
-import SizeUnitInput from '@/components/Forms/Inputs/SizeUnitInput';
-import ColorInput from '@/components/Forms/Inputs/ColorInput';
-import AlignButtonGroupInput from '@/components/Forms/Inputs/AlignButtonGroupInput';
-import ItalicizeButtonGroupInput from '@/components/Forms/Inputs/ItalicizeButtonGroupInput';
-import DecorationButtonGroupInput from '@/components/Forms/Inputs/DecorationButtonGroupInput';
+import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
+import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 
 export const Text = ({
     text,
@@ -143,50 +133,6 @@ export const TextStyle = () => {
         decoration: node.data.props.decoration,
     }));
 
-    const [fonts, setFonts] = useState<[string, FontData][]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    const [localSize, setLocalSize] = useState(size);
-    const [localHeight, setLocalHeight] = useState(height);
-
-    useEffect(() => {
-        setProp((props: any) => (props.size = localSize), 500);
-    }, [localSize]);
-
-    useEffect(() => {
-        setProp((props: any) => (props.height = localHeight), 500);
-    }, [localHeight]);
-
-    useEffect(() => {
-        const fetchFonts = async () => {
-            try {
-                const response = await fetch('https://fonts.bunny.net/list');
-                if (!response.ok) throw new Error('Failed to fetch fonts');
-                const data: FontsResponse = await response.json();
-                setFonts(Object.entries(data));
-                setLoading(false);
-            } catch (e: any) {
-                console.error(e);
-                setError('Failed to load fonts. Please try again.');
-                setLoading(false);
-            }
-        };
-
-        fetchFonts();
-    }, []);
-
-    const currentFont = fonts?.find(
-        (item: any) => font && item[0] === getFontIdFromUrl(font),
-    );
-
-    const weightOptions: any[] | undefined = currentFont?.[1].weights?.map(
-        (weight: number) => ({
-            label: weight,
-            value: weight,
-        }),
-    );
-
     return (
         <div
             className={
@@ -195,135 +141,27 @@ export const TextStyle = () => {
         >
             <Accordion>
                 <Accordion.Item title={'Typography'}>
-                    <div className={'grid grid-cols-12 gap-1'}>
-                        <div className={'col-span-12'}>
-                            <FontInput
-                                value={font}
-                                onChange={(value: string) => {
-                                    setProp((props: any) => {
-                                        props.font = value;
-                                        props.weight = undefined;
-                                    }, 500);
-                                }}
-                                fonts={fonts}
-                                loading={loading}
-                                error={error}
-                            />
-                        </div>
-                        <div className={'col-span-12'}>
-                            <SelectInput
-                                label={'Weight'}
-                                value={weight}
-                                options={weightOptions}
-                                onChange={(value: any) => {
-                                    setProp(
-                                        (props: any) => (props.weight = value),
-                                        500,
-                                    );
-                                }}
-                            />
-                        </div>
-                        <div className={'col-span-6'}>
-                            <TextInput
-                                type={'number'}
-                                label={'Size'}
-                                rightContent={
-                                    <SizeUnitInput
-                                        value={size?.unit}
-                                        onChange={(value: string) => {
-                                            setLocalSize((prev: any) => ({
-                                                ...prev,
-                                                unit: value,
-                                            }));
-                                        }}
-                                    />
-                                }
-                                value={size?.value}
-                                onChange={(value: any) => {
-                                    setLocalSize((prev: any) => ({
-                                        value,
-                                        unit: prev?.unit || 'px',
-                                    }));
-                                }}
-                                classes={{ label: '!min-w-11 !w-11' }}
-                            />
-                        </div>
-                        <div className={'col-span-6'}>
-                            <TextInput
-                                type={'number'}
-                                label={'Height'}
-                                rightContent={
-                                    <SizeUnitInput
-                                        value={height?.unit}
-                                        onChange={(value: string) => {
-                                            setLocalHeight((prev: any) => ({
-                                                ...prev,
-                                                unit: value,
-                                            }));
-                                        }}
-                                    />
-                                }
-                                value={height?.value}
-                                onChange={(value: any) => {
-                                    setLocalHeight((prev: any) => ({
-                                        value,
-                                        unit: prev?.unit || 'px',
-                                    }));
-                                }}
-                                classes={{ label: '!min-w-11 !w-11' }}
-                            />
-                        </div>
-                        <div className={'col-span-12'}>
-                            <ColorInput
-                                label={'Color'}
-                                value={color}
-                                onChange={(value: any) => {
-                                    setProp(
-                                        (props: any) => (props.color = value),
-                                        500,
-                                    );
-                                }}
-                            />
-                        </div>
-                        <div className={'col-span-12'}>
-                            <AlignButtonGroupInput
-                                label={'Align'}
-                                value={alignment}
-                                onChange={(value: any) => {
-                                    setProp(
-                                        (props: any) =>
-                                            (props.alignment = value),
-                                        500,
-                                    );
-                                }}
-                            />
-                        </div>
-                        <div className={'col-span-12'}>
-                            <ItalicizeButtonGroupInput
-                                label={'Italicize'}
-                                value={style}
-                                onChange={(value: any) => {
-                                    setProp(
-                                        (props: any) => (props.style = value),
-                                        500,
-                                    );
-                                }}
-                            />
-                        </div>
-                        <div className={'col-span-12'}>
-                            <DecorationButtonGroupInput
-                                label={'Decoration'}
-                                value={decoration}
-                                onChange={(value: any) => {
-                                    setProp(
-                                        (props: any) =>
-                                            (props.decoration = value),
-                                        500,
-                                    );
-                                }}
-                            />
-                        </div>
-                    </div>
+                    <TypographyForm
+                        record={{
+                            font,
+                            weight,
+                            size,
+                            height,
+                            color,
+                            alignment,
+                            style,
+                            decoration,
+                        }}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                Object.keys(value).forEach((key) => {
+                                    props[key] = value[key];
+                                });
+
+                                return props;
+                            }, 500);
+                        }}
+                    />
                 </Accordion.Item>
             </Accordion>
         </div>
