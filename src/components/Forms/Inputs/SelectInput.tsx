@@ -8,16 +8,31 @@ export type SelectInputProps = {
     value?: any;
     options?: SelectInputOption[];
     onChange?: (value: any) => void;
+    classes?: any;
 };
 
-const SelectInput = ({ label, value, options, onChange }: SelectInputProps) => {
+const SelectInput = ({
+    label,
+    value,
+    options,
+    onChange,
+    classes,
+}: SelectInputProps) => {
     const selectRef: any = useRef();
 
     return (
-        <div className={classnames('relative flex w-full items-center')}>
+        <div
+            className={classnames(
+                'relative flex w-full items-center',
+                classes?.container,
+            )}
+        >
             {label && (
                 <label
-                    className={'text-xs flex items-center min-w-20 w-20 p-1'}
+                    className={classnames(
+                        'text-xs flex items-center min-w-20 w-20 p-1',
+                        classes?.label,
+                    )}
                 >
                     {label}
                 </label>

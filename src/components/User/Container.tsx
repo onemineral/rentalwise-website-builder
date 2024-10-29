@@ -4,8 +4,9 @@ import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
 import Accordion from '@/components/Accordion/Accordion';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
+import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
 
-export const Container = ({ margin, padding, children }: any) => {
+export const Container = ({ margin, padding, children, layout }: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
@@ -16,6 +17,62 @@ export const Container = ({ margin, padding, children }: any) => {
         label: node.data.displayName,
         id: node.id,
     }));
+
+    const className = classnames(
+        'relative border-2 border-gray-200 bg-slate-100 h-96',
+        {
+            '!border-2 !border-dotted !border-slate-500':
+                isHovered || isSelected,
+        },
+        layout?.display === 'flex'
+            ? {
+                  flex: layout?.display === 'flex',
+                  'flex-wrap': layout?.flexOptions?.direction === 'wrap',
+              }
+            : undefined,
+        layout?.display === 'flex' &&
+            layout?.flexOptions?.direction === 'horizontal'
+            ? {
+                  'flex-row': layout?.flexOptions?.direction === 'horizontal',
+                  'justify-start': layout?.flexOptions?.horizontal === 'left',
+                  'justify-end': layout?.flexOptions?.horizontal === 'right',
+                  'justify-center':
+                      layout?.flexOptions?.horizontal === 'center',
+                  'justify-between':
+                      layout?.flexOptions?.horizontal === 'space-between',
+                  'justify-around':
+                      layout?.flexOptions?.horizontal === 'space-around',
+
+                  'items-start': layout?.flexOptions?.vertical === 'top',
+                  'items-end': layout?.flexOptions?.vertical === 'bottom',
+                  'items-center': layout?.flexOptions?.vertical === 'center',
+                  'items-stretch': layout?.flexOptions?.vertical === 'stretch',
+                  'items-baseline':
+                      layout?.flexOptions?.vertical === 'baseline',
+              }
+            : undefined,
+        layout?.display === 'flex' &&
+            layout?.flexOptions?.direction === 'vertical'
+            ? {
+                  'flex-col': layout?.flexOptions?.direction === 'vertical',
+                  'items-start': layout?.flexOptions?.horizontal === 'left',
+                  'items-end': layout?.flexOptions?.horizontal === 'right',
+                  'items-center': layout?.flexOptions?.horizontal === 'center',
+                  'items-stretch':
+                      layout?.flexOptions?.horizontal === 'stretch',
+                  'items-baseline':
+                      layout?.flexOptions?.horizontal === 'baseline',
+
+                  'justify-start': layout?.flexOptions?.vertical === 'top',
+                  'justify-end': layout?.flexOptions?.vertical === 'bottom',
+                  'justify-center': layout?.flexOptions?.vertical === 'center',
+                  'justify-between':
+                      layout?.flexOptions?.vertical === 'space-between',
+                  'justify-around':
+                      layout?.flexOptions?.vertical === 'space-around',
+              }
+            : undefined,
+    );
 
     return (
         <div
@@ -33,13 +90,7 @@ export const Container = ({ margin, padding, children }: any) => {
                 paddingBottom: `${padding?.bottom}px`,
             }}
             ref={(ref: any) => connect(drag(ref))}
-            className={classnames(
-                'relative flex flex-col border-2 border-gray-200 bg-slate-100',
-                {
-                    '!border-2 !border-dotted !border-slate-500':
-                        isHovered || isSelected,
-                },
-            )}
+            className={className}
         >
             {children}
             {(isHovered || isSelected) && (
@@ -54,9 +105,11 @@ export const ContainerStyle = () => {
         actions: { setProp },
         margin,
         padding,
+        layout,
     } = useNode((node: Node) => ({
         margin: node.data.props.margin,
         padding: node.data.props.padding,
+        layout: node.data.props.layout,
     }));
 
     return (
@@ -66,6 +119,14 @@ export const ContainerStyle = () => {
             }
         >
             <Accordion>
+                <Accordion.Item title={'Display'}>
+                    <LayoutForm
+                        record={layout}
+                        onChange={(value: any) => {
+                            setProp((props: any) => (props.layout = value));
+                        }}
+                    />
+                </Accordion.Item>
                 <Accordion.Item title={'Spacing'}>
                     <SpacingForm
                         record={{ margin, padding }}

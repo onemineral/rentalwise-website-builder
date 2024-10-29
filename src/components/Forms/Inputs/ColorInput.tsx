@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const ColorInput = ({
     classes,
-    label,
+    label = 'Color',
     value,
     onChange,
 }: {

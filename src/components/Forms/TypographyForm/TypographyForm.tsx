@@ -143,7 +143,6 @@ const TypographyForm = ({
             </div>
             <div className={'col-span-12'}>
                 <ColorInput
-                    label={'Color'}
                     value={record.color}
                     onChange={(value: any) => {
                         onChange?.({ color: value });
@@ -152,7 +151,6 @@ const TypographyForm = ({
             </div>
             <div className={'col-span-12'}>
                 <AlignButtonGroupInput
-                    label={'Align'}
                     value={record?.alignment}
                     onChange={(value: any) => {
                         onChange?.({ alignment: value });
@@ -161,7 +159,6 @@ const TypographyForm = ({
             </div>
             <div className={'col-span-12'}>
                 <ItalicizeButtonGroupInput
-                    label={'Italicize'}
                     value={record?.style}
                     onChange={(value: any) => {
                         onChange?.({ style: value });
@@ -170,7 +167,6 @@ const TypographyForm = ({
             </div>
             <div className={'col-span-12'}>
                 <DecorationButtonGroupInput
-                    label={'Decoration'}
                     value={record?.decoration}
                     onChange={(value: any) => {
                         onChange?.({ decoration: value });

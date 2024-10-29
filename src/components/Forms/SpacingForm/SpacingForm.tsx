@@ -51,6 +51,7 @@ const SpacingForm = ({
                     label={'Margin'}
                     value={marginType}
                     onChange={setMarginType}
+                    classes={{ container: 'flex-col' }}
                 />
             </div>
             {marginType === 'all' && (
@@ -142,6 +143,7 @@ const SpacingForm = ({
                     label={'Padding'}
                     value={paddingType}
                     onChange={setPaddingType}
+                    classes={{ container: 'flex-col' }}
                 />
             </div>
             {paddingType === 'all' && (

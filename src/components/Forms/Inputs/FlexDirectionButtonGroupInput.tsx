@@ -1,20 +1,13 @@
 import React from 'react';
-import {
-    FiAlignCenter,
-    FiAlignJustify,
-    FiAlignLeft,
-    FiAlignRight,
-} from 'react-icons/fi';
 import ButtonGroupInput, {
     ButtonGroupItem,
 } from '@/components/Forms/Inputs/ButtonGroupInput';
-import classnames from 'classnames';
-import { TbBorderAll, TbBorderCorners } from 'react-icons/tb';
+import { ArrowDown, ArrowRight, WrapText } from 'lucide-react';
 
-const BorderButtonGroupInput = ({
+const FlexDirectionButtonGroupInput = ({
     value,
     onChange,
-    label,
+    label = 'Direction',
     classes,
 }: {
     value?: any;
@@ -24,12 +17,19 @@ const BorderButtonGroupInput = ({
 }) => {
     const buttons: ButtonGroupItem[] = [
         {
-            value: 'all',
-            label: <TbBorderAll size={14} />,
+            value: 'horizontal',
+            label: <ArrowRight size={14} />,
+            description: 'Horizontal',
         },
         {
-            value: 'corners',
-            label: <TbBorderCorners size={14} />,
+            value: 'vertical',
+            label: <ArrowDown size={14} />,
+            description: 'Vertical',
+        },
+        {
+            value: 'wrap',
+            label: <WrapText size={14} />,
+            description: 'Wrap',
         },
     ];
 
@@ -44,4 +44,4 @@ const BorderButtonGroupInput = ({
     );
 };
 
-export default BorderButtonGroupInput;
+export default FlexDirectionButtonGroupInput;

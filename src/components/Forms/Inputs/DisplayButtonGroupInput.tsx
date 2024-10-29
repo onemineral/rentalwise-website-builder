@@ -8,11 +8,12 @@ import {
 import ButtonGroupInput, {
     ButtonGroupItem,
 } from '@/components/Forms/Inputs/ButtonGroupInput';
+import classnames from 'classnames';
 
-const AlignButtonGroupInput = ({
+const DisplayButtonGroupInput = ({
     value,
     onChange,
-    label = 'Align',
+    label = 'Display',
     classes,
 }: {
     value?: any;
@@ -22,24 +23,16 @@ const AlignButtonGroupInput = ({
 }) => {
     const buttons: ButtonGroupItem[] = [
         {
-            value: 'left',
-            label: <FiAlignLeft size={14} />,
-            description: 'Left',
+            value: 'block',
+            label: <span>Block</span>,
         },
         {
-            value: 'center',
-            label: <FiAlignCenter size={14} />,
-            description: 'Center',
+            value: 'flex',
+            label: <span>Flex</span>,
         },
         {
-            value: 'right',
-            label: <FiAlignRight size={14} />,
-            description: 'Right',
-        },
-        {
-            value: 'justify',
-            label: <FiAlignJustify size={14} />,
-            description: 'Justify',
+            value: 'grid',
+            label: <span>Grid</span>,
         },
     ];
 
@@ -54,4 +47,4 @@ const AlignButtonGroupInput = ({
     );
 };
 
-export default AlignButtonGroupInput;
+export default DisplayButtonGroupInput;

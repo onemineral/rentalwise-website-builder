@@ -20,7 +20,7 @@ import {
 const DecorationButtonGroupInput = ({
     value,
     onChange,
-    label,
+    label = 'Decoration',
     classes,
 }: {
     value?: any;
@@ -31,44 +31,34 @@ const DecorationButtonGroupInput = ({
     const buttons: ButtonGroupItem[] = [
         {
             value: 'none',
-            icon: <RiCloseFill size={14} />,
+            label: <RiCloseFill size={14} />,
             description: 'None',
         },
         {
             value: 'line-through',
-            icon: <RiStrikethrough2 size={14} />,
+            label: <RiStrikethrough2 size={14} />,
             description: 'Strikethrough',
         },
         {
             value: 'underline',
-            icon: <RiUnderline size={14} />,
+            label: <RiUnderline size={14} />,
             description: 'Underline',
         },
         {
             value: 'overline',
-            icon: <RiOverline size={14} />,
+            label: <RiOverline size={14} />,
             description: 'Overline',
         },
     ];
 
     return (
-        <div className={classnames('relative flex w-full items-center')}>
-            {label && (
-                <label
-                    className={classnames(
-                        'text-xs flex items-center min-w-20 w-20 p-1',
-                        classes?.label,
-                    )}
-                >
-                    {label}
-                </label>
-            )}
-            <ButtonGroupInput
-                buttons={buttons}
-                value={value}
-                onChange={onChange}
-            />
-        </div>
+        <ButtonGroupInput
+            label={label}
+            buttons={buttons}
+            value={value}
+            onChange={onChange}
+            classes={classes}
+        />
     );
 };
 

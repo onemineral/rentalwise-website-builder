@@ -109,7 +109,7 @@ const TextInput = ({
                 {rightContent && (
                     <div
                         className={classnames(
-                            'absolute w-6 h-6 top-0 right-0.5',
+                            'absolute w-6 h-6 top-0.5 right-0.5',
                             classes?.rightContent,
                         )}
                     >
