@@ -5,8 +5,9 @@ import ElementActions from '@/components/ElementActions';
 import Accordion from '@/components/Accordion/Accordion';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
+import SizeForm from '@/components/Forms/SizeForm/SizeForm';
 
-export const Container = ({ margin, padding, children, layout }: any) => {
+export const Container = ({ margin, padding, children, layout, size }: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
@@ -17,7 +18,7 @@ export const Container = ({ margin, padding, children, layout }: any) => {
         label: node.data.displayName,
         id: node.id,
     }));
-    console.log(layout.display, layout?.gridOptions);
+
     const className = classnames(
         'relative border-2 border-gray-200 bg-slate-100 h-96',
         {
@@ -142,10 +143,12 @@ export const ContainerStyle = () => {
         margin,
         padding,
         layout,
+        size,
     } = useNode((node: Node) => ({
         margin: node.data.props.margin,
         padding: node.data.props.padding,
         layout: node.data.props.layout,
+        size: node.data.props.size,
     }));
 
     return (
@@ -174,6 +177,18 @@ export const ContainerStyle = () => {
                         }}
                     />
                 </Accordion.Item>
+                <Accordion.Item title={'Size'}>
+                    <SizeForm
+                        record={{
+                            size,
+                        }}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                props.size = value;
+                            });
+                        }}
+                    />
+                </Accordion.Item>
             </Accordion>
         </div>
     );
@@ -191,6 +206,18 @@ export const ContainerDefaultProps = {
         bottom: 'auto',
         left: 'auto',
         right: 'auto',
+    },
+    layout: {
+        display: 'block',
+        flexOptions: {
+            direction: 'vertical',
+            horizontal: 'left',
+            vertical: 'top',
+        },
+        gridOptions: {
+            columns: '2',
+            rows: '2',
+        },
     },
 };
 

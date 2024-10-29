@@ -6,9 +6,11 @@ import { SIZE_UNITS } from '@/components/types';
 const SizeUnitInput = ({
     value = 'px',
     onChange,
+    sizeUnits = SIZE_UNITS,
 }: {
     value: any;
     onChange?: (value: string) => void;
+    sizeUnits?: { value: any; label: string }[];
 }) => {
     const item = SIZE_UNITS.find((item) => item.value === value);
 

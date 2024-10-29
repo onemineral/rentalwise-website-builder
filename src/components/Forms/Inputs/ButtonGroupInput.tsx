@@ -48,7 +48,7 @@ const ButtonGroupInput = ({
                         <div
                             key={i.value}
                             className={classnames(
-                                'px-2 py-1 cursor-pointer border border-transparent rounded-md',
+                                'px-1 py-1 cursor-pointer border border-transparent rounded-md',
                                 {
                                     'bg-slate-100 border !border-slate-400':
                                         i.value === value,

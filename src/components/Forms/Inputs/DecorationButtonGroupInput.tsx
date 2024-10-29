@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-    FiAlignCenter,
-    FiAlignJustify,
-    FiAlignLeft,
-    FiAlignRight,
-} from 'react-icons/fi';
 import ButtonGroupInput, {
     ButtonGroupItem,
 } from '@/components/Forms/Inputs/ButtonGroupInput';
-import classnames from 'classnames';
-import { BsType, BsTypeItalic } from 'react-icons/bs';
 import {
     RiCloseFill,
     RiOverline,
