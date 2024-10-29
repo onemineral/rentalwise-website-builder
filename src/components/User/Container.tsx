@@ -17,7 +17,7 @@ export const Container = ({ margin, padding, children, layout }: any) => {
         label: node.data.displayName,
         id: node.id,
     }));
-
+    console.log(layout.display, layout?.gridOptions);
     const className = classnames(
         'relative border-2 border-gray-200 bg-slate-100 h-96',
         {
@@ -72,6 +72,42 @@ export const Container = ({ margin, padding, children, layout }: any) => {
                       layout?.flexOptions?.vertical === 'space-around',
               }
             : undefined,
+
+        layout?.display === 'grid'
+            ? {
+                  grid: layout?.display === 'grid',
+              }
+            : undefined,
+
+        layout?.display === 'grid' && layout?.gridOptions
+            ? {
+                  'grid-cols-1': layout?.gridOptions.columns === '1',
+                  'grid-cols-2': layout?.gridOptions.columns === '2',
+                  'grid-cols-3': layout?.gridOptions.columns === '3',
+                  'grid-cols-4': layout?.gridOptions.columns === '4',
+                  'grid-cols-5': layout?.gridOptions.columns === '5',
+                  'grid-cols-6': layout?.gridOptions.columns === '6',
+                  'grid-cols-7': layout?.gridOptions.columns === '7',
+                  'grid-cols-8': layout?.gridOptions.columns === '8',
+                  'grid-cols-9': layout?.gridOptions.columns === '9',
+                  'grid-cols-10': layout?.gridOptions.columns === '10',
+                  'grid-cols-11': layout?.gridOptions.columns === '11',
+                  'grid-cols-12': layout?.gridOptions.columns === '12',
+
+                  'grid-rows-1': layout?.gridOptions.rows === '1',
+                  'grid-rows-2': layout?.gridOptions.rows === '2',
+                  'grid-rows-3': layout?.gridOptions.rows === '3',
+                  'grid-rows-4': layout?.gridOptions.rows === '4',
+                  'grid-rows-5': layout?.gridOptions.rows === '5',
+                  'grid-rows-6': layout?.gridOptions.rows === '6',
+                  'grid-rows-7': layout?.gridOptions.rows === '7',
+                  'grid-rows-8': layout?.gridOptions.rows === '8',
+                  'grid-rows-9': layout?.gridOptions.rows === '9',
+                  'grid-rows-10': layout?.gridOptions.rows === '10',
+                  'grid-rows-11': layout?.gridOptions.rows === '11',
+                  'grid-rows-12': layout?.gridOptions.rows === '12',
+              }
+            : undefined,
     );
 
     return (
@@ -119,7 +155,7 @@ export const ContainerStyle = () => {
             }
         >
             <Accordion>
-                <Accordion.Item title={'Display'}>
+                <Accordion.Item title={'Layout'}>
                     <LayoutForm
                         record={layout}
                         onChange={(value: any) => {
