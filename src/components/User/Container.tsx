@@ -6,8 +6,16 @@ import Accordion from '@/components/Accordion/Accordion';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
 import SizeForm from '@/components/Forms/SizeForm/SizeForm';
+import PositionForm from '@/components/Forms/PositionForm/PositionForm';
 
-export const Container = ({ margin, padding, children, layout, size }: any) => {
+export const Container = ({
+    margin,
+    padding,
+    children,
+    layout,
+    size,
+    position,
+}: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
@@ -123,6 +131,19 @@ export const Container = ({ margin, padding, children, layout, size }: any) => {
                     ? `${size?.height?.value}${size?.height?.unit}`
                     : 'auto',
                 overflow: size?.overflow,
+                position: position?.position,
+                left: position?.left?.value
+                    ? `${position?.left?.value}${position?.left?.unit}`
+                    : 'auto',
+                right: position?.right?.value
+                    ? `${position?.right?.value}${position?.right?.unit}`
+                    : 'auto',
+                top: position?.top?.value
+                    ? `${position?.top?.value}${position?.top?.unit}`
+                    : 'auto',
+                bottom: position?.bottom?.value
+                    ? `${position?.bottom?.value}${position?.bottom?.unit}`
+                    : 'auto',
             }}
             ref={(ref: any) => connect(drag(ref))}
             className={className}
@@ -142,11 +163,13 @@ export const ContainerStyle = () => {
         padding,
         layout,
         size,
+        position,
     } = useNode((node: Node) => ({
         margin: node.data.props.margin,
         padding: node.data.props.padding,
         layout: node.data.props.layout,
         size: node.data.props.size,
+        position: node.data.props.position,
     }));
 
     return (
@@ -181,6 +204,16 @@ export const ContainerStyle = () => {
                         onChange={(value: any) => {
                             setProp((props: any) => {
                                 props.size = value;
+                            });
+                        }}
+                    />
+                </Accordion.Item>
+                <Accordion.Item title={'Position'}>
+                    <PositionForm
+                        record={position}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                props.position = value;
                             });
                         }}
                     />
@@ -224,6 +257,9 @@ export const ContainerDefaultProps = {
             value: undefined,
             unit: 'auto',
         },
+    },
+    position: {
+        position: 'static',
     },
 };
 
