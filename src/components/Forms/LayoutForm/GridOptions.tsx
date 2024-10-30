@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from '@/components/Forms/Inputs/TextInput';
+import SizeUnitInput from '@/components/Forms/Inputs/SizeUnitInput';
 
 const GridOptions = ({
     record,
@@ -8,7 +9,7 @@ const GridOptions = ({
     record?: any;
     onChange?: (value: any) => void;
 }) => {
-    const { columns, rows } = record || {};
+    const { columns, gap } = record || {};
 
     return (
         <div className={'grid grid-cols-12 gap-x-2'}>
@@ -25,13 +26,14 @@ const GridOptions = ({
             </div>
             <div className={'col-span-6'}>
                 <TextInput
-                    label={'Rows'}
-                    value={rows}
+                    label={'Gap'}
+                    value={gap}
                     onChange={(value: any) => {
-                        onChange?.({ ...record, rows: value });
+                        onChange?.({ ...record, gap: value });
                     }}
                     classes={{ label: '!min-w-12 !w-12' }}
                     type={'number'}
+                    rightContent={<SizeUnitInput value={'px'} />}
                 />
             </div>
         </div>

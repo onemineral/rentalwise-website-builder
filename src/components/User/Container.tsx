@@ -94,19 +94,6 @@ export const Container = ({ margin, padding, children, layout, size }: any) => {
                   'grid-cols-10': layout?.gridOptions.columns === '10',
                   'grid-cols-11': layout?.gridOptions.columns === '11',
                   'grid-cols-12': layout?.gridOptions.columns === '12',
-
-                  'grid-rows-1': layout?.gridOptions.rows === '1',
-                  'grid-rows-2': layout?.gridOptions.rows === '2',
-                  'grid-rows-3': layout?.gridOptions.rows === '3',
-                  'grid-rows-4': layout?.gridOptions.rows === '4',
-                  'grid-rows-5': layout?.gridOptions.rows === '5',
-                  'grid-rows-6': layout?.gridOptions.rows === '6',
-                  'grid-rows-7': layout?.gridOptions.rows === '7',
-                  'grid-rows-8': layout?.gridOptions.rows === '8',
-                  'grid-rows-9': layout?.gridOptions.rows === '9',
-                  'grid-rows-10': layout?.gridOptions.rows === '10',
-                  'grid-rows-11': layout?.gridOptions.rows === '11',
-                  'grid-rows-12': layout?.gridOptions.rows === '12',
               }
             : undefined,
     );
@@ -125,6 +112,10 @@ export const Container = ({ margin, padding, children, layout, size }: any) => {
                 paddingTop: `${padding?.top}px`,
                 paddingRight: `${padding?.right}px`,
                 paddingBottom: `${padding?.bottom}px`,
+                gap:
+                    layout?.display === 'grid'
+                        ? `${layout?.gridOptions?.gap || 0}px`
+                        : undefined,
             }}
             ref={(ref: any) => connect(drag(ref))}
             className={className}
@@ -216,7 +207,7 @@ export const ContainerDefaultProps = {
         },
         gridOptions: {
             columns: '2',
-            rows: '2',
+            gap: '8',
         },
     },
 };
