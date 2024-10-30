@@ -116,6 +116,13 @@ export const Container = ({ margin, padding, children, layout, size }: any) => {
                     layout?.display === 'grid'
                         ? `${layout?.gridOptions?.gap || 0}px`
                         : undefined,
+                width: size?.width?.value
+                    ? `${size?.width?.value}${size?.width?.unit}`
+                    : 'auto',
+                height: size?.height?.value
+                    ? `${size?.height?.value}${size?.height?.unit}`
+                    : 'auto',
+                overflow: size?.overflow,
             }}
             ref={(ref: any) => connect(drag(ref))}
             className={className}
@@ -170,9 +177,7 @@ export const ContainerStyle = () => {
                 </Accordion.Item>
                 <Accordion.Item title={'Size'}>
                     <SizeForm
-                        record={{
-                            size,
-                        }}
+                        record={size}
                         onChange={(value: any) => {
                             setProp((props: any) => {
                                 props.size = value;
@@ -208,6 +213,16 @@ export const ContainerDefaultProps = {
         gridOptions: {
             columns: '2',
             gap: '8',
+        },
+    },
+    size: {
+        width: {
+            value: undefined,
+            unit: 'auto',
+        },
+        height: {
+            value: undefined,
+            unit: 'auto',
         },
     },
 };

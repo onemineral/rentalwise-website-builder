@@ -7,7 +7,7 @@ export const Root = ({ children }: any) => {
     } = useNode();
 
     return (
-        <div ref={(ref: any) => connect(drag(ref))} className={'p-10 w-full'}>
+        <div ref={(ref: any) => connect(drag(ref))} className={'w-full'}>
             {children}
         </div>
     );

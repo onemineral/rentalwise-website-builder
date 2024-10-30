@@ -89,9 +89,9 @@ const EditorWrapper = ({ data }: any) => {
                     }
                 >
                     <Topbar onSave={onSave} loading={loading} />
-                    <div className={'flex w-full h-full'}>
+                    <div className={'flex w-screen h-full'}>
                         <Menu />
-                        <div className={'flex flex-grow w-full'}>
+                        <div className={'flex w-full max-w-full'}>
                             <FrameWrapper nodes={localNodes}>
                                 <Element
                                     is={Root}
