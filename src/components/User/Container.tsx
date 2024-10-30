@@ -7,6 +7,7 @@ import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
 import SizeForm from '@/components/Forms/SizeForm/SizeForm';
 import PositionForm from '@/components/Forms/PositionForm/PositionForm';
+import BackgroundForm from '@/components/Forms/BackgroundForm/BackgroundForm';
 
 export const Container = ({
     margin,
@@ -15,6 +16,7 @@ export const Container = ({
     layout,
     size,
     position,
+    background,
 }: any) => {
     const {
         connectors: { connect, drag },
@@ -28,7 +30,7 @@ export const Container = ({
     }));
 
     const className = classnames(
-        'relative border-2 border-gray-200 bg-slate-100 h-96',
+        'relative border-2 border-gray-200 h-96',
         {
             '!border-2 !border-dotted !border-slate-500':
                 isHovered || isSelected,
@@ -144,6 +146,7 @@ export const Container = ({
                 bottom: position?.bottom?.value
                     ? `${position?.bottom?.value}${position?.bottom?.unit}`
                     : 'auto',
+                backgroundColor: background?.color,
             }}
             ref={(ref: any) => connect(drag(ref))}
             className={className}
@@ -164,12 +167,14 @@ export const ContainerStyle = () => {
         layout,
         size,
         position,
+        background,
     } = useNode((node: Node) => ({
         margin: node.data.props.margin,
         padding: node.data.props.padding,
         layout: node.data.props.layout,
         size: node.data.props.size,
         position: node.data.props.position,
+        background: node.data.props.background,
     }));
 
     return (
@@ -218,6 +223,16 @@ export const ContainerStyle = () => {
                         }}
                     />
                 </Accordion.Item>
+                <Accordion.Item title={'Background'}>
+                    <BackgroundForm
+                        record={background}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                props.background = value;
+                            });
+                        }}
+                    />
+                </Accordion.Item>
             </Accordion>
         </div>
     );
@@ -260,6 +275,9 @@ export const ContainerDefaultProps = {
     },
     position: {
         position: 'static',
+    },
+    background: {
+        color: 'transparent',
     },
 };
 
