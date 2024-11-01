@@ -21,6 +21,7 @@ const SizeForm = ({
                             width: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
@@ -33,6 +34,7 @@ const SizeForm = ({
                             height: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
@@ -45,6 +47,7 @@ const SizeForm = ({
                             minWidth: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
@@ -57,6 +60,7 @@ const SizeForm = ({
                             minHeight: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
@@ -69,6 +73,7 @@ const SizeForm = ({
                             maxWidth: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
@@ -81,6 +86,7 @@ const SizeForm = ({
                             maxHeight: value,
                         });
                     }}
+                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-12'}>

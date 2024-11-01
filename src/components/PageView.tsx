@@ -12,7 +12,11 @@ import FrameWrapper from '@/components/FrameWrapper';
 
 const PageView = ({ nodes }: any) => {
     return (
-        <div className={'w-full h-80 p-4 border-t border-slate-200'}>
+        <div
+            className={
+                'w-full h-[calc(100vh-4rem)] p-4 border-t border-slate-200 overflow-auto'
+            }
+        >
             <Editor
                 enabled={false}
                 resolver={{ Root, Button, Text, Users, Container, Loading }}

@@ -4,18 +4,21 @@ import BaseButton from '@/components/BaseButton';
 import { Dropdown } from '@/components/Dropdown';
 import { IoDocumentOutline } from 'react-icons/io5';
 import ActionList from '@/components/ActionList/ActionList';
+import { Button } from '@/components/ui/button';
 
 const Topbar = ({
     onSave,
+    onPreview,
     loading,
 }: {
     onSave?: () => void;
+    onPreview?: () => void;
     loading?: boolean;
 }) => {
     return (
         <div
             className={
-                'flex w-full py-1.5 px-4 bg-slate-50 items-center border-b border-slate-300'
+                'flex w-full px-4 bg-slate-50 items-center border-b border-slate-300 h-14 min-h-14'
             }
         >
             <h1 className={'text-lg'} style={{ width: '50px' }}>
@@ -43,7 +46,7 @@ const Topbar = ({
             </div>
             <BaseButton
                 onClick={onSave}
-                className={'whitespace-nowrap flex items-center space-x-1'}
+                className={'whitespace-nowrap flex items-center space-x-1 mr-1'}
             >
                 <span>Save</span>
                 {loading && (
@@ -52,6 +55,9 @@ const Topbar = ({
                     </span>
                 )}
             </BaseButton>
+            <Button variant={'outline'} size={'sm'} onClick={onPreview}>
+                Preview
+            </Button>
         </div>
     );
 };

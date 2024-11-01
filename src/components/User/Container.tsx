@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node, useNode } from '@craftjs/core';
+import { Node, useEditor, useNode } from '@craftjs/core';
 import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
 import Accordion from '@/components/Accordion/Accordion';
@@ -8,6 +8,17 @@ import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
 import SizeForm from '@/components/Forms/SizeForm/SizeForm';
 import PositionForm from '@/components/Forms/PositionForm/PositionForm';
 import BackgroundForm from '@/components/Forms/BackgroundForm/BackgroundForm';
+import BorderForm from '@/components/Forms/BorderForm/BorderForm';
+import {
+    autoUpdate,
+    flip,
+    FloatingFocusManager,
+    useClick,
+    useDismiss,
+    useFloating,
+    useInteractions,
+    useRole,
+} from '@floating-ui/react';
 
 export const Container = ({
     margin,
@@ -17,11 +28,16 @@ export const Container = ({
     size,
     position,
     background,
+    border,
 }: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
 
+    const { enabled } = useEditor((state: any) => {
+        console.log(state);
+        return { enabled: state.options.enabled };
+    });
     const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
         isHovered: node.events.hovered,
         isSelected: node.events.selected,
@@ -30,11 +46,7 @@ export const Container = ({
     }));
 
     const className = classnames(
-        'relative border-2 border-gray-200 h-96',
-        {
-            '!border-2 !border-dotted !border-slate-500':
-                isHovered || isSelected,
-        },
+        { 'border border-dashed border-slate-400': enabled },
         layout?.display === 'flex'
             ? {
                   flex: layout?.display === 'flex',
@@ -108,53 +120,100 @@ export const Container = ({
             : undefined,
     );
 
+    const { refs, floatingStyles, context } = useFloating({
+        placement: 'top-start',
+        open: isHovered || isSelected,
+        whileElementsMounted: autoUpdate,
+        middleware: [flip()],
+    });
+    const click = useClick(context);
+    const dismiss = useDismiss(context);
+    const role = useRole(context);
+    const { getFloatingProps } = useInteractions([click, dismiss, role]);
+
     return (
-        <div
-            style={{
-                marginLeft:
-                    margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
-                marginTop: margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
-                marginRight:
-                    margin?.right === 'auto' ? 'auto' : `${margin?.right}px`,
-                marginBottom:
-                    margin?.bottom === 'auto' ? 'auto' : `${margin?.bottom}px`,
-                paddingLeft: `${padding?.left}px`,
-                paddingTop: `${padding?.top}px`,
-                paddingRight: `${padding?.right}px`,
-                paddingBottom: `${padding?.bottom}px`,
-                gap:
-                    layout?.display === 'grid'
-                        ? `${layout?.gridOptions?.gap || 0}px`
+        <div>
+            <div
+                style={{
+                    boxSizing: 'border-box',
+                    marginLeft:
+                        margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
+                    marginTop:
+                        margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
+                    marginRight:
+                        margin?.right === 'auto'
+                            ? 'auto'
+                            : `${margin?.right}px`,
+                    marginBottom:
+                        margin?.bottom === 'auto'
+                            ? 'auto'
+                            : `${margin?.bottom}px`,
+                    paddingLeft: `${padding?.left}px`,
+                    paddingTop: `${padding?.top}px`,
+                    paddingRight: `${padding?.right}px`,
+                    paddingBottom: `${padding?.bottom}px`,
+                    gap:
+                        layout?.display === 'grid'
+                            ? `${layout?.gridOptions?.gap || 0}px`
+                            : undefined,
+                    width: size?.width?.value
+                        ? `${size?.width?.value}${size?.width?.unit}`
+                        : 'auto',
+                    height: size?.height?.value
+                        ? `${size?.height?.value}${size?.height?.unit}`
+                        : 'auto',
+                    overflow: size?.overflow,
+                    position: position?.position,
+                    left: position?.left?.value
+                        ? `${position?.left?.value}${position?.left?.unit}`
+                        : 'auto',
+                    right: position?.right?.value
+                        ? `${position?.right?.value}${position?.right?.unit}`
+                        : 'auto',
+                    top: position?.top?.value
+                        ? `${position?.top?.value}${position?.top?.unit}`
+                        : 'auto',
+                    bottom: position?.bottom?.value
+                        ? `${position?.bottom?.value}${position?.bottom?.unit}`
+                        : 'auto',
+                    backgroundColor: background?.color,
+                    borderTop: border?.top
+                        ? `${border?.top?.size?.value}${border?.top?.size?.unit} ${border?.top?.style} ${border?.top?.color}`
                         : undefined,
-                width: size?.width?.value
-                    ? `${size?.width?.value}${size?.width?.unit}`
-                    : 'auto',
-                height: size?.height?.value
-                    ? `${size?.height?.value}${size?.height?.unit}`
-                    : 'auto',
-                overflow: size?.overflow,
-                position: position?.position,
-                left: position?.left?.value
-                    ? `${position?.left?.value}${position?.left?.unit}`
-                    : 'auto',
-                right: position?.right?.value
-                    ? `${position?.right?.value}${position?.right?.unit}`
-                    : 'auto',
-                top: position?.top?.value
-                    ? `${position?.top?.value}${position?.top?.unit}`
-                    : 'auto',
-                bottom: position?.bottom?.value
-                    ? `${position?.bottom?.value}${position?.bottom?.unit}`
-                    : 'auto',
-                backgroundColor: background?.color,
-            }}
-            ref={(ref: any) => connect(drag(ref))}
-            className={className}
-        >
-            {children}
-            {(isHovered || isSelected) && (
-                <ElementActions label={label} id={id} />
-            )}
+                    borderBottom: border?.bottom
+                        ? `${border?.bottom?.size?.value}${border?.bottom?.size?.unit} ${border?.bottom?.style} ${border?.bottom?.color}`
+                        : undefined,
+                    borderLeft: border?.left
+                        ? `${border?.left?.size?.value}${border?.left?.size?.unit} ${border?.left?.style} ${border?.left?.color}`
+                        : undefined,
+                    borderRight: border?.right
+                        ? `${border?.right?.size?.value}${border?.right?.size?.unit} ${border?.right?.style} ${border?.right?.color}`
+                        : undefined,
+                }}
+                ref={(ref: any) => {
+                    refs.setReference(ref);
+                    connect(drag(ref));
+                }}
+                className={className}
+            >
+                {children}
+                {(isHovered || isSelected) && (
+                    <FloatingFocusManager context={context} modal={false}>
+                        <div
+                            ref={refs.setFloating}
+                            style={{
+                                ...floatingStyles,
+                                top: 0,
+                                left: 0,
+                            }}
+                            {...getFloatingProps()}
+                            className={'focus-visible:outline-none'}
+                        >
+                            <ElementActions label={label} id={id} />
+                        </div>
+                    </FloatingFocusManager>
+                )}
+            </div>
         </div>
     );
 };
@@ -168,6 +227,7 @@ export const ContainerStyle = () => {
         size,
         position,
         background,
+        border,
     } = useNode((node: Node) => ({
         margin: node.data.props.margin,
         padding: node.data.props.padding,
@@ -175,6 +235,7 @@ export const ContainerStyle = () => {
         size: node.data.props.size,
         position: node.data.props.position,
         background: node.data.props.background,
+        border: node.data.props.border,
     }));
 
     return (
@@ -233,6 +294,16 @@ export const ContainerStyle = () => {
                         }}
                     />
                 </Accordion.Item>
+                <Accordion.Item title={'Border'}>
+                    <BorderForm
+                        record={border}
+                        onChange={(value: any) => {
+                            setProp((props: any) => {
+                                props.border = value;
+                            });
+                        }}
+                    />
+                </Accordion.Item>
             </Accordion>
         </div>
     );
@@ -279,6 +350,40 @@ export const ContainerDefaultProps = {
     background: {
         color: 'transparent',
     },
+    // border: {
+    //     top: {
+    //         size: {
+    //             value: '1',
+    //             unit: 'px',
+    //         },
+    //         style: 'solid',
+    //         color: 'red',
+    //     },
+    //     bottom: {
+    //         size: {
+    //             value: '1',
+    //             unit: 'px',
+    //         },
+    //         style: 'solid',
+    //         color: 'red',
+    //     },
+    //     left: {
+    //         size: {
+    //             value: '1',
+    //             unit: 'px',
+    //         },
+    //         style: 'solid',
+    //         color: 'red',
+    //     },
+    //     right: {
+    //         size: {
+    //             value: '1',
+    //             unit: 'px',
+    //         },
+    //         style: 'solid',
+    //         color: 'red',
+    //     },
+    // },
 };
 
 Container.craft = {

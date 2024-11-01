@@ -28,7 +28,7 @@ const StylePanel = () => {
         return (
             <div
                 className={
-                    'flex flex-col w-full items-start bg-slate-50 h-full select-none py-2'
+                    'flex flex-col w-full items-start bg-slate-50 h-full select-none pt-2'
                 }
             >
                 {selected.style ? (

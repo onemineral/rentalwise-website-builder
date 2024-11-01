@@ -7,7 +7,10 @@ export const Root = ({ children }: any) => {
     } = useNode();
 
     return (
-        <div ref={(ref: any) => connect(drag(ref))} className={'relative w-full'}>
+        <div
+            ref={(ref: any) => connect(drag(ref))}
+            className={'relative w-full overflow-auto'}
+        >
             {children}
         </div>
     );

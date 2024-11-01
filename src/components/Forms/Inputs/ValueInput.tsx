@@ -6,11 +6,26 @@ import { SIZE_UNITS } from '@/components/types';
 const ValueInput = ({
     label,
     value,
+    options = [
+        ...SIZE_UNITS,
+        {
+            value: 'auto',
+            label: 'Auto',
+            triggerLabel: '–',
+        },
+    ],
     onChange,
+    placeholder,
+    classes = {
+        label: '!min-w-12 !w-12',
+    },
 }: {
     label?: string;
     value?: any;
+    options?: any[];
     onChange?: (value: any) => void;
+    placeholder?: string;
+    classes?: any;
 }) => {
     const [localValue, setLocalValue] = useState<any>(value);
 
@@ -37,7 +52,11 @@ const ValueInput = ({
             onChange?.(newValue);
         }
 
-        if (!localValue?.value && localValue?.unit !== 'auto') {
+        if (
+            !localValue?.value &&
+            options.find((item: any) => item.value === 'auto') &&
+            localValue?.unit !== 'auto'
+        ) {
             const newValue = {
                 ...localValue,
                 unit: 'auto',
@@ -51,7 +70,7 @@ const ValueInput = ({
         <TextInput
             label={label}
             value={localValue?.value}
-            placeholder={'auto'}
+            placeholder={placeholder}
             rightContent={
                 <SizeUnitInput
                     value={localValue?.unit}
@@ -60,17 +79,10 @@ const ValueInput = ({
                         setLocalValue(newValue);
                         onChange?.(newValue);
                     }}
-                    options={[
-                        ...SIZE_UNITS,
-                        {
-                            value: 'auto',
-                            label: 'Auto',
-                            triggerLabel: '–',
-                        },
-                    ]}
+                    options={options}
                 />
             }
-            classes={{ label: '!min-w-12 !w-12' }}
+            classes={classes}
             onChange={(value: any) => {
                 const newValue = {
                     value: value || undefined,

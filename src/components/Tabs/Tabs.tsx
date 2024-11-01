@@ -15,12 +15,12 @@ const Tabs = ({ tabs }: { tabs: TabProps[] }) => {
         <>
             <div
                 className={
-                    'flex flex-col h-full pt-0.5 px-1 bg-slate-50 select-none'
+                    'flex flex-col h-full px-1 bg-slate-50 select-none'
                 }
             >
                 <div
                     className={
-                        'flex flex-row overflow-x-scroll border-b border-slate-300'
+                        'flex flex-row overflow-x-scroll border-b border-slate-300 pt-1.5'
                     }
                 >
                     {tabs.map((tab: TabProps, index: number) => {
@@ -41,7 +41,9 @@ const Tabs = ({ tabs }: { tabs: TabProps[] }) => {
                         );
                     })}
                 </div>
-                {activeTab?.content}
+                <div className={'overflow-y-auto flex flex-col h-full'}>
+                    {activeTab?.content}
+                </div>
             </div>
         </>
     );

@@ -57,6 +57,7 @@ const PositionForm = ({
                                     left: value,
                                 });
                             }}
+                            placeholder={'auto'}
                         />
                     </div>
                     <div className={'col-span-6'}>
@@ -69,6 +70,7 @@ const PositionForm = ({
                                     right: value,
                                 });
                             }}
+                            placeholder={'auto'}
                         />
                     </div>
                     <div className={'col-span-6'}>
@@ -81,6 +83,7 @@ const PositionForm = ({
                                     top: value,
                                 });
                             }}
+                            placeholder={'auto'}
                         />
                     </div>
                     <div className={'col-span-6'}>
@@ -93,6 +96,7 @@ const PositionForm = ({
                                     bottom: value,
                                 });
                             }}
+                            placeholder={'auto'}
                         />
                     </div>
                 </>

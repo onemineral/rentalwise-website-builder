@@ -18,6 +18,14 @@ import Tabs, { TabProps } from '@/components/Tabs/Tabs';
 import Menu from '@/components/Menu/Menu';
 import SettingsPanel from '@/components/SettingsPanel';
 import StylePanel from '@/components/StylePanel';
+import PageView from '@/components/PageView';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 
 export const EditorContext = createContext({ users: null, query: null });
 
@@ -25,6 +33,7 @@ const EditorWrapper = ({ data }: any) => {
     const [localNodes, setLocalNodes] = useState<any>(null);
     const [nodesToSave, setNodesToSave] = useState<any>(null);
     const [loading, setLoading] = useState(false);
+    const [previewOpen, setPreviewOpen] = useState(false);
 
     useEffect(() => {
         if (window) {
@@ -78,39 +87,66 @@ const EditorWrapper = ({ data }: any) => {
     }, []);
 
     return (
-        <EditorContext.Provider value={data}>
-            <Editor
-                resolver={{ Root, Button, Text, Container }}
-                onNodesChange={onNodesChange}
-            >
-                <div
-                    className={
-                        'w-screen h-dvh flex flex-col bg-white text-slate-900'
-                    }
+        <>
+            <EditorContext.Provider value={data}>
+                <Editor
+                    resolver={{ Root, Button, Text, Container }}
+                    onNodesChange={onNodesChange}
+                    enabled={true}
                 >
-                    <Topbar onSave={onSave} loading={loading} />
-                    <div className={'flex w-screen h-full'}>
-                        <Menu />
-                        <div className={'flex w-full max-w-full'}>
-                            <FrameWrapper nodes={localNodes}>
-                                <Element
-                                    is={Root}
-                                    canvas
-                                    custom={{ displayName: 'Root' }}
-                                />
-                            </FrameWrapper>
-                        </div>
+                    <div
+                        className={
+                            'w-screen h-dvh flex flex-col bg-white text-slate-900'
+                        }
+                    >
+                        <Topbar
+                            onSave={onSave}
+                            onPreview={() => setPreviewOpen(true)}
+                            loading={loading}
+                        />
                         <div
-                            className={
-                                'flex flex-col w-80 border-l border-slate-300'
-                            }
+                            className={'flex w-screen h-full'}
+                            style={{ height: 'calc(100vh - 3.5rem)' }}
                         >
-                            <Tabs tabs={tabs} />
+                            <Menu />
+                            <div
+                                className={
+                                    'flex w-full max-w-full overflow-auto'
+                                }
+                            >
+                                <FrameWrapper nodes={localNodes}>
+                                    <Element
+                                        is={Root}
+                                        canvas
+                                        custom={{ displayName: 'Root' }}
+                                    />
+                                </FrameWrapper>
+                            </div>
+                            <div
+                                className={
+                                    'flex flex-col w-80 border-l border-slate-300'
+                                }
+                            >
+                                <Tabs tabs={tabs} />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Editor>
-        </EditorContext.Provider>
+                </Editor>
+            </EditorContext.Provider>
+            <Dialog
+                open={previewOpen}
+                onOpenChange={(value: boolean) => setPreviewOpen(value)}
+            >
+                <DialogContent className={'max-w-7xl max-h-dvh'}>
+                    <DialogHeader>
+                        <DialogTitle>Page preview</DialogTitle>
+                        <DialogDescription>
+                            <PageView nodes={localNodes} />
+                        </DialogDescription>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 };
 

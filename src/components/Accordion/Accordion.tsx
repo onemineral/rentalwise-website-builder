@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import AccordionItem from '@/components/Accordion/AccordionItem';
 
 const Accordion = ({ children }: { children?: ReactNode }) => {
-    return <div className={'flex flex-col w-full space-y-4'}>{children}</div>;
+    return <div className={'flex flex-col w-full space-y-1'}>{children}</div>;
 };
 
 Accordion.Item = AccordionItem;
