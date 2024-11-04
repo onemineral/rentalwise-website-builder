@@ -29,11 +29,6 @@ const BorderStyleButtonGroupInput = ({
 }) => {
     const buttons: ButtonGroupItem[] = [
         {
-            value: 'none',
-            label: <BorderNoneIcon />,
-            description: 'None',
-        },
-        {
             value: 'solid',
             label: <BorderSolidIcon />,
             description: 'Solid',

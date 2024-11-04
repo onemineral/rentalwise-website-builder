@@ -35,7 +35,6 @@ export const Container = ({
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
-        console.log(state);
         return { enabled: state.options.enabled };
     });
     const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
@@ -178,16 +177,16 @@ export const Container = ({
                         : 'auto',
                     backgroundColor: background?.color,
                     borderTop: border?.top
-                        ? `${border?.top?.size?.value}${border?.top?.size?.unit} ${border?.top?.style} ${border?.top?.color}`
+                        ? `${border?.top?.width?.value}${border?.top?.width?.unit} ${border?.top?.style} ${border?.top?.color}`
                         : undefined,
                     borderBottom: border?.bottom
-                        ? `${border?.bottom?.size?.value}${border?.bottom?.size?.unit} ${border?.bottom?.style} ${border?.bottom?.color}`
+                        ? `${border?.bottom?.width?.value}${border?.bottom?.width?.unit} ${border?.bottom?.style} ${border?.bottom?.color}`
                         : undefined,
                     borderLeft: border?.left
-                        ? `${border?.left?.size?.value}${border?.left?.size?.unit} ${border?.left?.style} ${border?.left?.color}`
+                        ? `${border?.left?.width?.value}${border?.left?.width?.unit} ${border?.left?.style} ${border?.left?.color}`
                         : undefined,
                     borderRight: border?.right
-                        ? `${border?.right?.size?.value}${border?.right?.size?.unit} ${border?.right?.style} ${border?.right?.color}`
+                        ? `${border?.right?.width?.value}${border?.right?.width?.unit} ${border?.right?.style} ${border?.right?.color}`
                         : undefined,
                 }}
                 ref={(ref: any) => {

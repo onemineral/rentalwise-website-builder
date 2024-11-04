@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNode, Node } from '@craftjs/core';
+import { useNode, Node, useEditor } from '@craftjs/core';
 import classnames from 'classnames';
 import ElementActions from '@/components/ElementActions';
 import TextInput from '@/components/Forms/Inputs/TextInput';
@@ -31,6 +31,10 @@ export const Text = ({
     const {
         connectors: { connect, drag },
     } = useNode();
+
+    const { enabled } = useEditor((state: any) => {
+        return { enabled: state.options.enabled };
+    });
 
     const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
         isHovered: node.events.hovered,
@@ -87,13 +91,9 @@ export const Text = ({
                 refs.setReference(ref);
                 connect(drag(ref));
             }}
-            className={classnames(
-                'relative text-slate-900 border-2 border-transparent',
-                {
-                    '!border-2 !border-dotted !border-slate-500':
-                        isHovered || isSelected,
-                },
-            )}
+            className={classnames('relative text-slate-900', {
+                'border border-dashed border-slate-400': enabled,
+            })}
         >
             <p
                 style={{

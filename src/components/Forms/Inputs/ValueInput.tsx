@@ -86,7 +86,7 @@ const ValueInput = ({
             onChange={(value: any) => {
                 const newValue = {
                     value: value || undefined,
-                    unit: localValue?.unit,
+                    unit: localValue?.unit || 'px',
                 };
 
                 setLocalValue(newValue);

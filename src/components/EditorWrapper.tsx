@@ -140,10 +140,8 @@ const EditorWrapper = ({ data }: any) => {
                 <DialogContent className={'max-w-7xl max-h-dvh'}>
                     <DialogHeader>
                         <DialogTitle>Page preview</DialogTitle>
-                        <DialogDescription>
-                            <PageView nodes={localNodes} />
-                        </DialogDescription>
                     </DialogHeader>
+                    <PageView nodes={localNodes} />
                 </DialogContent>
             </Dialog>
         </>
