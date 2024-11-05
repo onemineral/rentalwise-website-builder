@@ -9,7 +9,7 @@ export const Root = ({ children }: any) => {
     return (
         <div
             ref={(ref: any) => connect(drag(ref))}
-            className={'relative w-full overflow-auto'}
+            className={'relative w-full h-full overflow-auto bg-white'}
         >
             {children}
         </div>

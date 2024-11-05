@@ -46,6 +46,7 @@ export const Container = ({
 
     const className = classnames(
         { 'border border-dashed border-slate-400': enabled },
+        { block: layout?.display === 'block' },
         layout?.display === 'flex'
             ? {
                   flex: layout?.display === 'flex',
@@ -131,88 +132,81 @@ export const Container = ({
     const { getFloatingProps } = useInteractions([click, dismiss, role]);
 
     return (
-        <div>
-            <div
-                style={{
-                    boxSizing: 'border-box',
-                    marginLeft:
-                        margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
-                    marginTop:
-                        margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
-                    marginRight:
-                        margin?.right === 'auto'
-                            ? 'auto'
-                            : `${margin?.right}px`,
-                    marginBottom:
-                        margin?.bottom === 'auto'
-                            ? 'auto'
-                            : `${margin?.bottom}px`,
-                    paddingLeft: `${padding?.left}px`,
-                    paddingTop: `${padding?.top}px`,
-                    paddingRight: `${padding?.right}px`,
-                    paddingBottom: `${padding?.bottom}px`,
-                    gap:
-                        layout?.display === 'grid'
-                            ? `${layout?.gridOptions?.gap || 0}px`
-                            : undefined,
-                    width: size?.width?.value
-                        ? `${size?.width?.value}${size?.width?.unit}`
-                        : 'auto',
-                    height: size?.height?.value
-                        ? `${size?.height?.value}${size?.height?.unit}`
-                        : 'auto',
-                    overflow: size?.overflow,
-                    position: position?.position,
-                    left: position?.left?.value
-                        ? `${position?.left?.value}${position?.left?.unit}`
-                        : 'auto',
-                    right: position?.right?.value
-                        ? `${position?.right?.value}${position?.right?.unit}`
-                        : 'auto',
-                    top: position?.top?.value
-                        ? `${position?.top?.value}${position?.top?.unit}`
-                        : 'auto',
-                    bottom: position?.bottom?.value
-                        ? `${position?.bottom?.value}${position?.bottom?.unit}`
-                        : 'auto',
-                    backgroundColor: background?.color,
-                    borderTop: border?.top
-                        ? `${border?.top?.width?.value}${border?.top?.width?.unit} ${border?.top?.style} ${border?.top?.color}`
+        <div
+            style={{
+                boxSizing: 'border-box',
+                marginLeft:
+                    margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
+                marginTop: margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
+                marginRight:
+                    margin?.right === 'auto' ? 'auto' : `${margin?.right}px`,
+                marginBottom:
+                    margin?.bottom === 'auto' ? 'auto' : `${margin?.bottom}px`,
+                paddingLeft: `${padding?.left}px`,
+                paddingTop: `${padding?.top}px`,
+                paddingRight: `${padding?.right}px`,
+                paddingBottom: `${padding?.bottom}px`,
+                gap:
+                    layout?.display === 'grid'
+                        ? `${layout?.gridOptions?.gap || 0}px`
                         : undefined,
-                    borderBottom: border?.bottom
-                        ? `${border?.bottom?.width?.value}${border?.bottom?.width?.unit} ${border?.bottom?.style} ${border?.bottom?.color}`
-                        : undefined,
-                    borderLeft: border?.left
-                        ? `${border?.left?.width?.value}${border?.left?.width?.unit} ${border?.left?.style} ${border?.left?.color}`
-                        : undefined,
-                    borderRight: border?.right
-                        ? `${border?.right?.width?.value}${border?.right?.width?.unit} ${border?.right?.style} ${border?.right?.color}`
-                        : undefined,
-                }}
-                ref={(ref: any) => {
-                    refs.setReference(ref);
-                    connect(drag(ref));
-                }}
-                className={className}
-            >
-                {children}
-                {(isHovered || isSelected) && (
-                    <FloatingFocusManager context={context} modal={false}>
-                        <div
-                            ref={refs.setFloating}
-                            style={{
-                                ...floatingStyles,
-                                top: 0,
-                                left: 0,
-                            }}
-                            {...getFloatingProps()}
-                            className={'focus-visible:outline-none'}
-                        >
-                            <ElementActions label={label} id={id} />
-                        </div>
-                    </FloatingFocusManager>
-                )}
-            </div>
+                width: size?.width?.value
+                    ? `${size?.width?.value}${size?.width?.unit}`
+                    : 'auto',
+                height: size?.height?.value
+                    ? `${size?.height?.value}${size?.height?.unit}`
+                    : 'auto',
+                overflow: size?.overflow,
+                position: position?.position,
+                left: position?.left?.value
+                    ? `${position?.left?.value}${position?.left?.unit}`
+                    : 'auto',
+                right: position?.right?.value
+                    ? `${position?.right?.value}${position?.right?.unit}`
+                    : 'auto',
+                top: position?.top?.value
+                    ? `${position?.top?.value}${position?.top?.unit}`
+                    : 'auto',
+                bottom: position?.bottom?.value
+                    ? `${position?.bottom?.value}${position?.bottom?.unit}`
+                    : 'auto',
+                backgroundColor: background?.color,
+                borderTop: border?.top
+                    ? `${border?.top?.width?.value}${border?.top?.width?.unit} ${border?.top?.style} ${border?.top?.color}`
+                    : undefined,
+                borderBottom: border?.bottom
+                    ? `${border?.bottom?.width?.value}${border?.bottom?.width?.unit} ${border?.bottom?.style} ${border?.bottom?.color}`
+                    : undefined,
+                borderLeft: border?.left
+                    ? `${border?.left?.width?.value}${border?.left?.width?.unit} ${border?.left?.style} ${border?.left?.color}`
+                    : undefined,
+                borderRight: border?.right
+                    ? `${border?.right?.width?.value}${border?.right?.width?.unit} ${border?.right?.style} ${border?.right?.color}`
+                    : undefined,
+            }}
+            ref={(ref: any) => {
+                refs.setReference(ref);
+                connect(drag(ref));
+            }}
+            className={className}
+        >
+            {children}
+            {(isHovered || isSelected) && (
+                <FloatingFocusManager context={context} modal={false}>
+                    <div
+                        ref={refs.setFloating}
+                        style={{
+                            ...floatingStyles,
+                            top: 0,
+                            left: 0,
+                        }}
+                        {...getFloatingProps()}
+                        className={'focus-visible:outline-none'}
+                    >
+                        <ElementActions label={label} id={id} />
+                    </div>
+                </FloatingFocusManager>
+            )}
         </div>
     );
 };

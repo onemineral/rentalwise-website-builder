@@ -5,14 +5,19 @@ import { Dropdown } from '@/components/Dropdown';
 import { IoDocumentOutline } from 'react-icons/io5';
 import ActionList from '@/components/ActionList/ActionList';
 import { Button } from '@/components/ui/button';
+import { DeviceType } from '@/components/EditorWrapper';
+import { DesktopIcon, MobileIcon } from '@radix-ui/react-icons';
+import Tooltip from '@/components/Tooltip/Tooltip';
 
 const Topbar = ({
     onSave,
     onPreview,
     loading,
+    onChangeDevice,
 }: {
     onSave?: () => void;
     onPreview?: () => void;
+    onChangeDevice?: (device: DeviceType) => void;
     loading?: boolean;
 }) => {
     return (
@@ -24,6 +29,7 @@ const Topbar = ({
             <h1 className={'text-lg'} style={{ width: '50px' }}>
                 RW
             </h1>
+
             <div className={'flex w-full h-full items-center px-3'}>
                 <Dropdown
                     trigger={
@@ -43,7 +49,44 @@ const Topbar = ({
                         <ActionList.Item>Page 3</ActionList.Item>
                     </ActionList>
                 </Dropdown>
+
+                <div className={'flex items-center justify-center w-full'}>
+                    <Tooltip
+                        content={'Desktop'}
+                        classes={{ trigger: 'w-auto' }}
+                    >
+                        <div
+                            className={
+                                'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'
+                            }
+                            onClick={() => onChangeDevice?.('desktop')}
+                        >
+                            <DesktopIcon width={20} height={20} />
+                        </div>
+                    </Tooltip>
+                    <Tooltip content={'Tablet'} classes={{ trigger: 'w-auto' }}>
+                        <div
+                            className={
+                                'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'
+                            }
+                            onClick={() => onChangeDevice?.('tablet')}
+                        >
+                            <MobileIcon width={20} height={20} />
+                        </div>
+                    </Tooltip>
+                    <Tooltip content={'Mobile'} classes={{ trigger: 'w-auto' }}>
+                        <div
+                            className={
+                                'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'
+                            }
+                            onClick={() => onChangeDevice?.('mobile')}
+                        >
+                            <MobileIcon width={16} height={16} />
+                        </div>
+                    </Tooltip>
+                </div>
             </div>
+
             <BaseButton
                 onClick={onSave}
                 className={'whitespace-nowrap flex items-center space-x-1 mr-1'}

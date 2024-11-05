@@ -26,14 +26,18 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import classnames from 'classnames';
 
 export const EditorContext = createContext({ users: null, query: null });
+
+export type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
 const EditorWrapper = ({ data }: any) => {
     const [localNodes, setLocalNodes] = useState<any>(null);
     const [nodesToSave, setNodesToSave] = useState<any>(null);
     const [loading, setLoading] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
+    const [device, setDevice] = useState<DeviceType>('desktop');
 
     useEffect(() => {
         if (window) {
@@ -102,6 +106,7 @@ const EditorWrapper = ({ data }: any) => {
                         <Topbar
                             onSave={onSave}
                             onPreview={() => setPreviewOpen(true)}
+                            onChangeDevice={setDevice}
                             loading={loading}
                         />
                         <div
@@ -109,18 +114,27 @@ const EditorWrapper = ({ data }: any) => {
                             style={{ height: 'calc(100vh - 3.5rem)' }}
                         >
                             <Menu />
-                            <div
-                                className={
-                                    'flex w-full max-w-full overflow-auto'
-                                }
-                            >
-                                <FrameWrapper nodes={localNodes}>
-                                    <Element
-                                        is={Root}
-                                        canvas
-                                        custom={{ displayName: 'Root' }}
-                                    />
-                                </FrameWrapper>
+                            <div className="bg-slate-100 w-full p-6">
+                                <div
+                                    className={classnames(
+                                        '@container flex w-full h-full max-h-dvh max-w-full mx-auto',
+                                        {
+                                            '!w-[320px]': device === 'mobile',
+                                            '!w-[768px]': device === 'tablet',
+                                        },
+                                    )}
+                                >
+                                    <FrameWrapper
+                                        nodes={localNodes}
+                                        key={`frame-${device}`}
+                                    >
+                                        <Element
+                                            is={Root}
+                                            canvas
+                                            custom={{ displayName: 'Root' }}
+                                        />
+                                    </FrameWrapper>
+                                </div>
                             </div>
                             <div
                                 className={
@@ -133,6 +147,8 @@ const EditorWrapper = ({ data }: any) => {
                     </div>
                 </Editor>
             </EditorContext.Provider>
+
+            {/*Preview modal*/}
             <Dialog
                 open={previewOpen}
                 onOpenChange={(value: boolean) => setPreviewOpen(value)}
