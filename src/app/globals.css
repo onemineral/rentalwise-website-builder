@@ -18,7 +18,7 @@ body {
 }
 
 @layer base {
-  :root {
+    :root {
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
@@ -45,7 +45,7 @@ body {
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
     }
-  .dark {
+    .dark {
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
         --card: 240 10% 3.9%;
@@ -74,10 +74,25 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
+    * {
+        @apply border-border;
     }
-  body {
-    @apply bg-background text-foreground;
+    html {
+        @apply h-full;
     }
+    body {
+        @apply bg-background text-foreground h-full;
+    }
+}
+
+.component-selected {
+    @apply relative;
+}
+.component-selected::after {
+    content: ' ';
+    @apply border-primary border border-dashed w-full h-full absolute left-0 top-0 pointer-events-none block;
+}
+.frame-root,
+.frame-content {
+    @apply h-full;
 }

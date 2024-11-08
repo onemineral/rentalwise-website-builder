@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { createRef, useRef } from 'react';
 import { Node, useEditor, useNode } from '@craftjs/core';
 import classnames from 'classnames';
-import ElementActions from '@/components/ElementActions';
 import Accordion from '@/components/Accordion/Accordion';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
@@ -9,16 +8,6 @@ import SizeForm from '@/components/Forms/SizeForm/SizeForm';
 import PositionForm from '@/components/Forms/PositionForm/PositionForm';
 import BackgroundForm from '@/components/Forms/BackgroundForm/BackgroundForm';
 import BorderForm from '@/components/Forms/BorderForm/BorderForm';
-import {
-    autoUpdate,
-    flip,
-    FloatingFocusManager,
-    useClick,
-    useDismiss,
-    useFloating,
-    useInteractions,
-    useRole,
-} from '@floating-ui/react';
 
 export const Container = ({
     margin,
@@ -37,15 +26,9 @@ export const Container = ({
     const { enabled } = useEditor((state: any) => {
         return { enabled: state.options.enabled };
     });
-    const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
-        isHovered: node.events.hovered,
-        isSelected: node.events.selected,
-        label: node.data.displayName,
-        id: node.id,
-    }));
 
     const className = classnames(
-        { 'border border-dashed border-slate-400': enabled },
+        { 'border border-dashed border-slate-200': enabled },
         { block: layout?.display === 'block' },
         layout?.display === 'flex'
             ? {
@@ -120,17 +103,6 @@ export const Container = ({
             : undefined,
     );
 
-    const { refs, floatingStyles, context } = useFloating({
-        placement: 'top-start',
-        open: isHovered || isSelected,
-        whileElementsMounted: autoUpdate,
-        middleware: [flip()],
-    });
-    const click = useClick(context);
-    const dismiss = useDismiss(context);
-    const role = useRole(context);
-    const { getFloatingProps } = useInteractions([click, dismiss, role]);
-
     return (
         <div
             style={{
@@ -185,28 +157,11 @@ export const Container = ({
                     : undefined,
             }}
             ref={(ref: any) => {
-                refs.setReference(ref);
                 connect(drag(ref));
             }}
             className={className}
         >
             {children}
-            {(isHovered || isSelected) && (
-                <FloatingFocusManager context={context} modal={false}>
-                    <div
-                        ref={refs.setFloating}
-                        style={{
-                            ...floatingStyles,
-                            top: 0,
-                            left: 0,
-                        }}
-                        {...getFloatingProps()}
-                        className={'focus-visible:outline-none'}
-                    >
-                        <ElementActions label={label} id={id} />
-                    </div>
-                </FloatingFocusManager>
-            )}
         </div>
     );
 };
@@ -343,40 +298,6 @@ export const ContainerDefaultProps = {
     background: {
         color: 'transparent',
     },
-    // border: {
-    //     top: {
-    //         size: {
-    //             value: '1',
-    //             unit: 'px',
-    //         },
-    //         style: 'solid',
-    //         color: 'red',
-    //     },
-    //     bottom: {
-    //         size: {
-    //             value: '1',
-    //             unit: 'px',
-    //         },
-    //         style: 'solid',
-    //         color: 'red',
-    //     },
-    //     left: {
-    //         size: {
-    //             value: '1',
-    //             unit: 'px',
-    //         },
-    //         style: 'solid',
-    //         color: 'red',
-    //     },
-    //     right: {
-    //         size: {
-    //             value: '1',
-    //             unit: 'px',
-    //         },
-    //         style: 'solid',
-    //         color: 'red',
-    //     },
-    // },
 };
 
 Container.craft = {

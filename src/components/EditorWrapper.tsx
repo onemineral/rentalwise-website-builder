@@ -2,6 +2,7 @@
 
 import React, {
     createContext,
+    ReactNode,
     useCallback,
     useEffect,
     useMemo,
@@ -22,13 +23,23 @@ import PageView from '@/components/PageView';
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
 import classnames from 'classnames';
+import Frame, { FrameContextConsumer, useFrame } from 'react-frame-component';
+import IFrameWrapper from '@/components/IFrameWrapper';
+import RenderNode from '@/components/RenderNode';
 
-export const EditorContext = createContext({ users: null, query: null });
+export const EditorContext = createContext({
+    users: null,
+    query: null,
+});
+
+export const IFrameContext = createContext<any>({
+    document: null,
+    window: null,
+});
 
 export type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
@@ -38,6 +49,8 @@ const EditorWrapper = ({ data }: any) => {
     const [loading, setLoading] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [device, setDevice] = useState<DeviceType>('desktop');
+
+    const [isMounted, setMounted] = useState(false);
 
     useEffect(() => {
         if (window) {
@@ -54,6 +67,8 @@ const EditorWrapper = ({ data }: any) => {
                 );
             }
         }
+
+        setMounted(true);
     }, []);
 
     const onNodesChange = useCallback((value: any) => {
@@ -97,6 +112,10 @@ const EditorWrapper = ({ data }: any) => {
                     resolver={{ Root, Button, Text, Container }}
                     onNodesChange={onNodesChange}
                     enabled={true}
+                    indicator={{
+                        className: 'bg-primary',
+                    }}
+                    onRender={RenderNode}
                 >
                     <div
                         className={
@@ -124,16 +143,30 @@ const EditorWrapper = ({ data }: any) => {
                                         },
                                     )}
                                 >
-                                    <FrameWrapper
-                                        nodes={localNodes}
-                                        key={`frame-${device}`}
-                                    >
-                                        <Element
-                                            is={Root}
-                                            canvas
-                                            custom={{ displayName: 'Root' }}
-                                        />
-                                    </FrameWrapper>
+                                    {localNodes && isMounted && (
+                                        <Frame
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                            }}
+                                            className={'bg-white'}
+                                        >
+                                            <IFrameWrapper>
+                                                <FrameWrapper
+                                                    nodes={localNodes}
+                                                    key={`frame-${device}`}
+                                                >
+                                                    <Element
+                                                        is={Root}
+                                                        canvas
+                                                        custom={{
+                                                            displayName: 'Root',
+                                                        }}
+                                                    />
+                                                </FrameWrapper>
+                                            </IFrameWrapper>
+                                        </Frame>
+                                    )}
                                 </div>
                             </div>
                             <div

@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useRef, useState } from 'react';
 import { FiLayers, FiPlus } from 'react-icons/fi';
 import {
     IoDocumentOutline,
@@ -8,29 +8,27 @@ import {
 } from 'react-icons/io5';
 import ContextMenu from '@/components/Menu/ContextMenu';
 import { AnimatePresence } from 'framer-motion';
-import BlockCard from '@/components/BlockCard';
-import { Element, useEditor } from '@craftjs/core';
-import { Text } from '@/components/User/Text';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { createContext } from 'react';
 import MenuItem from '@/components/Menu/MenuItem';
-import { PiFrameCornersLight } from 'react-icons/pi';
-import { Container } from '@/components/User/Container';
+import Blocks from '@/components/Menu/Blocks/Blocks';
 
 export const MenuContext = createContext({
     activeMenuItem: null,
 } as any);
 
 const Menu = () => {
-    const contextMenuRef: any = useRef(null);
     const menuRef: any = useRef(null);
     const [contextMenu, setContextMenu] = useState<ReactNode>(null);
-    const { connectors } = useEditor();
     const [activeMenuItem, setActiveMenuItem] = useState<null | string>(null);
 
     useClickOutside(menuRef, () => {
         setContextMenu(null);
     });
+
+    const onBlockDrag = useCallback(() => {
+        setContextMenu(null);
+    }, []);
 
     return (
         <MenuContext.Provider value={{ activeMenuItem }}>
@@ -55,47 +53,9 @@ const Menu = () => {
                             if (contextMenu) {
                                 setContextMenu(null);
                             } else {
-                                setContextMenu(
-                                    <div
-                                        className={'grid grid-cols-2 gap-2 p-2'}
-                                    >
-                                        <BlockCard
-                                            key={'container'}
-                                            title={'Container'}
-                                            ref={(ref: any) =>
-                                                connectors.create(
-                                                    ref,
-                                                    <Element
-                                                        is={Container}
-                                                        canvas
-                                                    />,
-                                                )
-                                            }
-                                            icon={
-                                                <PiFrameCornersLight
-                                                    size={26}
-                                                />
-                                            }
-                                            onDragStart={() => {
-                                                setContextMenu(null);
-                                            }}
-                                        />
-                                        <BlockCard
-                                            key={'text'}
-                                            title={'Text'}
-                                            ref={(ref: any) =>
-                                                connectors.create(
-                                                    ref,
-                                                    <Text text="Text" />,
-                                                )
-                                            }
-                                            icon={<IoTextOutline size={24} />}
-                                            onDragStart={() => {
-                                                setContextMenu(null);
-                                            }}
-                                        />
-                                    </div>,
-                                );
+                                setContextMenu(() => {
+                                    return <Blocks onDragEnd={onBlockDrag} />;
+                                });
                             }
                         }}
                     />
@@ -136,11 +96,7 @@ const Menu = () => {
                     </div>
                 </div>
                 <AnimatePresence initial={false}>
-                    {contextMenu && (
-                        <ContextMenu ref={contextMenuRef}>
-                            {contextMenu}
-                        </ContextMenu>
-                    )}
+                    {contextMenu && <ContextMenu>{contextMenu}</ContextMenu>}
                 </AnimatePresence>
             </div>
         </MenuContext.Provider>

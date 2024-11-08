@@ -53,7 +53,7 @@ const Topbar = ({
                 <div className={'flex items-center justify-center w-full'}>
                     <Tooltip
                         content={'Desktop'}
-                        classes={{ trigger: 'w-auto' }}
+                        classes={{ trigger: '!w-auto' }}
                     >
                         <div
                             className={
@@ -64,7 +64,7 @@ const Topbar = ({
                             <DesktopIcon width={20} height={20} />
                         </div>
                     </Tooltip>
-                    <Tooltip content={'Tablet'} classes={{ trigger: 'w-auto' }}>
+                    <Tooltip content={'Tablet'} classes={{ trigger: '!w-auto' }}>
                         <div
                             className={
                                 'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'
@@ -74,7 +74,7 @@ const Topbar = ({
                             <MobileIcon width={20} height={20} />
                         </div>
                     </Tooltip>
-                    <Tooltip content={'Mobile'} classes={{ trigger: 'w-auto' }}>
+                    <Tooltip content={'Mobile'} classes={{ trigger: '!w-auto' }}>
                         <div
                             className={
                                 'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'

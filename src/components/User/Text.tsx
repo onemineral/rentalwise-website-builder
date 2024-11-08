@@ -1,21 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNode, Node, useEditor } from '@craftjs/core';
 import classnames from 'classnames';
-import ElementActions from '@/components/ElementActions';
 import TextInput from '@/components/Forms/Inputs/TextInput';
 import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
-import {
-    autoUpdate,
-    flip,
-    FloatingFocusManager,
-    useClick,
-    useDismiss,
-    useFloating,
-    useInteractions,
-    useRole,
-} from '@floating-ui/react';
+import ElementActions from '@/components/ElementActions';
 
 export const Text = ({
     text,
@@ -35,25 +25,6 @@ export const Text = ({
     const { enabled } = useEditor((state: any) => {
         return { enabled: state.options.enabled };
     });
-
-    const { isHovered, isSelected, label, id } = useNode((node: Node) => ({
-        isHovered: node.events.hovered,
-        isSelected: node.events.selected,
-        label: node.data.displayName,
-        id: node.id,
-    }));
-
-    const { refs, floatingStyles, context } = useFloating({
-        placement: 'top-start',
-        open: isHovered || isSelected,
-        whileElementsMounted: autoUpdate,
-        middleware: [flip()],
-    });
-
-    const click = useClick(context);
-    const dismiss = useDismiss(context);
-    const role = useRole(context);
-    const { getFloatingProps } = useInteractions([click, dismiss, role]);
 
     const linkRef = useRef<HTMLLinkElement | null>(null);
 
@@ -88,11 +59,10 @@ export const Text = ({
     return (
         <div
             ref={(ref: any) => {
-                refs.setReference(ref);
                 connect(drag(ref));
             }}
             className={classnames('relative text-slate-900', {
-                'border border-dashed border-slate-400': enabled,
+                'border border-dashed border-slate-200': enabled,
             })}
         >
             <p
@@ -109,22 +79,6 @@ export const Text = ({
             >
                 {text}
             </p>
-            {(isHovered || isSelected) && (
-                <FloatingFocusManager context={context} modal={false}>
-                    <div
-                        ref={refs.setFloating}
-                        style={{
-                            ...floatingStyles,
-                            top: 0,
-                            left: 0,
-                        }}
-                        {...getFloatingProps()}
-                        className={'focus-visible:outline-none'}
-                    >
-                        <ElementActions label={label} id={id} />
-                    </div>
-                </FloatingFocusManager>
-            )}
         </div>
     );
 };
