@@ -22,6 +22,7 @@ const TextInput = ({
     hint,
     multiline,
     classes,
+    disabled,
 }: {
     label?: string;
     leftContent?: ReactNode;
@@ -33,6 +34,7 @@ const TextInput = ({
     hint?: string;
     multiline?: boolean;
     classes?: any;
+    disabled?: boolean;
 }) => {
     const onChangeHandler = (e: any) => {
         onChange?.(e.target.value);
@@ -71,6 +73,7 @@ const TextInput = ({
                         value={value || ''}
                         onChange={onChangeHandler}
                         type={type}
+                        disabled={disabled}
                     />
                 ) : (
                     <textarea
@@ -86,6 +89,7 @@ const TextInput = ({
                         value={value || ''}
                         onChange={onChangeHandler}
                         rows={5}
+                        disabled={disabled}
                     />
                 )}
 

@@ -1,9 +1,4 @@
-import React, {
-    useCallback,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { RiDeleteBinFill } from 'react-icons/ri';
 import { useEditor, useNode } from '@craftjs/core';
 import { createPortal } from 'react-dom';
@@ -53,7 +48,7 @@ const ElementActions = () => {
         return (
             <div
                 ref={currentRef}
-                className="absolute flex items-center -mt-7"
+                className="absolute flex items-center -mt-[24px]"
                 style={{
                     left: getPos().left,
                     top: getPos().top,
@@ -66,14 +61,14 @@ const ElementActions = () => {
                         'flex items-center bg-slate-600 text-white text-xs p-1 px-2 space-x-2 focus-visible:outline-none'
                     }
                 >
-                    <div className={'text-sm'}>{label}</div>
+                    <div className={'text-xs'}>{label}</div>
                     <div
                         className={'cursor-pointer'}
                         onClick={() => {
                             actions.delete(id);
                         }}
                     >
-                        <RiDeleteBinFill size={16} />
+                        <RiDeleteBinFill size={14} />
                     </div>
                 </div>
             </div>

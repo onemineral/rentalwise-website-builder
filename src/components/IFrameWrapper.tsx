@@ -12,7 +12,7 @@ const IFrameWrapper = ({ children }: { children?: ReactNode }) => {
     return (
         <>
             {children}
-            <div className={'element-actions flex flex-1 h-full flex-col'} />
+            <div className={'element-actions flex flex-1 flex-col'} />
         </>
     );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import ColorInput from '@/components/Forms/Inputs/ColorInput';
+import TextInput from '@/components/Forms/Inputs/TextInput';
 
 const BackgroundForm = ({
     record,
@@ -21,6 +22,9 @@ const BackgroundForm = ({
                         });
                     }}
                 />
+            </div>
+            <div className={'col-span-12'}>
+                <TextInput label={'Image'} disabled />
             </div>
         </div>
     );
