@@ -2,7 +2,6 @@
 
 import React, {
     createContext,
-    ReactNode,
     useCallback,
     useEffect,
     useMemo,
@@ -27,18 +26,13 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import classnames from 'classnames';
-import Frame, { FrameContextConsumer, useFrame } from 'react-frame-component';
+import Frame from 'react-frame-component';
 import IFrameWrapper from '@/components/IFrameWrapper';
 import RenderNode from '@/components/RenderNode';
 
 export const EditorContext = createContext({
     users: null,
     query: null,
-});
-
-export const IFrameContext = createContext<any>({
-    document: null,
-    window: null,
 });
 
 export type DeviceType = 'desktop' | 'tablet' | 'mobile';
@@ -66,6 +60,8 @@ const EditorWrapper = ({ data }: any) => {
                     window.localStorage.getItem('rentalwise-website-builder'),
                 );
             }
+
+            window.parent.postMessage('Hi dashboard!', 'http://localhost:3000');
         }
 
         setMounted(true);
@@ -105,6 +101,23 @@ const EditorWrapper = ({ data }: any) => {
         ];
     }, []);
 
+    const ORIGIN_URL = 'http://localhost:3000';
+
+    const onMessageReceived = (event: MessageEvent) => {
+        console.log('Message received from dashboard', event);
+        if (event.origin !== ORIGIN_URL) {
+            return;
+        }
+    };
+
+    useEffect(function () {
+        window.addEventListener('message', onMessageReceived);
+
+        return function () {
+            window.removeEventListener('message', onMessageReceived);
+        };
+    });
+
     return (
         <>
             <EditorContext.Provider value={data}>
@@ -143,7 +156,7 @@ const EditorWrapper = ({ data }: any) => {
                                         },
                                     )}
                                 >
-                                    {localNodes && isMounted && (
+                                    {isMounted && (
                                         <Frame
                                             style={{
                                                 width: '100%',

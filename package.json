@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev --port 3002",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
@@ -12,6 +12,7 @@
         "@craftjs/core": "^0.2.10",
         "@craftjs/layers": "^0.2.5",
         "@headlessui/react": "^2.1.10",
+        "@onemineral/pms-js-sdk": "^0.1.45-beta",
         "@popperjs/core": "^2.11.8",
         "@radix-ui/react-checkbox": "^1.1.2",
         "@radix-ui/react-dialog": "^1.1.2",

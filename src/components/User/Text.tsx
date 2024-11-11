@@ -92,14 +92,18 @@ export const TextSettings = () => {
     }));
 
     return (
-        <TextInput
-            label={'Text'}
-            multiline
-            value={text}
-            onChange={(value: any) => {
-                setProp((props: any) => (props.text = value), 500);
-            }}
-        />
+        <div className={'grid grid-cols-12 gap-1 w-full'}>
+            <div className={'col-span-12'}>
+                <TextInput
+                    label={'Text'}
+                    multiline
+                    value={text}
+                    onChange={(value: any) => {
+                        setProp((props: any) => (props.text = value), 500);
+                    }}
+                />
+            </div>
+        </div>
     );
 };
 

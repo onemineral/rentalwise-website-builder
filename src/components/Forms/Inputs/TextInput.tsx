@@ -41,7 +41,11 @@ const TextInput = ({
     };
 
     const baseInputClasses = classnames(
-        'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1.5 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow focus-visible:ring-0 focus-visible:outline-none',
+        'relative w-full bg-white placeholder:text-slate-400 text-slate-700 text-xs border border-slate-200 rounded-md px-2 py-1.5 transition duration-300 ease shadow-sm focus-visible:ring-0 focus-visible:outline-none',
+        {
+            'focus:outline-none focus:border-slate-400 focus:shadow hover:border-slate-400':
+                !disabled,
+        },
         classes?.input,
     );
 

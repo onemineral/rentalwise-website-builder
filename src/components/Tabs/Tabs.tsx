@@ -41,7 +41,7 @@ const Tabs = ({ tabs }: { tabs: TabProps[] }) => {
                         );
                     })}
                 </div>
-                <div className={'overflow-y-auto flex flex-col h-full'}>
+                <div className={'overflow-y-auto h-full'}>
                     {activeTab?.content}
                 </div>
             </div>

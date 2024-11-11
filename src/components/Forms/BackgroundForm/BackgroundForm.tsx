@@ -1,6 +1,6 @@
 import React from 'react';
 import ColorInput from '@/components/Forms/Inputs/ColorInput';
-import TextInput from '@/components/Forms/Inputs/TextInput';
+import ImageInput from '@/components/Forms/Inputs/ImageInput';
 
 const BackgroundForm = ({
     record,
@@ -9,6 +9,10 @@ const BackgroundForm = ({
     record?: any;
     onChange?: (value: any) => void;
 }) => {
+    const showImageGallery = () => {
+        console.log('Show Image Gallery');
+    };
+
     return (
         <div className={'grid grid-cols-12 gap-1'}>
             <div className={'col-span-12'}>
@@ -24,7 +28,7 @@ const BackgroundForm = ({
                 />
             </div>
             <div className={'col-span-12'}>
-                <TextInput label={'Image'} disabled />
+                <ImageInput placeholder={'select'} value={'example.jpg'}/>
             </div>
         </div>
     );
