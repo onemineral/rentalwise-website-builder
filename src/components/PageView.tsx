@@ -3,12 +3,12 @@
 import React from 'react';
 import { Editor } from '@craftjs/core';
 import { Root } from '@/components/User/Root';
-import { Button } from '@/components/User/Button';
 import { Paragraph } from '@/components/User/Paragraph';
-import { Users } from '@/components/User/Users';
 import { Container } from '@/components/User/Container';
-import { Loading } from '@/components/User/Loading';
 import FrameWrapper from '@/components/FrameWrapper';
+import { Heading } from '@/components/User/Heading';
+import { Link } from '@/components/User/Link';
+import { Button } from '@/components/User/Button';
 
 const PageView = ({ nodes }: any) => {
     return (
@@ -19,7 +19,14 @@ const PageView = ({ nodes }: any) => {
         >
             <Editor
                 enabled={false}
-                resolver={{ Root, Button, Text: Paragraph, Users, Container, Loading }}
+                resolver={{
+                    Root,
+                    Button,
+                    Paragraph,
+                    Heading,
+                    Link,
+                    Container,
+                }}
             >
                 <FrameWrapper nodes={nodes} />
             </Editor>

@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from 'react';
+import React from 'react';
 import { Node, useEditor, useNode } from '@craftjs/core';
 import classnames from 'classnames';
 import Accordion from '@/components/Accordion/Accordion';

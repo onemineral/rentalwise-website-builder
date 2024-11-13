@@ -30,6 +30,7 @@ import Frame from 'react-frame-component';
 import IFrameWrapper from '@/components/IFrameWrapper';
 import RenderNode from '@/components/RenderNode';
 import { Heading } from '@/components/User/Heading';
+import { Link } from '@/components/User/Link';
 
 export const EditorContext = createContext({
     users: null,
@@ -39,10 +40,8 @@ export const EditorContext = createContext({
 export type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
 const EditorWrapper = ({ data }: any) => {
-    const initialNodes = window.localStorage.getItem(
-        'rentalwise-website-builder',
-    );
-    const [nodesToSave, setNodesToSave] = useState<any>(initialNodes);
+    const [localNodes, setLocalNodes] = useState<any>(null);
+    const [nodesToSave, setNodesToSave] = useState<any>(null);
     const [loading, setLoading] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [device, setDevice] = useState<DeviceType>('desktop');
@@ -50,6 +49,14 @@ const EditorWrapper = ({ data }: any) => {
     const [isMounted, setMounted] = useState(false);
 
     useEffect(() => {
+        if (window) {
+            setLocalNodes(
+                window.localStorage.getItem('rentalwise-website-builder'),
+            );
+            setNodesToSave(
+                window.localStorage.getItem('rentalwise-website-builder'),
+            );
+        }
         setMounted(true);
     }, []);
 
@@ -131,6 +138,7 @@ const EditorWrapper = ({ data }: any) => {
                         Button,
                         Paragraph,
                         Heading,
+                        Link,
                         Container,
                     }}
                     onNodesChange={onNodesChange}
@@ -176,7 +184,7 @@ const EditorWrapper = ({ data }: any) => {
                                         >
                                             <IFrameWrapper>
                                                 <FrameWrapper
-                                                    nodes={initialNodes}
+                                                    nodes={localNodes}
                                                     key={`frame-${device}`}
                                                 >
                                                     <Element
@@ -213,7 +221,7 @@ const EditorWrapper = ({ data }: any) => {
                     <DialogHeader>
                         <DialogTitle>Page preview</DialogTitle>
                     </DialogHeader>
-                    <PageView nodes={initialNodes} />
+                    <PageView nodes={localNodes} />
                 </DialogContent>
             </Dialog>
         </>
