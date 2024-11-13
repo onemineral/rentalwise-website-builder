@@ -139,6 +139,9 @@ export const LinkSettings = () => {
                         },
                     ]}
                     value={target}
+                    onChange={(value: any) => {
+                        setProp((props: any) => (props.target = value), 500);
+                    }}
                 />
             </div>
         </div>
