@@ -3,8 +3,10 @@ import BlockCard from '@/components/BlockCard';
 import { Element, useEditor } from '@craftjs/core';
 import { Container } from '@/components/User/Container';
 import { PiFrameCornersLight } from 'react-icons/pi';
-import { Text } from '@/components/User/Text';
+import { Paragraph } from '@/components/User/Paragraph';
 import { IoTextOutline } from 'react-icons/io5';
+import { Heading } from '@/components/User/Heading';
+import { HeadingIcon } from '@radix-ui/react-icons';
 
 const Blocks = ({ onDragEnd }: { onDragEnd?: (key: string) => void }) => {
     const { connectors } = useEditor();
@@ -12,7 +14,6 @@ const Blocks = ({ onDragEnd }: { onDragEnd?: (key: string) => void }) => {
     return (
         <div className={'grid grid-cols-2 gap-2 p-2'}>
             <BlockCard
-                key={'container'}
                 title={'Container'}
                 ref={(ref: any) =>
                     connectors.create(ref, <Element is={Container} canvas />)
@@ -21,11 +22,16 @@ const Blocks = ({ onDragEnd }: { onDragEnd?: (key: string) => void }) => {
                 onDragEnd={() => onDragEnd?.('container')}
             />
             <BlockCard
-                key={'text'}
-                title={'Text'}
-                ref={(ref: any) => connectors.create(ref, <Text text="Text" />)}
+                title={'Paragraph'}
+                ref={(ref: any) => connectors.create(ref, <Paragraph />)}
                 icon={<IoTextOutline size={24} />}
-                onDragEnd={() => onDragEnd?.('text')}
+                onDragEnd={() => onDragEnd?.('paragraph')}
+            />
+            <BlockCard
+                title={'Heading'}
+                ref={(ref: any) => connectors.create(ref, <Heading />)}
+                icon={<HeadingIcon width={24} height={24} />}
+                onDragEnd={() => onDragEnd?.('heading')}
             />
         </div>
     );

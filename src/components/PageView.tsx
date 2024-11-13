@@ -4,7 +4,7 @@ import React from 'react';
 import { Editor } from '@craftjs/core';
 import { Root } from '@/components/User/Root';
 import { Button } from '@/components/User/Button';
-import { Text } from '@/components/User/Text';
+import { Paragraph } from '@/components/User/Paragraph';
 import { Users } from '@/components/User/Users';
 import { Container } from '@/components/User/Container';
 import { Loading } from '@/components/User/Loading';
@@ -19,7 +19,7 @@ const PageView = ({ nodes }: any) => {
         >
             <Editor
                 enabled={false}
-                resolver={{ Root, Button, Text, Users, Container, Loading }}
+                resolver={{ Root, Button, Text: Paragraph, Users, Container, Loading }}
             >
                 <FrameWrapper nodes={nodes} />
             </Editor>

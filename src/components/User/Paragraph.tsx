@@ -5,9 +5,8 @@ import TextInput from '@/components/Forms/Inputs/TextInput';
 import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
-import ElementActions from '@/components/ElementActions';
 
-export const Text = ({
+export const Paragraph = ({
     text,
     font,
     weight,
@@ -57,33 +56,30 @@ export const Text = ({
     }, [font]);
 
     return (
-        <div
+        <p
             ref={(ref: any) => {
                 connect(drag(ref));
             }}
-            className={classnames('relative text-slate-900', {
+            className={classnames('relative block text-slate-900', {
                 'border border-dashed border-slate-200': enabled,
             })}
+            style={{
+                fontFamily: font ? getFontIdFromUrl(font!) : undefined,
+                fontWeight: weight,
+                fontSize: `${size?.value}${size?.unit}`,
+                lineHeight: `${height?.value}${height?.unit}`,
+                color: color,
+                textAlign: alignment,
+                fontStyle: style,
+                textDecoration: decoration,
+            }}
         >
-            <p
-                style={{
-                    fontFamily: font ? getFontIdFromUrl(font!) : undefined,
-                    fontWeight: weight,
-                    fontSize: `${size?.value}${size?.unit}`,
-                    lineHeight: `${height?.value}${height?.unit}`,
-                    color: color,
-                    textAlign: alignment,
-                    fontStyle: style,
-                    textDecoration: decoration,
-                }}
-            >
-                {text}
-            </p>
-        </div>
+            {text}
+        </p>
     );
 };
 
-export const TextSettings = () => {
+export const ParagraphSettings = () => {
     const {
         actions: { setProp },
         text,
@@ -107,7 +103,7 @@ export const TextSettings = () => {
     );
 };
 
-export const TextStyle = () => {
+export const ParagraphStyle = () => {
     const {
         actions: { setProp },
         font,
@@ -164,14 +160,14 @@ export const TextStyle = () => {
     );
 };
 
-export const TextDefaultProps = {
-    text: 'Hi',
+export const ParagraphDefaultProps = {
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.',
 };
 
-Text.craft = {
-    props: TextDefaultProps,
+Paragraph.craft = {
+    props: ParagraphDefaultProps,
     related: {
-        settings: TextSettings,
-        style: TextStyle,
+        settings: ParagraphSettings,
+        style: ParagraphStyle,
     },
 };

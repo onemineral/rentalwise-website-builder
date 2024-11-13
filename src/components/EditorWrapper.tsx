@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { Root } from '@/components/User/Root';
 import { Button } from '@/components/User/Button';
-import { Text } from '@/components/User/Text';
+import { Paragraph } from '@/components/User/Paragraph';
 import { Container } from '@/components/User/Container';
 import { Editor, Element } from '@craftjs/core';
 import Topbar from '@/components/Topbar/Topbar';
@@ -29,6 +29,7 @@ import classnames from 'classnames';
 import Frame from 'react-frame-component';
 import IFrameWrapper from '@/components/IFrameWrapper';
 import RenderNode from '@/components/RenderNode';
+import { Heading } from '@/components/User/Heading';
 
 export const EditorContext = createContext({
     users: null,
@@ -38,8 +39,10 @@ export const EditorContext = createContext({
 export type DeviceType = 'desktop' | 'tablet' | 'mobile';
 
 const EditorWrapper = ({ data }: any) => {
-    const [localNodes, setLocalNodes] = useState<any>(null);
-    const [nodesToSave, setNodesToSave] = useState<any>(null);
+    const initialNodes = window.localStorage.getItem(
+        'rentalwise-website-builder',
+    );
+    const [nodesToSave, setNodesToSave] = useState<any>(initialNodes);
     const [loading, setLoading] = useState(false);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [device, setDevice] = useState<DeviceType>('desktop');
@@ -47,29 +50,20 @@ const EditorWrapper = ({ data }: any) => {
     const [isMounted, setMounted] = useState(false);
 
     useEffect(() => {
-        if (window) {
-            const item = window.localStorage.getItem(
-                'rentalwise-website-builder',
-            );
-
-            if (item) {
-                setLocalNodes(
-                    window.localStorage.getItem('rentalwise-website-builder'),
-                );
-                setNodesToSave(
-                    window.localStorage.getItem('rentalwise-website-builder'),
-                );
-            }
-
-            window.parent.postMessage('Hi dashboard!', 'http://localhost:3000');
-        }
-
         setMounted(true);
     }, []);
 
-    const onNodesChange = useCallback((value: any) => {
-        setNodesToSave(value.serialize());
-    }, []);
+    const onNodesChange = useCallback(
+        (value: any) => {
+            if (
+                JSON.stringify(nodesToSave) !==
+                JSON.stringify(value.serialize())
+            ) {
+                setNodesToSave(value.serialize());
+            }
+        },
+        [nodesToSave],
+    );
 
     const onSave = useCallback(async () => {
         setLoading(true);
@@ -101,28 +95,44 @@ const EditorWrapper = ({ data }: any) => {
         ];
     }, []);
 
-    const ORIGIN_URL = 'http://localhost:3000';
-
-    const onMessageReceived = (event: MessageEvent) => {
-        console.log('Message received from dashboard', event);
-        if (event.origin !== ORIGIN_URL) {
-            return;
-        }
-    };
-
-    useEffect(function () {
-        window.addEventListener('message', onMessageReceived);
-
-        return function () {
-            window.removeEventListener('message', onMessageReceived);
-        };
-    });
+    // const sendMessage = () => {
+    //     if (parent) {
+    //         parent.postMessage('Hi dashboard!', 'http://localhost:3000');
+    //     }
+    // };
+    //
+    // const ORIGIN_URL = 'http://localhost:3000';
+    //
+    // const onMessageReceived = (event: MessageEvent) => {
+    //     if (
+    //         event.origin !== ORIGIN_URL ||
+    //         /^react-devtools/gi.test(event.data.source)
+    //     ) {
+    //         return;
+    //     }
+    //
+    //     console.log('Message received from dashboard', event);
+    // };
+    //
+    // useEffect(function () {
+    //     window.addEventListener('message', onMessageReceived);
+    //
+    //     return function () {
+    //         window.removeEventListener('message', onMessageReceived);
+    //     };
+    // });
 
     return (
         <>
             <EditorContext.Provider value={data}>
                 <Editor
-                    resolver={{ Root, Button, Text, Container }}
+                    resolver={{
+                        Root,
+                        Button,
+                        Paragraph,
+                        Heading,
+                        Container,
+                    }}
                     onNodesChange={onNodesChange}
                     enabled={true}
                     indicator={{
@@ -166,7 +176,7 @@ const EditorWrapper = ({ data }: any) => {
                                         >
                                             <IFrameWrapper>
                                                 <FrameWrapper
-                                                    nodes={localNodes}
+                                                    nodes={initialNodes}
                                                     key={`frame-${device}`}
                                                 >
                                                     <Element
@@ -203,7 +213,7 @@ const EditorWrapper = ({ data }: any) => {
                     <DialogHeader>
                         <DialogTitle>Page preview</DialogTitle>
                     </DialogHeader>
-                    <PageView nodes={localNodes} />
+                    <PageView nodes={initialNodes} />
                 </DialogContent>
             </Dialog>
         </>
