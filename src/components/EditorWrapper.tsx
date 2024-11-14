@@ -31,6 +31,7 @@ import IFrameWrapper from '@/components/IFrameWrapper';
 import RenderNode from '@/components/RenderNode';
 import { Heading } from '@/components/User/Heading';
 import { Link } from '@/components/User/Link';
+import { RichText } from '@/components/User/RichText';
 
 export const EditorContext = createContext({
     users: null,
@@ -138,6 +139,7 @@ const EditorWrapper = ({ data }: any) => {
                         Button,
                         Paragraph,
                         Heading,
+                        RichText,
                         Link,
                         Container,
                     }}
@@ -221,7 +223,7 @@ const EditorWrapper = ({ data }: any) => {
                     <DialogHeader>
                         <DialogTitle>Page preview</DialogTitle>
                     </DialogHeader>
-                    <PageView nodes={localNodes} />
+                    <PageView nodes={nodesToSave} />
                 </DialogContent>
             </Dialog>
         </>

@@ -6,9 +6,15 @@ import { PiFrameCornersLight } from 'react-icons/pi';
 import { Paragraph } from '@/components/User/Paragraph';
 import { IoTextOutline } from 'react-icons/io5';
 import { Heading } from '@/components/User/Heading';
-import { ButtonIcon, HeadingIcon, Link1Icon } from '@radix-ui/react-icons';
+import {
+    ButtonIcon,
+    HeadingIcon,
+    Link1Icon,
+    ReaderIcon,
+} from '@radix-ui/react-icons';
 import { Link } from '@/components/User/Link';
 import { Button } from '@/components/User/Button';
+import { RichText } from '@/components/User/RichText';
 
 const Blocks = ({
     onDragStart,
@@ -46,6 +52,12 @@ const Blocks = ({
                 ref={(ref: any) => connectors.create(ref, <Link />)}
                 icon={<Link1Icon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('link')}
+            />
+            <BlockCard
+                title={'RichText'}
+                ref={(ref: any) => connectors.create(ref, <RichText />)}
+                icon={<ReaderIcon width={24} height={24} />}
+                onDragEnd={() => onDragEnd?.('rich-text')}
             />
             <BlockCard
                 title={'Button'}

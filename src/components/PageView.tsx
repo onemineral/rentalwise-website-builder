@@ -9,6 +9,7 @@ import FrameWrapper from '@/components/FrameWrapper';
 import { Heading } from '@/components/User/Heading';
 import { Link } from '@/components/User/Link';
 import { Button } from '@/components/User/Button';
+import { RichText } from '@/components/User/RichText';
 
 const PageView = ({ nodes }: any) => {
     return (
@@ -24,6 +25,7 @@ const PageView = ({ nodes }: any) => {
                     Button,
                     Paragraph,
                     Heading,
+                    RichText,
                     Link,
                     Container,
                 }}
