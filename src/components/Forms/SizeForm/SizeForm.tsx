@@ -14,86 +14,80 @@ const SizeForm = ({
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Width'}
-                    value={record.width}
+                    value={record?.width}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             width: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Height'}
-                    value={record.height}
+                    value={record?.height}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             height: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Min W'}
-                    value={record.minWidth}
+                    value={record?.minWidth}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             minWidth: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Min H'}
-                    value={record.minHeight}
+                    value={record?.minHeight}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             minHeight: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Max W'}
-                    value={record.maxWidth}
+                    value={record?.maxWidth}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             maxWidth: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-6'}>
                 <ValueInput
                     label={'Max H'}
-                    value={record.maxHeight}
+                    value={record?.maxHeight}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
                             maxHeight: value,
                         });
                     }}
-                    placeholder={'auto'}
                 />
             </div>
             <div className={'col-span-12'}>
                 <OverflowButtonGroupInput
                     label={'Overflow'}
                     classes={{ label: '!min-w-16 !w-16' }}
-                    value={record.overflow}
+                    value={record?.overflow}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,

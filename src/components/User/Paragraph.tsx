@@ -60,7 +60,7 @@ export const Paragraph = ({
             ref={(ref: any) => {
                 connect(drag(ref));
             }}
-            className={classnames('relative block text-slate-900', {
+            className={classnames('relative text-slate-900', {
                 'border border-dashed border-slate-200': enabled,
             })}
             style={{

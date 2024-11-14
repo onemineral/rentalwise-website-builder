@@ -66,7 +66,7 @@ export const Link = ({
             href={url}
             target={target}
             className={classnames(
-                'relative block underline text-blue-800 cursor-pointer',
+                'relative underline text-blue-800 cursor-pointer',
                 {
                     'border border-dashed border-slate-200': enabled,
                 },

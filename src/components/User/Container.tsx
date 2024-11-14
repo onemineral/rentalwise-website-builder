@@ -102,22 +102,31 @@ export const Container = ({
               }
             : undefined,
     );
-
+console.log(padding);
     return (
         <div
             style={{
                 boxSizing: 'border-box',
                 marginLeft:
-                    margin?.left === 'auto' ? 'auto' : `${margin?.left}px`,
-                marginTop: margin?.top === 'auto' ? 'auto' : `${margin?.top}px`,
+                    margin?.left?.unit === 'auto'
+                        ? 'auto'
+                        : `${margin?.left?.value}${margin?.left?.unit}`,
+                marginTop:
+                    margin?.top?.unit === 'auto'
+                        ? 'auto'
+                        : `${margin?.top?.value}${margin?.top?.unit}`,
                 marginRight:
-                    margin?.right === 'auto' ? 'auto' : `${margin?.right}px`,
+                    margin?.right?.unit === 'auto'
+                        ? 'auto'
+                        : `${margin?.right?.value}${margin?.right?.unit}`,
                 marginBottom:
-                    margin?.bottom === 'auto' ? 'auto' : `${margin?.bottom}px`,
-                paddingLeft: `${padding?.left}px`,
-                paddingTop: `${padding?.top}px`,
-                paddingRight: `${padding?.right}px`,
-                paddingBottom: `${padding?.bottom}px`,
+                    margin?.bottom?.unit === 'auto'
+                        ? 'auto'
+                        : `${margin?.bottom?.value}${margin?.bottom?.unit}`,
+                paddingLeft: `${padding?.left?.value}${padding?.left?.unit}`,
+                paddingTop: `${padding?.top?.value}${padding?.top?.unit}`,
+                paddingRight: `${padding?.right?.value}${padding?.right?.unit}`,
+                paddingBottom: `${padding?.bottom?.value}${padding?.bottom?.unit}`,
                 gap:
                     layout?.display === 'grid'
                         ? `${layout?.gridOptions?.gap || 0}px`
@@ -259,16 +268,36 @@ export const ContainerStyle = () => {
 
 export const ContainerDefaultProps = {
     padding: {
-        top: 30,
-        bottom: 30,
-        left: 30,
-        right: 30,
+        top: {
+            value: '30',
+            unit: 'px',
+        },
+        bottom: {
+            value: '30',
+            unit: 'px',
+        },
+        left: {
+            value: '30',
+            unit: 'px',
+        },
+        right: {
+            value: '30',
+            unit: 'px',
+        },
     },
     margin: {
-        top: 'auto',
-        bottom: 'auto',
-        left: 'auto',
-        right: 'auto',
+        top: {
+            value: 'auto',
+        },
+        bottom: {
+            value: 'auto',
+        },
+        left: {
+            value: 'auto',
+        },
+        right: {
+            value: 'auto',
+        },
     },
     layout: {
         display: 'block',
@@ -293,7 +322,7 @@ export const ContainerDefaultProps = {
         },
     },
     position: {
-        position: 'static',
+        position: 'relative',
     },
     background: {
         color: 'transparent',

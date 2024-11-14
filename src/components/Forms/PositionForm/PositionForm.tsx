@@ -17,10 +17,6 @@ const PositionForm = ({
                     value={record?.position}
                     options={[
                         {
-                            label: 'Static',
-                            value: 'static',
-                        },
-                        {
                             label: 'Relative',
                             value: 'relative',
                         },

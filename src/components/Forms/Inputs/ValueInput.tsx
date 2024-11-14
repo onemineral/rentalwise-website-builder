@@ -15,10 +15,11 @@ const ValueInput = ({
         },
     ],
     onChange,
-    placeholder,
+    placeholder = 'auto',
     classes = {
         label: '!min-w-12 !w-12',
     },
+    disableUnitSelection = false,
 }: {
     label?: string;
     value?: any;
@@ -26,6 +27,7 @@ const ValueInput = ({
     onChange?: (value: any) => void;
     placeholder?: string;
     classes?: any;
+    disableUnitSelection?: boolean;
 }) => {
     const [localValue, setLocalValue] = useState<any>(value);
 
@@ -74,11 +76,11 @@ const ValueInput = ({
             rightContent={
                 <SizeUnitInput
                     value={localValue?.unit}
-                    onChange={(value: any) => {
+                    onChange={!disableUnitSelection ? (value: any) => {
                         const newValue = { ...localValue, unit: value };
                         setLocalValue(newValue);
                         onChange?.(newValue);
-                    }}
+                    } : undefined}
                     options={options}
                 />
             }

@@ -6,9 +6,11 @@ import GridOptions from '@/components/Forms/LayoutForm/GridOptions';
 const LayoutForm = ({
     record,
     onChange,
+    exclude,
 }: {
     record?: any;
     onChange?: (value: any) => void;
+    exclude?: string[];
 }) => {
     const { display, flexOptions, gridOptions } = record || {};
 
@@ -20,6 +22,7 @@ const LayoutForm = ({
                     onChange={(value: string) => {
                         onChange?.({ ...record, display: value });
                     }}
+                    exclude={exclude}
                 />
             </div>
             {record?.display === 'flex' && (

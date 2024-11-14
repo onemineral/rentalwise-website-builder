@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BorderButtonGroupInput from '@/components/Forms/Inputs/BorderButtonGroupInput';
 import TextInput from '@/components/Forms/Inputs/TextInput';
 import SizeUnitInput from '@/components/Forms/Inputs/SizeUnitInput';
+import ValueInput from '@/components/Forms/Inputs/ValueInput';
 
 const SpacingForm = ({
     record,
@@ -56,9 +57,8 @@ const SpacingForm = ({
             </div>
             {marginType === 'all' && (
                 <div className={'col-span-8 flex items-center'}>
-                    <TextInput
+                    <ValueInput
                         label={'All'}
-                        rightContent={<SizeUnitInput value={'px'} />}
                         value={marginTop}
                         onChange={(value: any) =>
                             setLocalMargin({
@@ -73,15 +73,15 @@ const SpacingForm = ({
                             label: '!w-full',
                             input: '!pr-1.5',
                         }}
+                        disableUnitSelection
                     />
                 </div>
             )}
             {marginType === 'corners' && (
                 <div className={'col-span-8'}>
                     <div className={'grid grid-cols-2 gap-1'}>
-                        <TextInput
+                        <ValueInput
                             label={'Left'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={marginLeft}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, left: value })
@@ -91,10 +91,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Right'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={marginRight}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, right: value })
@@ -104,10 +104,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Top'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={marginTop}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, top: value })
@@ -117,10 +117,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Bottom'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={marginBottom}
                             onChange={(value: any) =>
                                 setLocalMargin({
@@ -133,6 +133,7 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
                     </div>
                 </div>
@@ -148,9 +149,8 @@ const SpacingForm = ({
             </div>
             {paddingType === 'all' && (
                 <div className={'col-span-8 flex items-center'}>
-                    <TextInput
+                    <ValueInput
                         label={'All'}
-                        rightContent={<SizeUnitInput value={'px'} />}
                         value={paddingTop}
                         onChange={(value: any) =>
                             setLocalPadding({
@@ -165,15 +165,15 @@ const SpacingForm = ({
                             label: '!w-full',
                             input: '!pr-1.5',
                         }}
+                        disableUnitSelection
                     />
                 </div>
             )}
             {paddingType === 'corners' && (
                 <div className={'col-span-8'}>
                     <div className={'grid grid-cols-2 gap-1'}>
-                        <TextInput
+                        <ValueInput
                             label={'Left'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingLeft}
                             onChange={(value: any) =>
                                 setLocalPadding({
@@ -186,10 +186,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Right'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingRight}
                             onChange={(value: any) =>
                                 setLocalPadding({
@@ -202,10 +202,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Top'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingTop}
                             onChange={(value: any) =>
                                 setLocalPadding({ ...localPadding, top: value })
@@ -215,10 +215,10 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
-                        <TextInput
+                        <ValueInput
                             label={'Bottom'}
-                            rightContent={<SizeUnitInput value={'px'} />}
                             value={paddingBottom}
                             onChange={(value: any) =>
                                 setLocalPadding({
@@ -231,6 +231,7 @@ const SpacingForm = ({
                                 label: '!w-full',
                                 input: '!pr-1.5',
                             }}
+                            disableUnitSelection
                         />
                     </div>
                 </div>

@@ -7,10 +7,12 @@ const BaseButton = forwardRef(
             onClick,
             children,
             className,
+            style,
         }: {
             onClick?: (e: any) => void;
             children?: ReactNode;
             className?: string;
+            style?: any;
         },
         ref: any,
     ) => {
@@ -23,6 +25,7 @@ const BaseButton = forwardRef(
                 )}
                 type="button"
                 onClick={onClick}
+                style={style}
             >
                 {children}
             </button>

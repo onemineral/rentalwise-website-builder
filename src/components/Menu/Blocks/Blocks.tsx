@@ -6,10 +6,17 @@ import { PiFrameCornersLight } from 'react-icons/pi';
 import { Paragraph } from '@/components/User/Paragraph';
 import { IoTextOutline } from 'react-icons/io5';
 import { Heading } from '@/components/User/Heading';
-import { HeadingIcon, Link1Icon } from '@radix-ui/react-icons';
+import { ButtonIcon, HeadingIcon, Link1Icon } from '@radix-ui/react-icons';
 import { Link } from '@/components/User/Link';
+import { Button } from '@/components/User/Button';
 
-const Blocks = ({ onDragEnd }: { onDragEnd?: (key: string) => void }) => {
+const Blocks = ({
+    onDragStart,
+    onDragEnd,
+}: {
+    onDragStart?: (key: string) => void;
+    onDragEnd?: (key: string) => void;
+}) => {
     const { connectors } = useEditor();
 
     return (
@@ -39,6 +46,12 @@ const Blocks = ({ onDragEnd }: { onDragEnd?: (key: string) => void }) => {
                 ref={(ref: any) => connectors.create(ref, <Link />)}
                 icon={<Link1Icon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('link')}
+            />
+            <BlockCard
+                title={'Button'}
+                ref={(ref: any) => connectors.create(ref, <Button />)}
+                icon={<ButtonIcon width={24} height={24} />}
+                onDragEnd={() => onDragEnd?.('button')}
             />
         </div>
     );

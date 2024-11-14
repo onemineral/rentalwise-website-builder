@@ -8,11 +8,13 @@ const DisplayButtonGroupInput = ({
     onChange,
     label = 'Display',
     classes,
+    exclude,
 }: {
     value?: any;
     onChange?: (value: any) => void;
     label?: string;
     classes?: any;
+    exclude?: string[];
 }) => {
     const buttons: ButtonGroupItem[] = [
         {
@@ -27,12 +29,18 @@ const DisplayButtonGroupInput = ({
             value: 'grid',
             label: <span>Grid</span>,
         },
+        {
+            value: 'inline',
+            label: <span>Inline</span>,
+        },
     ];
 
     return (
         <ButtonGroupInput
             label={label}
-            buttons={buttons}
+            buttons={buttons.filter(
+                (item: any) => !exclude?.includes(item.value),
+            )}
             value={value}
             onChange={onChange}
             classes={classes}
