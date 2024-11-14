@@ -30,7 +30,7 @@ const DisplayButtonGroupInput = ({
             label: <span>Grid</span>,
         },
         {
-            value: 'inline',
+            value: 'inline-block',
             label: <span>Inline</span>,
         },
     ];

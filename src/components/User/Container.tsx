@@ -102,7 +102,7 @@ export const Container = ({
               }
             : undefined,
     );
-console.log(padding);
+
     return (
         <div
             style={{

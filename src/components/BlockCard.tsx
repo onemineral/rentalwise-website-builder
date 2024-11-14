@@ -31,7 +31,7 @@ const BlockCard = forwardRef(
             >
                 <div
                     className={classnames(
-                        'flex flex-col w-full items-center justify-center space-y-2 border border-slate-300 rounded-md px-8 py-3 cursor-pointer hover:bg-slate-100 hover:border-slate-500 select-none',
+                        'flex flex-col w-full items-center justify-center space-y-2 border border-slate-300 rounded-md px-4 py-3 cursor-pointer hover:bg-slate-100 hover:border-slate-500 select-none',
                         { 'bg-slate-100': active },
                     )}
                 >

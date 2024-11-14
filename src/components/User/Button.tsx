@@ -14,7 +14,7 @@ export const Button = ({ text, layout, margin, padding, size }: any) => {
     } = useNode();
 
     return (
-        <span
+        <div
             ref={(ref: any) => connect(drag(ref))}
             className={'relative'}
             style={{
@@ -53,7 +53,7 @@ export const Button = ({ text, layout, margin, padding, size }: any) => {
             >
                 {text}
             </BaseButton>
-        </span>
+        </div>
     );
 };
 
@@ -171,6 +171,9 @@ export const ButtonStyle = () => {
 
 export const ButtonDefaultProps = {
     text: 'Button',
+    layout: {
+        display: 'inline-block',
+    },
 };
 
 Button.craft = {
