@@ -46,7 +46,7 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
         <div
             ref={(ref: any) => connect(ref)}
             className={classnames('relative', {
-                '!w-full !h-20': enabled,
+                '!w-full !min-h-20': enabled,
             })}
             style={{
                 ...layout,
