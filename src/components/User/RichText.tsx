@@ -1,22 +1,53 @@
+'use client';
+
 import React from 'react';
-import { useNode } from '@craftjs/core';
-import BaseButton from '@/components/BaseButton';
+import { useEditor, useNode } from '@craftjs/core';
 import Accordion from '@/components/Accordion/Accordion';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
-import TextInput from '@/components/Forms/Inputs/TextInput';
-import SelectInput from '@/components/Forms/Inputs/SelectInput';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import SizeForm from '@/components/Forms/SizeForm/SizeForm';
+import {
+    BubbleMenu,
+    EditorContent,
+    useEditor as useTipTapEditor,
+} from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
+import classnames from 'classnames';
 
-export const RichText = ({ text, layout, margin, padding, size }: any) => {
+export const RichText = ({ content, layout, margin, padding, size }: any) => {
     const {
         connectors: { connect, drag },
+        actions: { setProp },
     } = useNode();
+
+    const { enabled } = useEditor((state: any) => {
+        return { enabled: state.options.enabled };
+    });
+
+    const editor = useTipTapEditor({
+        extensions: [StarterKit, Underline],
+        editorProps: {
+            attributes: {
+                class: 'focus:outline-none',
+            },
+        },
+        content: content,
+        onUpdate({ editor }) {
+            setProp((props: any) => (props.content = editor.getJSON()), 500);
+        },
+    });
+
+    if (!editor) {
+        return null;
+    }
 
     return (
         <div
-            ref={(ref: any) => connect(drag(ref))}
-            className={'relative'}
+            ref={(ref: any) => connect(ref)}
+            className={classnames('relative', {
+                '!w-full !h-20': enabled,
+            })}
             style={{
                 ...layout,
                 marginLeft:
@@ -47,7 +78,87 @@ export const RichText = ({ text, layout, margin, padding, size }: any) => {
                 paddingBottom: `${padding?.bottom}px`,
             }}
         >
-            {text}
+            {editor && (
+                <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+                    <div className="bubble-menu">
+                        <button
+                            onClick={() => editor.chain().focus().undo().run()}
+                            disabled={!editor.can().undo()}
+                        >
+                            Undo
+                        </button>
+                        <button
+                            onClick={() => editor.chain().focus().redo().run()}
+                            disabled={!editor.can().redo()}
+                        >
+                            Redo
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleBold().run()
+                            }
+                            className={
+                                editor.isActive('bold') ? 'is-active' : ''
+                            }
+                        >
+                            Bold
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleItalic().run()
+                            }
+                            className={
+                                editor.isActive('italic') ? 'is-active' : ''
+                            }
+                        >
+                            Italic
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleUnderline().run()
+                            }
+                            className={
+                                editor.isActive('underline') ? 'is-active' : ''
+                            }
+                        >
+                            Underline
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleStrike().run()
+                            }
+                            className={
+                                editor.isActive('strike') ? 'is-active' : ''
+                            }
+                        >
+                            Strike
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleOrderedList().run()
+                            }
+                            className={
+                                editor.isActive('orderedList')
+                                    ? 'is-active'
+                                    : ''
+                            }
+                        >
+                            Numbered List
+                        </button>
+                        <button
+                            onClick={() =>
+                                editor.chain().focus().toggleBulletList().run()
+                            }
+                            className={
+                                editor.isActive('bulletList') ? 'is-active' : ''
+                            }
+                        >
+                            Bullet List
+                        </button>
+                    </div>
+                </BubbleMenu>
+            )}
+            <EditorContent editor={editor} />
         </div>
     );
 };
@@ -55,55 +166,11 @@ export const RichText = ({ text, layout, margin, padding, size }: any) => {
 export const RichTextSettings = () => {
     const {
         actions: { setProp },
-        text,
-        url,
-        target,
-    } = useNode((node) => ({
-        text: node.data.props.text,
-        url: node.data.props.url,
-        target: node.data.props.target,
-    }));
+    } = useNode((node) => ({}));
 
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
-            <div className={'col-span-12'}>
-                <TextInput
-                    label={'Text'}
-                    multiline
-                    value={text}
-                    onChange={(value: any) => {
-                        setProp((props: any) => (props.text = value), 500);
-                    }}
-                />
-            </div>
-            <div className={'col-span-12'}>
-                <TextInput
-                    label={'Url'}
-                    value={url}
-                    onChange={(value: any) => {
-                        setProp((props: any) => (props.url = value), 500);
-                    }}
-                />
-            </div>
-            <div className={'col-span-12'}>
-                <SelectInput
-                    label={'Target'}
-                    options={[
-                        {
-                            label: 'Blank',
-                            value: '_blank',
-                        },
-                        {
-                            label: 'Self',
-                            value: '_self',
-                        },
-                    ]}
-                    value={target}
-                    onChange={(value: any) => {
-                        setProp((props: any) => (props.target = value), 500);
-                    }}
-                />
-            </div>
+            <div className={'col-span-12'}></div>
         </div>
     );
 };
@@ -165,10 +232,10 @@ export const RichTextStyle = () => {
 };
 
 export const RichTextDefaultProps = {
-    text: 'Richtext',
     layout: {
         display: 'inline-block',
     },
+    content: 'Mumu',
 };
 
 RichText.craft = {

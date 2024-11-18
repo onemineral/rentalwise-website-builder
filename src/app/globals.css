@@ -101,16 +101,49 @@ body {
     h6 {
         @apply text-lg;
     }
+
+    ul {
+        @apply list-disc ml-8;
+    }
+
+    ol {
+        @apply list-decimal ml-8;
+    }
 }
 
 .component-selected {
 }
 .component-selected::after {
     content: ' ';
-    @apply border-primary border border-dashed w-full h-full absolute left-0 top-0 pointer-events-none block;
+    @apply border-primary border border-dashed absolute inset-0 pointer-events-none block;
 }
 
 .frame-root,
 .frame-content {
     @apply h-full;
+}
+
+/* Bubble menu */
+.bubble-menu {
+    @apply shadow-sm flex space-x-2 bg-white rounded-lg p-1 border border-slate-200;
+
+    button {
+        @apply rounded-md p-1 px-2 text-sm;
+
+        &:hover {
+            @apply bg-slate-100;
+        }
+
+        &.is-active {
+            @apply bg-slate-200;
+
+            &:hover {
+                @apply bg-slate-200;
+            }
+        }
+    }
+}
+
+.tippy-box {
+    @apply !max-w-7xl;
 }

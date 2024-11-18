@@ -52,7 +52,6 @@ const ElementActions = () => {
                 style={{
                     left: getPos().left,
                     top: getPos().top,
-                    zIndex: 9999,
                 }}
             >
                 {/*Actions*/}
