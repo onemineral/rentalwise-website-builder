@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useEditor, useNode } from '@craftjs/core';
 import Accordion from '@/components/Accordion/Accordion';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
@@ -14,13 +14,6 @@ import {
 import { StarterKit } from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import classnames from 'classnames';
-import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogTrigger,
-} from '@/components/ui/dialog';
 import HtmlEditorModal from '@/components/User/Richtext/HtmlEditorModal';
 
 export const RichText = ({ content, layout, margin, padding, size }: any) => {
@@ -33,18 +26,33 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
         return { enabled: state.options.enabled };
     });
 
+    const extensions = [StarterKit, Underline];
+
     const editor = useTipTapEditor({
-        extensions: [StarterKit, Underline],
+        extensions,
         editorProps: {
             attributes: {
                 class: 'focus:outline-none',
             },
         },
-        content: content,
+        content: content?.html,
         onUpdate({ editor }) {
-            setProp((props: any) => (props.content = editor.getJSON()), 500);
+            setProp(
+                (props: any) =>
+                    (props.content = {
+                        json: editor.getJSON(),
+                        html: editor.getHTML(),
+                    }),
+                500,
+            );
         },
     });
+
+    useEffect(() => {
+        if (editor && editor.getHTML() !== content?.html) {
+            editor.commands.setContent(content.html);
+        }
+    }, [content]);
 
     if (!editor) {
         return null;
@@ -54,7 +62,8 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
         <div
             ref={(ref: any) => connect(ref)}
             className={classnames('relative', {
-                '!w-full !min-h-20': enabled,
+                '!min-h-20': enabled && !size?.height?.value,
+                '!w-full': enabled && !size?.width?.value,
             })}
             style={{
                 ...layout,
@@ -230,7 +239,19 @@ export const RichTextSettings = () => {
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
             <div className={'col-span-12'}>
-                <HtmlEditorModal />
+                <HtmlEditorModal
+                    value={content.html}
+                    onChange={(value: string | undefined) => {
+                        setProp(
+                            (props: any) =>
+                                (props.content = {
+                                    ...props.content,
+                                    html: value,
+                                }),
+                            500,
+                        );
+                    }}
+                />
             </div>
         </div>
     );
@@ -296,7 +317,9 @@ export const RichTextDefaultProps = {
     layout: {
         display: 'inline-block',
     },
-    content: 'Mumu',
+    content: {
+        html: 'Some default content',
+    },
 };
 
 RichText.craft = {
