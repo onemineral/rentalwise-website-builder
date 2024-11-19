@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Loader, { LoaderSize } from '@/components/Loader';
 import BaseButton from '@/components/BaseButton';
 import { Dropdown } from '@/components/Dropdown';
 import { IoDocumentOutline } from 'react-icons/io5';
 import ActionList from '@/components/ActionList/ActionList';
 import { Button } from '@/components/ui/button';
-import { DeviceType } from '@/components/EditorWrapper';
+import { DeviceType, EditorContext } from '@/components/EditorWrapper';
 import { DesktopIcon, MobileIcon } from '@radix-ui/react-icons';
 import Tooltip from '@/components/Tooltip/Tooltip';
+import { useEditorStore } from '@/hooks/useEditorStore';
 
 const Topbar = ({
     onSave,
@@ -20,6 +21,15 @@ const Topbar = ({
     onChangeDevice?: (device: DeviceType) => void;
     loading?: boolean;
 }) => {
+    const pages = useEditorStore((state: any) => state.pages);
+    const currentPage =
+        useEditorStore((state: any) => state.currentPage) || pages?.[0];
+    const changePage = useEditorStore((state: any) => state.changePage);
+    const languages = useEditorStore((state: any) => state.languages);
+    const currentLanguage =
+        useEditorStore((state: any) => state.currentLanguage) || languages?.[0];
+    const changeLanguage = useEditorStore((state: any) => state.changeLanguage);
+
     return (
         <div
             className={
@@ -31,24 +41,65 @@ const Topbar = ({
             </h1>
 
             <div className={'flex w-full h-full items-center px-3'}>
-                <Dropdown
-                    trigger={
-                        <div
-                            className={
-                                'flex items-center text-xs px-2 py-1 border border-slate-500 rounded hover:bg-slate-100'
-                            }
-                        >
-                            <IoDocumentOutline className={'mr-1'} size={13} />
-                            Home
-                        </div>
-                    }
-                >
-                    <ActionList>
-                        <ActionList.Item>Page 1</ActionList.Item>
-                        <ActionList.Item>Page 2</ActionList.Item>
-                        <ActionList.Item>Page 3</ActionList.Item>
-                    </ActionList>
-                </Dropdown>
+                {pages?.length > 0 && (
+                    <Dropdown
+                        trigger={
+                            <div
+                                className={
+                                    'flex items-center text-xs px-2 py-1 border border-slate-500 rounded hover:bg-slate-100'
+                                }
+                            >
+                                <IoDocumentOutline
+                                    className={'mr-1'}
+                                    size={13}
+                                />
+                                {currentPage.title}
+                            </div>
+                        }
+                    >
+                        <ActionList>
+                            {(pages || []).map((item: any, index: number) => (
+                                <ActionList.Item
+                                    key={index}
+                                    onClick={() => changePage(item)}
+                                    active={item.slug === currentPage.slug}
+                                >
+                                    {item.title}
+                                </ActionList.Item>
+                            ))}
+                        </ActionList>
+                    </Dropdown>
+                )}
+
+                {languages?.length > 0 && (
+                    <Dropdown
+                        trigger={
+                            <div
+                                className={
+                                    'flex items-center text-xs ml-2 px-2 py-1 border border-slate-500 rounded hover:bg-slate-100'
+                                }
+                            >
+                                {currentLanguage.title}
+                            </div>
+                        }
+                    >
+                        <ActionList>
+                            {(languages || []).map(
+                                (item: any, index: number) => (
+                                    <ActionList.Item
+                                        key={index}
+                                        onClick={() => changeLanguage(item)}
+                                        active={
+                                            item.code === currentLanguage.code
+                                        }
+                                    >
+                                        {item.title}
+                                    </ActionList.Item>
+                                ),
+                            )}
+                        </ActionList>
+                    </Dropdown>
+                )}
 
                 <div className={'flex items-center justify-center w-full'}>
                     <Tooltip
@@ -64,7 +115,10 @@ const Topbar = ({
                             <DesktopIcon width={20} height={20} />
                         </div>
                     </Tooltip>
-                    <Tooltip content={'Tablet'} classes={{ trigger: '!w-auto' }}>
+                    <Tooltip
+                        content={'Tablet'}
+                        classes={{ trigger: '!w-auto' }}
+                    >
                         <div
                             className={
                                 'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'
@@ -74,7 +128,10 @@ const Topbar = ({
                             <MobileIcon width={20} height={20} />
                         </div>
                     </Tooltip>
-                    <Tooltip content={'Mobile'} classes={{ trigger: '!w-auto' }}>
+                    <Tooltip
+                        content={'Mobile'}
+                        classes={{ trigger: '!w-auto' }}
+                    >
                         <div
                             className={
                                 'hover:bg-slate-200 hover:border border-transparent rounded-md p-2 cursor-pointer size-10 items-center justify-center flex'

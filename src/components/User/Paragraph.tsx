@@ -5,6 +5,7 @@ import TextInput from '@/components/Forms/Inputs/TextInput';
 import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
+import { useEditorStore } from '@/hooks/useEditorStore';
 
 export const Paragraph = ({
     text,
@@ -26,6 +27,10 @@ export const Paragraph = ({
     });
 
     const linkRef = useRef<HTMLLinkElement | null>(null);
+
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     useEffect(() => {
         if (!linkRef.current && font) {
@@ -74,12 +79,15 @@ export const Paragraph = ({
                 textDecoration: decoration,
             }}
         >
-            {text}
+            {text?.[currentLanguage?.code]}
         </p>
     );
 };
 
 export const ParagraphSettings = () => {
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
     const {
         actions: { setProp },
         text,
@@ -93,9 +101,13 @@ export const ParagraphSettings = () => {
                 <TextInput
                     label={'Text'}
                     multiline
-                    value={text}
+                    value={text?.[currentLanguage?.code]}
                     onChange={(value: any) => {
-                        setProp((props: any) => (props.text = value), 500);
+                        setProp(
+                            (props: any) =>
+                                (props.text[currentLanguage?.code] = value),
+                            500,
+                        );
                     }}
                 />
             </div>
@@ -161,7 +173,9 @@ export const ParagraphStyle = () => {
 };
 
 export const ParagraphDefaultProps = {
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.',
+    text: {
+        en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.',
+    },
 };
 
 Paragraph.craft = {

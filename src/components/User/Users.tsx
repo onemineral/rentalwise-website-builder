@@ -3,7 +3,6 @@ import { Node, useNode } from '@craftjs/core';
 import { EditorContext } from '@/components/EditorWrapper';
 import { useData } from '@/hooks/useData';
 import classnames from 'classnames';
-import ElementActions from '@/components/ElementActions';
 
 export const Users = () => {
     const {
@@ -35,14 +34,13 @@ export const Users = () => {
             <strong>Server loaded data:</strong> {JSON.stringify(serverUsers)}
             <br />
             {isLoading ? (
-                <strong>Loadind...</strong>
+                <strong>Loading...</strong>
             ) : (
                 <div>
                     <strong>Client loaded data</strong>
                     {JSON.stringify(data)}
                 </div>
             )}
-            {isHovered && <ElementActions label={label} id={id} />}
         </div>
     );
 };

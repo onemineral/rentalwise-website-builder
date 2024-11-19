@@ -32,10 +32,12 @@ import RenderNode from '@/components/RenderNode';
 import { Heading } from '@/components/User/Heading';
 import { Link } from '@/components/User/Link';
 import { RichText } from '@/components/User/Richtext/RichText';
+import { useEditorStore } from '@/hooks/useEditorStore';
 
 export const EditorContext = createContext({
     users: null,
     query: null,
+    pages: null,
 });
 
 export type DeviceType = 'desktop' | 'tablet' | 'mobile';
@@ -49,17 +51,51 @@ const EditorWrapper = ({ data }: any) => {
 
     const [isMounted, setMounted] = useState(false);
 
+    const pages = [
+        {
+            title: 'Home',
+            slug: 'home',
+        },
+        {
+            title: 'About',
+            slug: 'about',
+        },
+        {
+            title: 'Contact',
+            slug: 'contact',
+        },
+    ];
+
+    const languages = [
+        {
+            title: 'English',
+            code: 'en',
+        },
+        {
+            title: 'Spanish',
+            code: 'es',
+        },
+    ];
+
+    const setPages = useEditorStore((state: any) => state.setPages);
+    const setLanguages = useEditorStore((state: any) => state.setLanguages);
+    const currentPage = useEditorStore((state: any) => state.currentPage);
+
+    const localStorageKey = `rentalwise-website-builder_${currentPage?.slug}`;
+
     useEffect(() => {
         if (window) {
-            setLocalNodes(
-                window.localStorage.getItem('rentalwise-website-builder'),
-            );
-            setNodesToSave(
-                window.localStorage.getItem('rentalwise-website-builder'),
-            );
+            const nodes = window.localStorage.getItem(localStorageKey);
+
+            setLocalNodes(nodes);
+            setNodesToSave(nodes);
         }
+
         setMounted(true);
-    }, []);
+
+        setPages(pages);
+        setLanguages(languages);
+    }, [localStorageKey]);
 
     const onNodesChange = useCallback(
         (value: any) => {
@@ -77,10 +113,7 @@ const EditorWrapper = ({ data }: any) => {
         setLoading(true);
 
         if (window) {
-            window.localStorage.setItem(
-                'rentalwise-website-builder',
-                nodesToSave || '',
-            );
+            window.localStorage.setItem(localStorageKey, nodesToSave || '');
         }
 
         setTimeout(() => {
@@ -132,7 +165,7 @@ const EditorWrapper = ({ data }: any) => {
 
     return (
         <>
-            <EditorContext.Provider value={data}>
+            <EditorContext.Provider value={{ ...data, pages }}>
                 <Editor
                     resolver={{
                         Root,
