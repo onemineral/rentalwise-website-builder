@@ -14,7 +14,7 @@ import {
 } from '@radix-ui/react-icons';
 import { Link } from '@/components/User/Link';
 import { Button } from '@/components/User/Button';
-import { RichText } from '@/components/User/RichText';
+import { RichText } from '@/components/User/Richtext/RichText';
 
 const Blocks = ({
     onDragStart,

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useEditor, useNode } from '@craftjs/core';
 import Accordion from '@/components/Accordion/Accordion';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
@@ -14,6 +14,14 @@ import {
 import { StarterKit } from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import classnames from 'classnames';
+import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import HtmlEditorModal from '@/components/User/Richtext/HtmlEditorModal';
 
 export const RichText = ({ content, layout, margin, padding, size }: any) => {
     const {
@@ -214,11 +222,16 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
 export const RichTextSettings = () => {
     const {
         actions: { setProp },
-    } = useNode((node) => ({}));
+        content,
+    } = useNode((node) => ({
+        content: node.data.props.content,
+    }));
 
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
-            <div className={'col-span-12'}></div>
+            <div className={'col-span-12'}>
+                <HtmlEditorModal />
+            </div>
         </div>
     );
 };

@@ -9,7 +9,7 @@ import FrameWrapper from '@/components/FrameWrapper';
 import { Heading } from '@/components/User/Heading';
 import { Link } from '@/components/User/Link';
 import { Button } from '@/components/User/Button';
-import { RichText } from '@/components/User/RichText';
+import { RichText } from '@/components/User/Richtext/RichText';
 
 const PageView = ({ nodes }: any) => {
     return (

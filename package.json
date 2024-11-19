@@ -12,6 +12,7 @@
         "@craftjs/core": "^0.2.10",
         "@craftjs/layers": "^0.2.5",
         "@headlessui/react": "^2.1.10",
+        "@monaco-editor/react": "^4.6.0",
         "@onemineral/pms-js-sdk": "^0.1.45-beta",
         "@popperjs/core": "^2.11.8",
         "@radix-ui/react-checkbox": "^1.1.2",

@@ -31,7 +31,7 @@ import IFrameWrapper from '@/components/IFrameWrapper';
 import RenderNode from '@/components/RenderNode';
 import { Heading } from '@/components/User/Heading';
 import { Link } from '@/components/User/Link';
-import { RichText } from '@/components/User/RichText';
+import { RichText } from '@/components/User/Richtext/RichText';
 
 export const EditorContext = createContext({
     users: null,
