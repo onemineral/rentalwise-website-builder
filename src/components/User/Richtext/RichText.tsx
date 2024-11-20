@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useEditor, useNode } from '@craftjs/core';
 import Accordion from '@/components/Accordion/Accordion';
 import LayoutForm from '@/components/Forms/LayoutForm/LayoutForm';
@@ -15,6 +15,8 @@ import { StarterKit } from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import classnames from 'classnames';
 import HtmlEditorModal from '@/components/User/Richtext/HtmlEditorModal';
+import { useEditorStore } from '@/hooks/useEditorStore';
+import { translate } from '@/lib/utils';
 
 export const RichText = ({ content, layout, margin, padding, size }: any) => {
     const {
@@ -26,6 +28,10 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
         return { enabled: state.options.enabled };
     });
 
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
+
     const extensions = [StarterKit, Underline];
 
     const editor = useTipTapEditor({
@@ -35,13 +41,19 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
                 class: 'focus:outline-none',
             },
         },
-        content: content?.html,
+        content: translate(content?.html, currentLanguage?.code),
         onUpdate({ editor }) {
             setProp(
                 (props: any) =>
                     (props.content = {
-                        json: editor.getJSON(),
-                        html: editor.getHTML(),
+                        json: {
+                            ...props.content.json,
+                            [currentLanguage?.code || 'en']: editor.getJSON(),
+                        },
+                        html: {
+                            ...props.content.html,
+                            [currentLanguage?.code || 'en']: editor.getHTML(),
+                        },
                     }),
                 500,
             );
@@ -49,10 +61,15 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
     });
 
     useEffect(() => {
-        if (editor && editor.getHTML() !== content?.html) {
-            editor.commands.setContent(content.html);
+        const translatedHtmlContent = translate(
+            content?.html,
+            currentLanguage?.code,
+        );
+
+        if (editor && editor.getHTML() !== translatedHtmlContent) {
+            editor.commands.setContent(translatedHtmlContent);
         }
-    }, [content]);
+    }, [content, currentLanguage]);
 
     if (!editor) {
         return null;
@@ -236,6 +253,10 @@ export const RichTextSettings = () => {
         content: node.data.props.content,
     }));
 
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
+
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
             <div className={'col-span-12'}>
@@ -246,7 +267,10 @@ export const RichTextSettings = () => {
                             (props: any) =>
                                 (props.content = {
                                     ...props.content,
-                                    html: value,
+                                    html: translate(
+                                        value,
+                                        currentLanguage?.code,
+                                    ),
                                 }),
                             500,
                         );
@@ -318,7 +342,9 @@ export const RichTextDefaultProps = {
         display: 'inline-block',
     },
     content: {
-        html: 'Some default content',
+        html: {
+            en: 'Some default content',
+        },
     },
 };
 

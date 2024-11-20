@@ -6,6 +6,7 @@ import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 import { useEditorStore } from '@/hooks/useEditorStore';
+import { translate } from '@/lib/utils';
 
 export const Paragraph = ({
     text,
@@ -79,7 +80,7 @@ export const Paragraph = ({
                 textDecoration: decoration,
             }}
         >
-            {text?.[currentLanguage?.code]}
+            {translate(text, currentLanguage?.code)}
         </p>
     );
 };
@@ -101,11 +102,12 @@ export const ParagraphSettings = () => {
                 <TextInput
                     label={'Text'}
                     multiline
-                    value={text?.[currentLanguage?.code]}
+                    value={translate(text, currentLanguage?.code)}
                     onChange={(value: any) => {
                         setProp(
                             (props: any) =>
-                                (props.text[currentLanguage?.code] = value),
+                                (props.text[currentLanguage?.code || 'en'] =
+                                    value),
                             500,
                         );
                     }}
