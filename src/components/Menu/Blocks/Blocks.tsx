@@ -34,36 +34,42 @@ const Blocks = ({
                 }
                 icon={<PiFrameCornersLight size={26} />}
                 onDragEnd={() => onDragEnd?.('container')}
+                onDragStart={() => onDragStart?.('container')}
             />
             <BlockCard
                 title={'Paragraph'}
                 ref={(ref: any) => connectors.create(ref, <Paragraph />)}
                 icon={<IoTextOutline size={24} />}
                 onDragEnd={() => onDragEnd?.('paragraph')}
+                onDragStart={() => onDragStart?.('paragraph')}
             />
             <BlockCard
                 title={'Heading'}
                 ref={(ref: any) => connectors.create(ref, <Heading />)}
                 icon={<HeadingIcon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('heading')}
+                onDragStart={() => onDragStart?.('heading')}
             />
             <BlockCard
                 title={'Link'}
                 ref={(ref: any) => connectors.create(ref, <Link />)}
                 icon={<Link1Icon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('link')}
+                onDragStart={() => onDragStart?.('link')}
             />
             <BlockCard
                 title={'RichText'}
                 ref={(ref: any) => connectors.create(ref, <RichText />)}
                 icon={<ReaderIcon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('rich-text')}
+                onDragStart={() => onDragStart?.('rich-text')}
             />
             <BlockCard
                 title={'Button'}
                 ref={(ref: any) => connectors.create(ref, <Button />)}
                 icon={<ButtonIcon width={24} height={24} />}
                 onDragEnd={() => onDragEnd?.('button')}
+                onDragStart={() => onDragStart?.('button')}
             />
         </div>
     );

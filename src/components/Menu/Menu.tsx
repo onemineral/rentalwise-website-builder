@@ -20,14 +20,15 @@ export const MenuContext = createContext({
 const Menu = () => {
     const menuRef: any = useRef(null);
     const [contextMenu, setContextMenu] = useState<ReactNode>(null);
+    const [contextMenuVisible, setContextMenuVisible] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState<null | string>(null);
 
     useClickOutside(menuRef, () => {
-        setContextMenu(null);
+        setContextMenuVisible(false);
     });
 
     const onBlockDrag = useCallback(() => {
-        setContextMenu(null);
+        setContextMenuVisible(false);
     }, []);
 
     return (
@@ -50,11 +51,12 @@ const Menu = () => {
                         onClick={() => {
                             setActiveMenuItem('blocks');
 
-                            if (contextMenu) {
-                                setContextMenu(null);
+                            if (contextMenu && contextMenuVisible) {
+                                setContextMenuVisible(false);
                             } else {
+                                setContextMenuVisible(true);
                                 setContextMenu(() => {
-                                    return <Blocks onDragEnd={onBlockDrag} />;
+                                    return <Blocks onDragStart={onBlockDrag} />;
                                 });
                             }
                         }}
@@ -95,9 +97,9 @@ const Menu = () => {
                         <IoSettingsOutline size={24} />
                     </div>
                 </div>
-                <AnimatePresence initial={false}>
-                    {contextMenu && <ContextMenu>{contextMenu}</ContextMenu>}
-                </AnimatePresence>
+                <ContextMenu show={contextMenuVisible}>
+                    {contextMenu}
+                </ContextMenu>
             </div>
         </MenuContext.Provider>
     );
