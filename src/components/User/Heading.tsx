@@ -6,6 +6,8 @@ import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 import HeadingButtonGroupInput from '@/components/Forms/Inputs/HeadingButtonGroupInput';
+import { useEditorStore } from '@/hooks/useEditorStore';
+import { translate } from '@/lib/utils';
 
 export const Heading = ({
     text,
@@ -28,6 +30,10 @@ export const Heading = ({
     });
 
     const linkRef = useRef<HTMLLinkElement | null>(null);
+
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     useEffect(() => {
         if (!linkRef.current && font) {
@@ -78,7 +84,7 @@ export const Heading = ({
                 textDecoration: decoration,
             }}
         >
-            {text}
+            {translate(text, currentLanguage?.code)}
         </Component>
     );
 };
@@ -92,6 +98,10 @@ export const HeadingSettings = () => {
         text: node.data.props.text,
         tag: node.data.props.tag,
     }));
+
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
@@ -107,9 +117,14 @@ export const HeadingSettings = () => {
                 <TextInput
                     label={'Text'}
                     multiline
-                    value={text}
+                    value={translate(text, currentLanguage?.code)}
                     onChange={(value: any) => {
-                        setProp((props: any) => (props.text = value), 500);
+                        setProp(
+                            (props: any) =>
+                                (props.text[currentLanguage?.code || 'en'] =
+                                    value),
+                            500,
+                        );
                     }}
                 />
             </div>
@@ -175,7 +190,9 @@ export const HeadingStyle = () => {
 };
 
 export const HeadingDefaultProps = {
-    text: 'Heading',
+    text: {
+        en: 'Heading',
+    },
     tag: 'h1',
 };
 

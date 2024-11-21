@@ -7,11 +7,17 @@ import TextInput from '@/components/Forms/Inputs/TextInput';
 import SelectInput from '@/components/Forms/Inputs/SelectInput';
 import SpacingForm from '@/components/Forms/SpacingForm/SpacingForm';
 import SizeForm from '@/components/Forms/SizeForm/SizeForm';
+import { useEditorStore } from '@/hooks/useEditorStore';
+import { translate } from '@/lib/utils';
 
 export const Button = ({ text, layout, margin, padding, size }: any) => {
     const {
         connectors: { connect, drag },
     } = useNode();
+
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     return (
         <div
@@ -51,7 +57,7 @@ export const Button = ({ text, layout, margin, padding, size }: any) => {
                     paddingBottom: `${padding?.bottom}px`,
                 }}
             >
-                {text}
+                {translate(text, currentLanguage?.code)}
             </BaseButton>
         </div>
     );
@@ -69,15 +75,24 @@ export const ButtonSettings = () => {
         target: node.data.props.target,
     }));
 
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
+
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
             <div className={'col-span-12'}>
                 <TextInput
                     label={'Text'}
                     multiline
-                    value={text}
+                    value={translate(text, currentLanguage?.code)}
                     onChange={(value: any) => {
-                        setProp((props: any) => (props.text = value), 500);
+                        setProp(
+                            (props: any) =>
+                                (props.text[currentLanguage?.code || 'en'] =
+                                    value),
+                            500,
+                        );
                     }}
                 />
             </div>
@@ -170,7 +185,9 @@ export const ButtonStyle = () => {
 };
 
 export const ButtonDefaultProps = {
-    text: 'Button',
+    text: {
+        en: 'Button',
+    },
     layout: {
         display: 'inline-block',
     },

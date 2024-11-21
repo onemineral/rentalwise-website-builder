@@ -6,6 +6,8 @@ import Accordion from '@/components/Accordion/Accordion';
 import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 import SelectInput from '@/components/Forms/Inputs/SelectInput';
+import { useEditorStore } from '@/hooks/useEditorStore';
+import { translate } from '@/lib/utils';
 
 export const Link = ({
     text,
@@ -29,6 +31,10 @@ export const Link = ({
     });
 
     const linkRef = useRef<HTMLLinkElement | null>(null);
+
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     useEffect(() => {
         if (!linkRef.current && font) {
@@ -87,7 +93,7 @@ export const Link = ({
                 textDecoration: decoration,
             }}
         >
-            {text}
+            {translate(text, currentLanguage?.code)}
         </a>
     );
 };
@@ -103,6 +109,9 @@ export const LinkSettings = () => {
         url: node.data.props.url,
         target: node.data.props.target,
     }));
+    const currentLanguage = useEditorStore(
+        (state: any) => state.currentLanguage,
+    );
 
     return (
         <div className={'grid grid-cols-12 gap-1 w-full'}>
@@ -110,9 +119,14 @@ export const LinkSettings = () => {
                 <TextInput
                     label={'Text'}
                     multiline
-                    value={text}
+                    value={translate(text, currentLanguage?.code)}
                     onChange={(value: any) => {
-                        setProp((props: any) => (props.text = value), 500);
+                        setProp(
+                            (props: any) =>
+                                (props.text[currentLanguage?.code || 'en'] =
+                                    value),
+                            500,
+                        );
                     }}
                 />
             </div>
@@ -206,7 +220,9 @@ export const LinkStyle = () => {
 };
 
 export const LinkDefaultProps = {
-    text: 'Link',
+    text: {
+        en: 'Lorem ipsum',
+    },
     target: '_blank',
 };
 

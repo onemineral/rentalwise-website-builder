@@ -30,7 +30,7 @@ const ElementActions = () => {
         ) {
             setRect(test?.getBoundingClientRect());
         }
-    }, [node]);
+    }, [node, rect]);
 
     const currentRef: any = useRef<HTMLDivElement>();
     const { document } = useFrame();
@@ -39,7 +39,7 @@ const ElementActions = () => {
         const { top, left, bottom } = rect;
 
         return {
-            top: `${top > 0 ? top : bottom}px`,
+            top: `${top > 5 ? top : bottom}px`,
             left: `${left}px`,
         };
     }, [rect]);
