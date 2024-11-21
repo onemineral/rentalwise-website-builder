@@ -41,7 +41,7 @@ const Menu = () => {
             >
                 <div
                     className={
-                        'flex flex-col w-full items-center flex-grow overflow-y-auto'
+                        'flex flex-col w-full bg-slate-50 items-center flex-grow overflow-y-auto z-20'
                     }
                 >
                     <MenuItem
@@ -84,7 +84,7 @@ const Menu = () => {
                 </div>
                 <div
                     className={
-                        'w-full flex flex-col items-center border-t border-slate-300 '
+                        'w-full flex flex-col items-center border-t border-slate-300 bg-slate-50 z-20'
                     }
                 >
                     <div
