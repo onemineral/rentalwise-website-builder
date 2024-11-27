@@ -15,6 +15,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Width'}
                     value={record?.width}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
@@ -27,6 +28,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Height'}
                     value={record?.height}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
@@ -39,6 +41,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Min W'}
                     value={record?.minWidth}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
@@ -51,6 +54,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Min H'}
                     value={record?.minHeight}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
@@ -63,6 +67,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Max W'}
                     value={record?.maxWidth}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,
@@ -75,6 +80,7 @@ const SizeForm = ({
                 <ValueInput
                     label={'Max H'}
                     value={record?.maxHeight}
+                    placeholder={'auto'}
                     onChange={(value: any) => {
                         onChange?.({
                             ...record,

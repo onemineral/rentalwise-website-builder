@@ -339,7 +339,7 @@ export const RichTextStyle = () => {
 
 export const RichTextDefaultProps = {
     layout: {
-        display: 'inline-block',
+        display: 'block',
     },
     content: {
         html: {

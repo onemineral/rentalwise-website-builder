@@ -15,7 +15,7 @@ const ValueInput = ({
         },
     ],
     onChange,
-    placeholder = 'auto',
+    placeholder,
     classes = {
         label: '!min-w-12 !w-12',
     },
@@ -76,11 +76,18 @@ const ValueInput = ({
             rightContent={
                 <SizeUnitInput
                     value={localValue?.unit}
-                    onChange={!disableUnitSelection ? (value: any) => {
-                        const newValue = { ...localValue, unit: value };
-                        setLocalValue(newValue);
-                        onChange?.(newValue);
-                    } : undefined}
+                    onChange={
+                        !disableUnitSelection
+                            ? (value: any) => {
+                                  const newValue = {
+                                      ...localValue,
+                                      unit: value,
+                                  };
+                                  setLocalValue(newValue);
+                                  onChange?.(newValue);
+                              }
+                            : undefined
+                    }
                     options={options}
                 />
             }

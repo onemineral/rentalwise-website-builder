@@ -60,6 +60,7 @@ const SpacingForm = ({
                     <ValueInput
                         label={'All'}
                         value={marginTop}
+                        placeholder={'auto'}
                         onChange={(value: any) =>
                             setLocalMargin({
                                 top: value,
@@ -83,6 +84,7 @@ const SpacingForm = ({
                         <ValueInput
                             label={'Left'}
                             value={marginLeft}
+                            placeholder={'auto'}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, left: value })
                             }
@@ -96,6 +98,7 @@ const SpacingForm = ({
                         <ValueInput
                             label={'Right'}
                             value={marginRight}
+                            placeholder={'auto'}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, right: value })
                             }
@@ -109,6 +112,7 @@ const SpacingForm = ({
                         <ValueInput
                             label={'Top'}
                             value={marginTop}
+                            placeholder={'auto'}
                             onChange={(value: any) =>
                                 setLocalMargin({ ...localMargin, top: value })
                             }
@@ -122,6 +126,7 @@ const SpacingForm = ({
                         <ValueInput
                             label={'Bottom'}
                             value={marginBottom}
+                            placeholder={'auto'}
                             onChange={(value: any) =>
                                 setLocalMargin({
                                     ...localMargin,

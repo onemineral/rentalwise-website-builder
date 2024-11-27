@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     BorderAllIcon,
     BorderBottomIcon,
@@ -11,6 +11,7 @@ import ValueInput from '@/components/Forms/Inputs/ValueInput';
 import { SIZE_UNITS } from '@/components/types';
 import ColorInput from '@/components/Forms/Inputs/ColorInput';
 import PositionIcon from '@/components/Forms/BorderForm/PositionIcon';
+import BorderButtonGroupInput from '@/components/Forms/Inputs/BorderButtonGroupInput';
 
 const BorderForm = ({
     record,
@@ -19,6 +20,11 @@ const BorderForm = ({
     record?: any;
     onChange?: (value: any) => void;
 }) => {
+    const [roundedType, setRoundedType] = useState('all');
+    const [localRounded, setLocalRounded] = useState(record?.rounded);
+
+    const { topLeft, topRight, bottomLeft, bottomRight } = localRounded || {};
+
     const defaultBorder = {
         style: 'solid',
         color: 'black',
@@ -27,6 +33,13 @@ const BorderForm = ({
             unit: 'px',
         },
     };
+
+    useEffect(() => {
+        onChange?.({
+            ...record,
+            rounded: localRounded,
+        });
+    }, [localRounded]);
 
     const onPositionClick = useCallback(
         (position: 'top' | 'bottom' | 'left' | 'right') => {
@@ -68,6 +81,111 @@ const BorderForm = ({
 
     return (
         <div className={'grid grid-cols-12 gap-1 items-center'}>
+            <div className={'col-span-4'}>
+                <BorderButtonGroupInput
+                    label={'Rounded'}
+                    value={roundedType}
+                    onChange={setRoundedType}
+                    classes={{ container: 'flex-col' }}
+                />
+            </div>
+            {roundedType === 'all' && (
+                <div className={'col-span-8 flex items-center'}>
+                    <ValueInput
+                        label={'All'}
+                        value={topLeft}
+                        options={SIZE_UNITS}
+                        onChange={(value: any) =>
+                            setLocalRounded({
+                                topLeft: value,
+                                topRight: value,
+                                bottomLeft: value,
+                                bottomRight: value,
+                            })
+                        }
+                        classes={{
+                            container: 'flex-col',
+                            label: '!w-full',
+                            input: '!pr-1.5',
+                        }}
+                        disableUnitSelection
+                    />
+                </div>
+            )}
+            {roundedType === 'corners' && (
+                <div className={'col-span-8'}>
+                    <div className={'grid grid-cols-2 gap-1'}>
+                        <ValueInput
+                            label={'TLeft'}
+                            value={topLeft}
+                            options={SIZE_UNITS}
+                            onChange={(value: any) =>
+                                setLocalRounded({
+                                    ...localRounded,
+                                    topLeft: value,
+                                })
+                            }
+                            classes={{
+                                container: 'flex-col',
+                                label: '!w-full',
+                                input: '!pr-1.5',
+                            }}
+                            disableUnitSelection
+                        />
+                        <ValueInput
+                            label={'TRight'}
+                            value={topRight}
+                            options={SIZE_UNITS}
+                            onChange={(value: any) =>
+                                setLocalRounded({
+                                    ...localRounded,
+                                    topRight: value,
+                                })
+                            }
+                            classes={{
+                                container: 'flex-col',
+                                label: '!w-full',
+                                input: '!pr-1.5',
+                            }}
+                            disableUnitSelection
+                        />
+                        <ValueInput
+                            label={'BLeft'}
+                            value={bottomLeft}
+                            options={SIZE_UNITS}
+                            onChange={(value: any) =>
+                                setLocalRounded({
+                                    ...localRounded,
+                                    bottomLeft: value,
+                                })
+                            }
+                            classes={{
+                                container: 'flex-col',
+                                label: '!w-full',
+                                input: '!pr-1.5',
+                            }}
+                            disableUnitSelection
+                        />
+                        <ValueInput
+                            label={'BRight'}
+                            value={bottomRight}
+                            options={SIZE_UNITS}
+                            onChange={(value: any) =>
+                                setLocalRounded({
+                                    ...localRounded,
+                                    bottomRight: value,
+                                })
+                            }
+                            classes={{
+                                container: 'flex-col',
+                                label: '!w-full',
+                                input: '!pr-1.5',
+                            }}
+                            disableUnitSelection
+                        />
+                    </div>
+                </div>
+            )}
             <div className={'col-span-4'}>
                 <div className={'grid grid-cols-3 grid-rows-3 gap-1.5 mr-1'}>
                     <div />

@@ -164,6 +164,10 @@ export const Container = ({
                 borderRight: border?.right
                     ? `${border?.right?.width?.value}${border?.right?.width?.unit} ${border?.right?.style} ${border?.right?.color}`
                     : undefined,
+                borderTopLeftRadius: `${border?.rounded?.topLeft?.value}${border?.rounded?.topLeft?.unit}`,
+                borderTopRightRadius: `${border?.rounded?.topRight?.value}${border?.rounded?.topRight?.unit}`,
+                borderBottomLeftRadius: `${border?.rounded?.bottomLeft?.value}${border?.rounded?.bottomLeft?.unit}`,
+                borderBottomRightRadius: `${border?.rounded?.bottomRight?.value}${border?.rounded?.bottomRight?.unit}`,
             }}
             ref={(ref: any) => {
                 connect(drag(ref));
