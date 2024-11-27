@@ -20,7 +20,7 @@ export const Paragraph = ({
     decoration,
 }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -64,7 +64,7 @@ export const Paragraph = ({
     return (
         <p
             ref={(ref: any) => {
-                connect(drag(ref));
+                connect(ref);
             }}
             className={classnames('relative text-slate-900', {
                 'border border-dashed border-slate-200': enabled,

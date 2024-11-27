@@ -1,5 +1,5 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { RiDeleteBinFill } from 'react-icons/ri';
+import { RiDeleteBinFill, RiDragMoveFill } from 'react-icons/ri';
 import { useEditor, useNode } from '@craftjs/core';
 import { createPortal } from 'react-dom';
 import { useFrame } from 'react-frame-component';
@@ -7,7 +7,14 @@ import { useFrame } from 'react-frame-component';
 const ElementActions = () => {
     const { actions, query } = useEditor();
 
-    const { isHovered, isSelected, label, id, dom } = useNode((node: any) => {
+    const {
+        isHovered,
+        isSelected,
+        label,
+        id,
+        dom,
+        connectors: { drag },
+    } = useNode((node: any) => {
         return {
             isHovered: node.events.hovered,
             isSelected: node.events.selected,
@@ -32,7 +39,6 @@ const ElementActions = () => {
         }
     }, [node, rect]);
 
-    const currentRef: any = useRef<HTMLDivElement>();
     const { document } = useFrame();
 
     const getPos = useCallback(() => {
@@ -47,7 +53,6 @@ const ElementActions = () => {
     const renderPortalComponent = useCallback(() => {
         return (
             <div
-                ref={currentRef}
                 className="absolute flex items-center -mt-[24px]"
                 style={{
                     left: getPos().left,
@@ -61,6 +66,17 @@ const ElementActions = () => {
                     }
                 >
                     <div className={'text-xs'}>{label}</div>
+                    <div
+                        className={'cursor-pointer'}
+                        onClick={() => {
+                            actions.delete(id);
+                        }}
+                        ref={(ref: any) => {
+                            drag(ref);
+                        }}
+                    >
+                        <RiDragMoveFill size={14} />
+                    </div>
                     <div
                         className={'cursor-pointer'}
                         onClick={() => {

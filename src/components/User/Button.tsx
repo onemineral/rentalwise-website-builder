@@ -12,7 +12,7 @@ import { translate } from '@/lib/utils';
 
 export const Button = ({ text, layout, margin, padding, size }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
     } = useNode();
 
     const currentLanguage = useEditorStore(
@@ -21,7 +21,7 @@ export const Button = ({ text, layout, margin, padding, size }: any) => {
 
     return (
         <div
-            ref={(ref: any) => connect(drag(ref))}
+            ref={(ref: any) => connect(ref)}
             className={'relative'}
             style={{
                 ...layout,

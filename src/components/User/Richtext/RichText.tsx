@@ -20,7 +20,7 @@ import { translate } from '@/lib/utils';
 
 export const RichText = ({ content, layout, margin, padding, size }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
         actions: { setProp },
     } = useNode();
 
@@ -77,7 +77,7 @@ export const RichText = ({ content, layout, margin, padding, size }: any) => {
 
     return (
         <div
-            ref={(ref: any) => connect(drag(ref))}
+            ref={(ref: any) => connect(ref)}
             className={classnames('relative', {
                 '!min-h-20': enabled && !size?.height?.value,
                 '!w-full': enabled && !size?.width?.value,

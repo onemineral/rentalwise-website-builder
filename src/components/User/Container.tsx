@@ -20,7 +20,7 @@ export const Container = ({
     border,
 }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -170,7 +170,7 @@ export const Container = ({
                 borderBottomRightRadius: `${border?.rounded?.bottomRight?.value}${border?.rounded?.bottomRight?.unit}`,
             }}
             ref={(ref: any) => {
-                connect(drag(ref));
+                connect(ref);
             }}
             className={className}
         >

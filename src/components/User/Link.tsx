@@ -23,7 +23,7 @@ export const Link = ({
     decoration,
 }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -67,7 +67,7 @@ export const Link = ({
     return (
         <a
             ref={(ref: any) => {
-                connect(drag(ref));
+                connect(ref);
             }}
             href={url}
             target={target}

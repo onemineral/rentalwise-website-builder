@@ -22,7 +22,7 @@ export const Heading = ({
     decoration,
 }: any) => {
     const {
-        connectors: { connect, drag },
+        connectors: { connect },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -68,7 +68,7 @@ export const Heading = ({
     return (
         <Component
             ref={(ref: any) => {
-                connect(drag(ref));
+                connect(ref);
             }}
             className={classnames('relative block text-slate-900', {
                 'border border-dashed border-slate-200': enabled,
