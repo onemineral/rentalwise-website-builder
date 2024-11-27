@@ -7,6 +7,7 @@ import { getFontIdFromUrl } from '@/components/FontShowcase/FontShowcase';
 import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 import { useEditorStore } from '@/hooks/useEditorStore';
 import { translate } from '@/lib/utils';
+import ContentEditable from 'react-contenteditable';
 
 export const Paragraph = ({
     text,
@@ -21,6 +22,7 @@ export const Paragraph = ({
 }: any) => {
     const {
         connectors: { connect },
+        actions: { setProp },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -32,6 +34,8 @@ export const Paragraph = ({
     const currentLanguage = useEditorStore(
         (state: any) => state.currentLanguage,
     );
+
+    const contentEditableRef = useRef(translate(text, currentLanguage?.code));
 
     useEffect(() => {
         if (!linkRef.current && font) {
@@ -62,12 +66,27 @@ export const Paragraph = ({
     }, [font]);
 
     return (
-        <p
-            ref={(ref: any) => {
+        <ContentEditable
+            innerRef={(ref: any) => {
                 connect(ref);
             }}
+            html={translate(text, currentLanguage?.code)} // innerHTML of the editable div
+            disabled={false} // use true to disable editing
+            onChange={(e: any) => {
+                contentEditableRef.current = e.target.value;
+            }} // handle innerHTML change
+            onBlur={() => {
+                setProp(
+                    (props: any) =>
+                        (props.text[currentLanguage?.code || 'en'] =
+                            contentEditableRef.current),
+                    500,
+                );
+            }}
+            tagName="p" // Use a custom HTML tag (uses a div by default)
             className={classnames('relative text-slate-900', {
-                'border border-dashed border-slate-200': enabled,
+                'border border-dashed border-slate-200 focus:outline-none':
+                    enabled,
             })}
             style={{
                 fontFamily: font ? getFontIdFromUrl(font!) : undefined,
@@ -79,9 +98,7 @@ export const Paragraph = ({
                 fontStyle: style,
                 textDecoration: decoration,
             }}
-        >
-            {translate(text, currentLanguage?.code)}
-        </p>
+        />
     );
 };
 
@@ -176,7 +193,7 @@ export const ParagraphStyle = () => {
 
 export const ParagraphDefaultProps = {
     text: {
-        en: 'Lorem',
+        en: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
 };
 
