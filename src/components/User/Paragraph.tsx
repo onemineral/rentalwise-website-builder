@@ -29,11 +29,11 @@ export const Paragraph = ({
         return { enabled: state.options.enabled };
     });
 
-    const linkRef = useRef<HTMLLinkElement | null>(null);
-
     const currentLanguage = useEditorStore(
         (state: any) => state.currentLanguage,
     );
+
+    const linkRef = useRef<HTMLLinkElement | null>(null);
 
     const contentEditableRef = useRef(translate(text, currentLanguage?.code));
 
@@ -70,11 +70,11 @@ export const Paragraph = ({
             innerRef={(ref: any) => {
                 connect(ref);
             }}
-            html={translate(text, currentLanguage?.code)} // innerHTML of the editable div
-            disabled={false} // use true to disable editing
+            html={translate(text, currentLanguage?.code)}
+            disabled={!enabled}
             onChange={(e: any) => {
                 contentEditableRef.current = e.target.value;
-            }} // handle innerHTML change
+            }}
             onBlur={() => {
                 setProp(
                     (props: any) =>
@@ -83,11 +83,13 @@ export const Paragraph = ({
                     500,
                 );
             }}
-            tagName="p" // Use a custom HTML tag (uses a div by default)
-            className={classnames('relative text-slate-900', {
-                'border border-dashed border-slate-200 focus:outline-none':
-                    enabled,
-            })}
+            tagName="p"
+            className={classnames(
+                'relative text-slate-900 focus:outline-none',
+                {
+                    'border border-dashed border-slate-200': enabled,
+                },
+            )}
             style={{
                 fontFamily: font ? getFontIdFromUrl(font!) : undefined,
                 fontWeight: weight,

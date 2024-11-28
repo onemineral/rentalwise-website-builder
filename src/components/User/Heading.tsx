@@ -8,6 +8,7 @@ import TypographyForm from '@/components/Forms/TypographyForm/TypographyForm';
 import HeadingButtonGroupInput from '@/components/Forms/Inputs/HeadingButtonGroupInput';
 import { useEditorStore } from '@/hooks/useEditorStore';
 import { translate } from '@/lib/utils';
+import ContentEditable from 'react-contenteditable';
 
 export const Heading = ({
     text,
@@ -23,6 +24,7 @@ export const Heading = ({
 }: any) => {
     const {
         connectors: { connect },
+        actions: { setProp },
     } = useNode();
 
     const { enabled } = useEditor((state: any) => {
@@ -63,16 +65,21 @@ export const Heading = ({
         };
     }, [font]);
 
-    const Component = tag;
+    const contentEditableRef = useRef(translate(text, currentLanguage?.code));
 
     return (
-        <Component
-            ref={(ref: any) => {
+        <ContentEditable
+            innerRef={(ref: any) => {
                 connect(ref);
             }}
-            className={classnames('relative block text-slate-900', {
-                'border border-dashed border-slate-200': enabled,
-            })}
+            tagName={tag}
+            html={translate(text, currentLanguage?.code)}
+            className={classnames(
+                'relative block text-slate-900 focus:outline-none',
+                {
+                    'border border-dashed border-slate-200': enabled,
+                },
+            )}
             style={{
                 fontFamily: font ? getFontIdFromUrl(font!) : undefined,
                 fontWeight: weight,
@@ -83,9 +90,18 @@ export const Heading = ({
                 fontStyle: style,
                 textDecoration: decoration,
             }}
-        >
-            {translate(text, currentLanguage?.code)}
-        </Component>
+            onChange={(e: any) => {
+                contentEditableRef.current = e.target.value;
+            }}
+            onBlur={() => {
+                setProp(
+                    (props: any) =>
+                        (props.text[currentLanguage?.code || 'en'] =
+                            contentEditableRef.current),
+                    500,
+                );
+            }}
+        />
     );
 };
 
